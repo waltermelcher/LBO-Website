@@ -47,10 +47,10 @@ const conductor = [
           </div>
           <h2 class="h4">Landesblasorchester Logo</h2>
           <p class="asset__text">Logopaket mit Logovarianten als PNG und SVG.</p>
-          <a class="link" href="mailto:walter.melcher@landesblasorchester.de?subject=Logopaket%20LBO">
+          <a class="btn btn--ghost" href="mailto:walter.melcher@landesblasorchester.de?subject=Logopaket%20LBO">
             Logo anfragen
-            <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
-              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
             </svg>
           </a>
         </div>
@@ -61,10 +61,10 @@ const conductor = [
           </div>
           <h2 class="h4">LBO Infomappe</h2>
           <p class="asset__text">Alle Informationen zum LBO in der Infomappe.</p>
-          <a class="link" href={url('/downloads/LBO-Infomappe.pdf')} download>
+          <a class="btn btn--ghost" href={url('/downloads/LBO-Infomappe.pdf')} download>
             Download Infomappe
-            <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
-              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+            <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
             </svg>
           </a>
         </div>
@@ -133,7 +133,9 @@ const conductor = [
   .asset__thumb :global(img) { max-height: 100%; width: auto; object-fit: contain; }
   .asset__logo { display: block; width: min(100%, 300px); color: var(--ink); }
   .asset__logo :global(svg) { width: 100%; height: auto; fill: currentColor; }
-  .asset__text { margin: 0.7rem 0 1.4rem; font-size: 0.94rem; color: var(--ink-2); }
+  .asset__text { margin: 0.7rem 0 1.6rem; font-size: 0.94rem; color: var(--ink-2); }
+  .asset { display: flex; flex-direction: column; }
+  .asset .btn { align-self: flex-start; margin-top: auto; }
 
   .sec-head {
     display: flex; flex-wrap: wrap; align-items: baseline;

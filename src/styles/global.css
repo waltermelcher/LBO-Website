@@ -19,6 +19,9 @@
   --red:         #631f31;   /* LBO-Rot dunkel */
   --red-mid:     #a34e61;   /* LBO-Rot mittel */
   --red-light:   #b47a88;   /* LBO-Rot hell */
+  --red-deep:    #4a1826;   /* Rot dunkel, abgedunkelt für Hover */
+  --line-red:    rgba(99, 31, 49, 0.32);        /* rote Kontur auf hellem Grund */
+  --line-red-lt: rgba(180, 122, 136, 0.55);     /* rote Kontur auf dunklem Grund */
 
   /* Sekundärfarben CD Manual (sehr sparsam) */
   --petrol:      #0e495b;
@@ -137,6 +140,10 @@ p:last-child { margin-bottom: 0; }
 .prose > :first-child { margin-top: 0; }
 .prose a { color: var(--red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(99,31,49,.35); transition: text-decoration-color .25s var(--ease); }
 .prose a:hover { text-decoration-color: var(--red); }
+/* Buttons/Links im Fließtext behalten ihre eigene Gestaltung */
+.prose a.btn { color: var(--btn-fg); text-decoration: none; }
+.prose a.link { color: var(--red); text-decoration: none; }
+.prose a.link.link--light { color: var(--red-light); }
 .prose ul { margin: 0 0 1.15em; padding-left: 1.15em; }
 .prose li { margin-bottom: 0.4em; }
 .prose li::marker { color: var(--red-light); }
@@ -179,9 +186,15 @@ p:last-child { margin-bottom: 0; }
 /* ============================================================
    Buttons & Links
    ============================================================ */
+/*
+  Buttonsystem – ausschließlich Rottöne des CD Manuals.
+  .btn / .btn--ghost          → auf hellem (beigem) Grund
+  .btn--light / --outline-light → auf dunklem oder weinrotem Grund
+*/
 .btn {
-  --btn-fg: var(--bg);
-  --btn-bg: var(--ink);
+  --btn-fg: #fff;
+  --btn-bg: var(--red);
+  --btn-bd: var(--btn-bg);
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
@@ -192,23 +205,23 @@ p:last-child { margin-bottom: 0; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  border: 1px solid var(--btn-bg);
+  border: 1px solid var(--btn-bd);
   border-radius: 999px;
   cursor: pointer;
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
-.btn:hover { --btn-bg: var(--red); transform: translateY(-1px); }
+.btn:hover { --btn-bg: var(--red-deep); --btn-bd: var(--red-deep); transform: translateY(-1px); }
 .btn .arw { transition: transform .3s var(--ease); }
 .btn:hover .arw { transform: translateX(4px); }
 
-.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); border-color: var(--line); }
-.btn--ghost:hover { --btn-bg: var(--ink); --btn-fg: var(--bg); border-color: var(--ink); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--red); --btn-bd: var(--line-red); }
+.btn--ghost:hover { --btn-bg: var(--red); --btn-fg: #fff; --btn-bd: var(--red); }
 
-.btn--light { --btn-bg: var(--on-dark); --btn-fg: var(--dark); }
-.btn--light:hover { --btn-bg: var(--red-light); --btn-fg: var(--dark); }
+.btn--light { --btn-bg: var(--red-mid); --btn-fg: #fff; --btn-bd: var(--red-mid); }
+.btn--light:hover { --btn-bg: var(--red-light); --btn-fg: var(--dark); --btn-bd: var(--red-light); }
 
-.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--on-dark); border-color: var(--line-dark); }
-.btn--outline-light:hover { --btn-bg: var(--on-dark); --btn-fg: var(--dark); }
+.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--red-light); --btn-bd: var(--line-red-lt); }
+.btn--outline-light:hover { --btn-bg: var(--red-mid); --btn-fg: #fff; --btn-bd: var(--red-mid); }
 
 /* Textlink mit Unterstrich-Animation */
 .link {
@@ -231,7 +244,6 @@ p:last-child { margin-bottom: 0; }
 .link .arw { transition: transform .3s var(--ease); }
 .link:hover .arw { transform: translateX(4px); }
 .link--light { color: var(--red-light); }
-.link--ink { color: var(--ink); }
 
 /* ============================================================
    Bilder
