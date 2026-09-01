@@ -27,14 +27,18 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
 </ol>
 
 <style>
-  .clist { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .clist { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--red); }
 
   .clist__item {
     display: grid;
     gap: 0.5rem 3rem;
     padding: clamp(1.5rem, 3vw, 2.4rem) 0;
     border-bottom: 1px solid var(--line);
-    transition: background .4s var(--ease);
+    transition: background .4s var(--ease), box-shadow .4s var(--ease);
+  }
+  .clist__item:hover {
+    background: var(--red-wash);
+    box-shadow: inset 3px 0 0 var(--red);
   }
   @media (min-width: 760px) {
     .clist__item { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: baseline; }
@@ -75,7 +79,8 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
   .clist--compact .clist__title { font-size: 0.92rem; margin-top: 0.3rem; }
 
   /* Auf dunklem Grund */
-  :global(.section--dark) .clist { border-color: var(--line-dark); }
+  :global(.section--dark) .clist { border-color: var(--red-light); }
+  :global(.section--dark) .clist__item:hover { background: rgba(180,122,136,.12); box-shadow: inset 3px 0 0 var(--red-light); }
   :global(.section--dark) .clist__item { border-color: var(--line-dark); }
   :global(.section--dark) .clist__day { color: rgba(243,237,227,.45); }
   :global(.section--dark) .clist__full { color: var(--red-light); }

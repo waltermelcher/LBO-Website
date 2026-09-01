@@ -7,8 +7,8 @@
 :root {
   /* Flächen */
   --bg:          #f3ede3;   /* leichtes Beige – Grundfläche */
-  --bg-soft:     #f8f4ec;   /* aufgehellt, für Karten */
-  --bg-deep:     #e9e0d2;   /* abgesetzte Sektionen */
+  --bg-soft:     #faf5ef;   /* aufgehellt, für Karten */
+  --bg-deep:     #ece0d8;   /* abgesetzte Sektionen, warm rötlich */
   --ink:         #191715;   /* Typo, fast schwarz */
   --ink-2:       #4c463f;   /* Fließtext gedeckt */
   --ink-3:       #877f73;   /* Meta, Captions */
@@ -19,17 +19,21 @@
   --red:         #631f31;   /* LBO-Rot dunkel */
   --red-mid:     #a34e61;   /* LBO-Rot mittel */
   --red-light:   #b47a88;   /* LBO-Rot hell */
+  --red-deep:    #4a1826;   /* abgedunkelt für Flächen */
+  --red-wash:    rgba(99, 31, 49, 0.08);   /* zarter Rotschleier */
+  --line-red:    rgba(99, 31, 49, 0.24);   /* rote Haarlinie */
 
   /* Sekundärfarben CD Manual (sehr sparsam) */
   --petrol:      #0e495b;
   --azur:        #3793b1;
 
   /* Dunkle Sektionen */
-  --dark:        #17150f;
-  --dark-2:      #221f19;
+  --dark:        #1a1210;
+  --dark-2:      #241816;
   --on-dark:     #f3ede3;
-  --on-dark-2:   rgba(243, 237, 227, 0.68);
+  --on-dark-2:   rgba(243, 237, 227, 0.7);
   --line-dark:   rgba(243, 237, 227, 0.16);
+  --line-dark-red: rgba(180, 122, 136, 0.4);
 
   /* Typografie */
   --font: 'Source Sans 3 Variable', 'Myriad Pro', -apple-system, BlinkMacSystemFont,
@@ -132,8 +136,22 @@ p:last-child { margin-bottom: 0; }
 }
 
 .prose { max-width: var(--maxw-text); color: var(--ink-2); }
-.prose h2 { margin: 2.8em 0 0.7em; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem); color: var(--ink); font-weight: 275; }
-.prose h3 { margin: 2.2em 0 0.6em; font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem); color: var(--ink); font-weight: 500; letter-spacing: -0.01em; }
+.prose h2 {
+  position: relative;
+  margin: 2.8em 0 0.7em;
+  padding-top: 0.9em;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  color: var(--ink);
+  font-weight: 275;
+}
+.prose h2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2.4rem; height: 2px;
+  background: var(--red);
+}
+.prose h3 { margin: 2.2em 0 0.6em; font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem); color: var(--red); font-weight: 500; letter-spacing: -0.01em; }
 .prose > :first-child { margin-top: 0; }
 .prose a { color: var(--red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(99,31,49,.35); transition: text-decoration-color .25s var(--ease); }
 .prose a:hover { text-decoration-color: var(--red); }
@@ -157,10 +175,14 @@ p:last-child { margin-bottom: 0; }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
 .section--deep { background: var(--bg-deep); }
 .section--dark { background: var(--dark); color: var(--on-dark); }
+/* Weinrote Variante – erbt alle .section--dark-Regeln */
+.section--wine { background: var(--red-deep); }
+.section--wine .eyebrow { color: var(--red-light); }
 .section--dark .eyebrow { color: var(--red-light); }
 .section--dark .lead { color: var(--on-dark-2); }
 
 .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
+.rule--red { background: var(--red); height: 2px; }
 
 /* Zweispaltiger Editorial-Block: schmale Spalte links (Label), breite rechts */
 .split {
@@ -180,8 +202,8 @@ p:last-child { margin-bottom: 0; }
    Buttons & Links
    ============================================================ */
 .btn {
-  --btn-fg: var(--bg);
-  --btn-bg: var(--ink);
+  --btn-fg: #fff;
+  --btn-bg: var(--red);
   display: inline-flex;
   align-items: center;
   gap: 0.7em;
@@ -197,18 +219,18 @@ p:last-child { margin-bottom: 0; }
   cursor: pointer;
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
-.btn:hover { --btn-bg: var(--red); transform: translateY(-1px); }
+.btn:hover { --btn-bg: var(--red-deep); transform: translateY(-1px); }
 .btn .arw { transition: transform .3s var(--ease); }
 .btn:hover .arw { transform: translateX(4px); }
 
-.btn--ghost { --btn-bg: transparent; --btn-fg: var(--ink); border-color: var(--line); }
-.btn--ghost:hover { --btn-bg: var(--ink); --btn-fg: var(--bg); border-color: var(--ink); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--red); border-color: var(--line-red); }
+.btn--ghost:hover { --btn-bg: var(--red); --btn-fg: #fff; border-color: var(--red); }
 
-.btn--light { --btn-bg: var(--on-dark); --btn-fg: var(--dark); }
-.btn--light:hover { --btn-bg: var(--red-light); --btn-fg: var(--dark); }
+.btn--light { --btn-bg: var(--on-dark); --btn-fg: var(--red); }
+.btn--light:hover { --btn-bg: var(--red-light); --btn-fg: #fff; }
 
-.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--on-dark); border-color: var(--line-dark); }
-.btn--outline-light:hover { --btn-bg: var(--on-dark); --btn-fg: var(--dark); }
+.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--on-dark); border-color: var(--line-dark-red); }
+.btn--outline-light:hover { --btn-bg: var(--red-light); --btn-fg: #fff; border-color: var(--red-light); }
 
 /* Textlink mit Unterstrich-Animation */
 .link {
@@ -237,6 +259,16 @@ p:last-child { margin-bottom: 0; }
    Bilder
    ============================================================ */
 .figure { position: relative; overflow: hidden; background: var(--bg-deep); }
+.figure::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(99, 31, 49, 0.42), rgba(74, 24, 38, 0.14));
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity .6s var(--ease);
+  pointer-events: none;
+}
+a:hover > .figure::after, .figure--zoom:hover::after { opacity: 1; }
 .figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 a:hover > .figure img, .figure--zoom:hover img { transform: scale(1.035); }
 .figure figcaption, .caption {
@@ -294,3 +326,17 @@ a:hover > .figure img, .figure--zoom:hover img { transform: scale(1.035); }
 
 .text-center { text-align: center; }
 .mx-auto { margin-inline: auto; }
+
+
+/* ============================================================
+   Rote Markenkante am oberen Seitenrand
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 300;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 46%, var(--red-light) 100%);
+  pointer-events: none;
+}
