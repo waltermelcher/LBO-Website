@@ -1,0 +1,178 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { RELEASES } from '../data/discography';
+import detail from '../assets/img/detail-klarinetten-blau-2.jpg';
+---
+
+<BaseLayout
+  title="CDs und DVDs"
+  description="Die Diskografie des Landesblasorchesters Baden-Württemberg – CDs und DVDs aus über vier Jahrzehnten."
+>
+  <PageHeader
+    eyebrow="Medien"
+    title="CDs und DVDs"
+    lead="Musik der langen LBO-Historie – Tonträger aus über vier Jahrzehnten."
+    image={detail}
+    imageAlt="Klarinettenregister im Bühnenlicht"
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="order reveal">
+        <p class="order__main">
+          Bestellungen an
+          <a href="mailto:cd.verkauf@landesblasorchester.de">cd.verkauf@landesblasorchester.de</a>
+        </p>
+        <p class="order__note">
+          Alle Preise enthalten 19 % MwSt. Hinzu kommt eine Versandkostenpauschale von 2 EUR beim Versand
+          innerhalb Deutschlands; ab 3 CDs portofrei. Beim Versand außerhalb Deutschlands werden die
+          tatsächlich anfallenden Kosten in Rechnung gestellt.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <ul class="disc">
+        {RELEASES.map((r, i) => (
+          <li class="disc__item reveal" id={r.slug} data-delay={String(Math.min(i, 3))}>
+            <figure class="figure disc__cover">
+              <Image src={r.cover} alt={`Cover: ${r.title}`} widths={[300, 500, 800]} sizes="(min-width: 900px) 26vw, 60vw" loading="lazy" />
+            </figure>
+
+            <div class="disc__body">
+              <h2 class="disc__title">{r.title}</h2>
+              <p class="disc__meta">
+                <span>Leitung: {r.conductor}{r.year ? ` (${r.year})` : ''}</span>
+                <span class="disc__price">{r.price}</span>
+              </p>
+              {r.meta?.map((m) => <p class="disc__sub">{m}</p>)}
+
+              <ul class="disc__tracks">
+                {r.tracks.map((t) => <li>{t}</li>)}
+              </ul>
+
+              {r.cta && (
+                <p class="disc__cta">
+                  <a class="link" href={r.cta.href} target="_blank" rel="noopener noreferrer">
+                    {r.cta.label}
+                    <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+                      <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+                    </svg>
+                  </a>
+                </p>
+              )}
+
+              {r.notes && (
+                <details class="disc__more">
+                  <summary>
+                    <span>Mehr erfahren</span>
+                    <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+                      <path d="M7 1v12M1 7h12" fill="none" stroke="currentColor" stroke-width="1.1" />
+                    </svg>
+                  </summary>
+                  <div class="prose disc__notes">
+                    {r.notes.map((n) => (
+                      <>
+                        {n.heading && <h3>{n.heading}</h3>}
+                        {n.subheading && <p class="disc__composer">{n.subheading}</p>}
+                        {n.body.map((p) => <p>{p}</p>)}
+                      </>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <p class="order__foot reveal">
+        Bestellungen an
+        <a href="mailto:cd.verkauf@landesblasorchester.de">cd.verkauf@landesblasorchester.de</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .order { padding-top: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid var(--line); }
+  .order__main {
+    margin: 0 0 1rem;
+    font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+    font-weight: 300; letter-spacing: -0.018em;
+  }
+  .order__main a, .order__foot a { color: var(--red); text-decoration: underline; text-underline-offset: 0.22em; }
+  .order__note { margin: 0; font-size: 0.88rem; color: var(--ink-3); max-width: 68ch; }
+  .order__foot {
+    margin: 0; padding-top: clamp(1.5rem, 3vw, 2.5rem);
+    border-top: 1px solid var(--line);
+    font-size: 1.05rem; font-weight: 300;
+  }
+
+  .disc { margin: 0; padding: 0; list-style: none; }
+  .disc__item {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 3rem);
+    padding: clamp(2.25rem, 5vw, 4rem) 0;
+    border-bottom: 1px solid var(--line);
+    scroll-margin-top: 120px;
+  }
+  .disc__item:first-child { border-top: 1px solid var(--line); }
+  @media (min-width: 760px) {
+    .disc__item { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: start; }
+  }
+
+  .disc__cover { aspect-ratio: 1 / 1; margin: 0; max-width: 340px; }
+
+  .disc__title {
+    margin: 0;
+    font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.4rem);
+    font-weight: 275; letter-spacing: -0.03em; line-height: 1.08;
+  }
+  .disc__meta {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1.5rem;
+    margin: 0.9rem 0 0;
+    font-size: 0.86rem; letter-spacing: 0.06em;
+    color: var(--ink-3);
+  }
+  .disc__price { color: var(--red); font-weight: 600; letter-spacing: 0.1em; }
+  .disc__sub { margin: 0.5rem 0 0; font-size: 0.88rem; color: var(--ink-3); max-width: 60ch; }
+
+  .disc__tracks {
+    margin: 1.6rem 0 0; padding: 0; list-style: none;
+    border-top: 1px solid var(--line-soft);
+  }
+  .disc__tracks li {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line-soft);
+    font-size: 0.95rem; font-weight: 300; color: var(--ink-2);
+  }
+
+  .disc__cta { margin: 1.5rem 0 0; }
+
+  .disc__more { margin-top: 1.75rem; }
+  .disc__more summary {
+    display: inline-flex; align-items: center; gap: 0.7em;
+    cursor: pointer; list-style: none;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--red);
+  }
+  .disc__more summary::-webkit-details-marker { display: none; }
+  .disc__more summary svg { transition: transform .35s var(--ease); }
+  .disc__more[open] summary svg { transform: rotate(45deg); }
+  .disc__notes { margin-top: 1.75rem; padding-top: 1.5rem; border-top: 1px solid var(--line-soft); }
+  .disc__composer {
+    margin-top: -0.5em;
+    font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+</style>

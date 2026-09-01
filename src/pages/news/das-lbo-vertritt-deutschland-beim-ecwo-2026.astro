@@ -1,0 +1,38 @@
+---
+import ArticleLayout from '../../components/ArticleLayout.astro';
+import { NEWS } from '../../data/news';
+import { url } from '../../utils';
+
+const item = NEWS.find((n) => n.slug === 'das-lbo-vertritt-deutschland-beim-ecwo-2026')!;
+---
+
+<ArticleLayout item={item}>
+  <h2>Heimspiel bei der Europameisterschaft</h2>
+
+  <p>
+    Im November blickt die europäische Blasmusikszene nach Stuttgart: Im Rahmen der BRAWO-Messe wird dort die
+    Europameisterschaft für sinfonische Blasorchester (ECWO) ausgetragen – zum ersten Mal überhaupt in
+    Deutschland. Das Landesblasorchester Baden-Württemberg wird dabei Deutschland vertreten. Nach dem ECWO
+    2016 im niederländischen Utrecht ist es die zweite Teilnahme für das LBO, diesmal als echtes Heimspiel in
+    der Landeshauptstadt.
+  </p>
+
+  <p>
+    Das gesamte zweite Halbjahr steht im Zeichen des Wettbewerbs: mehr Probenzeit für jedes einzelne Werk,
+    mehr Raum für Details, mit dem klaren Ziel, das bestmögliche Ergebnis zu erarbeiten. Auf dem Programm
+    stehen das Pflichtstück <em>Melancholy Moment</em> (2017) von Hubert Hoche, <em>Danse Satanique</em> (2015)
+    von Alexandre Kosmicki und <em>Resurrection</em> (2022) von Kevin Houben
+    (<a href={url('/programm')}>mehr zu den Werken</a>). Ein wichtiger Meilenstein der Vorbereitung wird zudem
+    eine Tonträger-Aufnahme der Wettbewerbswerke vom 6. bis 8. November in Weikersheim sein.
+  </p>
+
+  <p>
+    Das LBO tritt beim ECWO am Sonntag, 22. November 2026, in Stuttgart an. Wer das Wettbewerbsprogramm schon
+    vorher live erleben möchte, hat dazu beim Werkstattkonzert am 11. Oktober in Plochingen sowie bei den
+    Doppelkonzerten am 24. Oktober in Dettingen an der Erms und am 25. Oktober in Ehingen Gelegenheit.
+  </p>
+
+  <p>Ein Heimspiel lebt vom Publikum: Das LBO freut sich über alle, die es in Stuttgart unterstützen.</p>
+
+  <p><a class="btn" href={url('/konzerttermine')}>Zu den Konzerten</a></p>
+</ArticleLayout>

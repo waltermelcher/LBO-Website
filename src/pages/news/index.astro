@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { NEWS } from '../../data/news';
+---
+
+<BaseLayout
+  title="Aktuelles"
+  description="Meldungen und Neuigkeiten aus dem Landesblasorchester Baden-Württemberg."
+>
+  <PageHeader eyebrow="Aktuelles" title="Neuigkeiten aus dem Orchester" />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="news-grid">
+        {NEWS.map((item, i) => <NewsCard item={item} delay={i} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .news-grid {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+</style>

@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../utils';
+import { NEWS, type NewsItem } from '../data/news';
+import NewsCard from './NewsCard.astro';
+
+interface Props { item: NewsItem }
+const { item } = Astro.props;
+const others = NEWS.filter((n) => n.slug !== item.slug).slice(0, 2);
+---
+
+<BaseLayout title={item.title} description={item.excerpt}>
+  <article class="art">
+    <header class="art__head">
+      <div class="container container--narrow">
+        <a class="art__back" href={url('/news')}>
+          <svg width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+            <path d="M16 5H2M6 1L2 5l4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+          </svg>
+          Aktuelles
+        </a>
+        <p class="art__meta">
+          <time datetime={item.dateISO}>{item.date}</time>
+          <span aria-hidden="true">·</span>
+          <span>{item.author}</span>
+        </p>
+        <h1 class="h1 art__title">{item.title}</h1>
+        <p class="art__kicker">{item.kicker}</p>
+      </div>
+    </header>
+
+    <figure class="figure art__hero">
+      <div class="container">
+        <Image src={item.image} alt={item.imageAlt} widths={[900, 1400, 1800]} sizes="(min-width: 1400px) 1320px, 100vw" loading="eager" />
+      </div>
+    </figure>
+
+    <div class="container container--narrow">
+      <div class="prose art__body">
+        <slot />
+      </div>
+    </div>
+  </article>
+
+  <section class="section more">
+    <div class="container">
+      <p class="eyebrow reveal">Weitere Meldungen</p>
+      <div class="more__grid">
+        {others.map((n, i) => <NewsCard item={n} delay={i} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .art__head { padding-top: clamp(9rem, 14vw, 13rem); padding-bottom: clamp(2rem, 4vw, 3rem); }
+
+  .art__back {
+    display: inline-flex; align-items: center; gap: 0.6em;
+    margin-bottom: 2rem;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-3);
+    transition: color .25s var(--ease);
+  }
+  .art__back:hover { color: var(--red); }
+
+  .art__meta {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin: 0 0 1.4rem;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red);
+  }
+  .art__meta span[aria-hidden] { opacity: 0.5; }
+  .art__title { max-width: 22ch; }
+  .art__kicker {
+    margin: 1.5rem 0 0;
+    font-size: clamp(1.1rem, 1rem + 0.6vw, 1.4rem);
+    font-weight: 300; line-height: 1.4; letter-spacing: -0.014em;
+    color: var(--ink-2);
+    max-width: 46ch;
+  }
+
+  .art__hero { background: none; margin: 0 0 clamp(2.5rem, 5vw, 4rem); }
+  .art__hero :global(img) { width: 100%; height: auto; }
+
+  .art__body { padding-bottom: clamp(2rem, 5vw, 4rem); }
+  .art__body :global(h2) { font-size: clamp(1.4rem, 1.15rem + 1.1vw, 1.95rem); }
+  .art__body :global(.qa) { margin: 0 0 1.6em; }
+  .art__body :global(.qa__q) {
+    margin: 0 0 0.45em;
+    font-weight: 600; color: var(--ink);
+    letter-spacing: -0.004em;
+  }
+  .art__body :global(.qa__a) { margin: 0; }
+  .art__body :global(.qa__a::before) {
+    content: '';
+    display: inline-block; width: 1.6em; height: 1px;
+    background: var(--red-light);
+    vertical-align: middle;
+    margin-right: 0.8em;
+  }
+
+  .more { border-top: 1px solid var(--line); }
+  .more__grid {
+    display: grid; gap: clamp(2rem, 4vw, 3rem);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    margin-top: 2rem;
+  }
+</style>

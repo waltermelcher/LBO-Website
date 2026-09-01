@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { url } from '../utils';
+import trompeten from '../assets/img/detail-trompeten.jpg';
+
+const contacts = [
+  {
+    role: 'Konzertanfragen oder allgemeine Anfragen',
+    name: 'Ilka Hermann',
+    position: 'Vorsitzende',
+    mail: 'ilka.hermann@landesblasorchester.de',
+  },
+  {
+    role: 'Anfragen rund um Kommunikation und Presse',
+    name: 'Walter Melcher',
+    position: 'Kommunikationsreferent',
+    mail: 'walter.melcher@landesblasorchester.de',
+  },
+];
+
+const topics = [
+  { label: 'Mitglied werden', href: '/mitglied-werden' },
+  { label: 'CDs bestellen', href: '/cds' },
+  { label: 'LBO-hautnah', href: '/lbo-hautnah' },
+  { label: 'Lehrkonzert', href: '/lehrkonzert' },
+  { label: 'Förderverein', href: '/foerderverein' },
+];
+---
+
+<BaseLayout
+  title="Kontakt"
+  description="Kontakt zum Landesblasorchester Baden-Württemberg – Konzertanfragen, Presse und alle weiteren Themen."
+>
+  <PageHeader
+    eyebrow="Kontakt"
+    title="Sie haben Fragen rund um das Landesblasorchester?"
+    lead="Dann nehmen Sie einfach Kontakt mit uns auf."
+    image={trompeten}
+    imageAlt="Trompetenregister des Landesblasorchesters"
+  />
+
+  <section class="section">
+    <div class="container">
+      <ul class="contacts">
+        {contacts.map((c, i) => (
+          <li class="contact reveal" data-delay={String(i)}>
+            <span class="contact__role">{c.role}</span>
+            <h2 class="contact__name">{c.name}</h2>
+            <p class="contact__pos">{c.position}</p>
+            <a class="contact__mail" href={`mailto:${c.mail}`}>
+              {c.mail}
+              <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--deep">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Weitere Themen rund um das LBO</span></div>
+        <div>
+          <ul class="topics">
+            {topics.map((t, i) => (
+              <li class="reveal" data-delay={String(Math.min(i, 4))}>
+                <a class="topics__link" href={url(t.href)}>
+                  <span>{t.label}</span>
+                  <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+                    <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contacts {
+    display: grid; gap: 1px;
+    margin: 0; padding: 0; list-style: none;
+    background: var(--line);
+    border: 1px solid var(--line);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+  .contact { background: var(--bg); padding: clamp(1.75rem, 3.5vw, 3rem); }
+  .contact__role {
+    display: block;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red);
+    max-width: 26ch;
+  }
+  .contact__name {
+    margin: 1.3rem 0 0.4rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+    font-weight: 275; letter-spacing: -0.028em;
+  }
+  .contact__pos { margin: 0 0 1.4rem; font-size: 0.9rem; color: var(--ink-3); }
+  .contact__mail {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    font-size: 0.95rem; color: var(--ink-2);
+    word-break: break-word;
+    transition: color .25s var(--ease);
+  }
+  .contact__mail:hover { color: var(--red); }
+  .contact__mail:hover .arw { transform: translateX(3px); }
+
+  .topics { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .topics li { border-bottom: 1px solid var(--line); }
+  .topics__link {
+    display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
+    padding: clamp(1rem, 2vw, 1.5rem) 0;
+    font-size: clamp(1.2rem, 1.05rem + 0.8vw, 1.6rem);
+    font-weight: 300; letter-spacing: -0.022em;
+    transition: color .3s var(--ease), padding-left .35s var(--ease);
+  }
+  .topics__link:hover { color: var(--red); padding-left: 0.75rem; }
+  .topics__link:hover .arw { transform: translateX(4px); }
+  .arw { flex: 0 0 auto; transition: transform .3s var(--ease); }
+</style>

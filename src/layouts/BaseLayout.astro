@@ -1,0 +1,106 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_NAME, SITE_DESCRIPTION, PRODUCTION_HOSTS, isProductionHost } from '../consts';
+import { url } from '../utils';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Header transparent über einem Vollbild-Hero */
+  overlayHeader?: boolean;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  overlayHeader = false,
+  bodyClass = '',
+} = Astro.props;
+
+const pageTitle = title ? `${title} – ${SITE_NAME}` : SITE_NAME;
+
+/**
+ * Indexierung: Nur auf der Produktions-Domain erlaubt.
+ * Der Build kennt die Domain über `site` (astro.config.mjs / SITE_URL).
+ * Zusätzlich prüft ein winziges Inline-Skript zur Laufzeit den echten Host –
+ * so bleibt jede Vorschau-Domain auch dann noindex, wenn sie mit einem
+ * Produktions-Build ausgeliefert wird. Kein manuelles Umschalten nötig.
+ */
+const indexable = isProductionHost(Astro.site);
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    {!indexable && <meta name="robots" content="noindex, nofollow" data-auto-noindex />}
+    <script is:inline define:vars={{ hosts: PRODUCTION_HOSTS }}>
+      /* Laufzeit-Schutz: Nur die Produktions-Domain darf indexiert werden. */
+      (function () {
+        var isProd = hosts.indexOf(location.hostname) !== -1;
+        var tag = document.querySelector('meta[data-auto-noindex]');
+        if (!isProd && !tag) {
+          var m = document.createElement('meta');
+          m.setAttribute('name', 'robots');
+          m.setAttribute('content', 'noindex, nofollow');
+          m.setAttribute('data-auto-noindex', '');
+          document.head.appendChild(m);
+        } else if (isProd && tag) {
+          tag.parentNode.removeChild(tag);
+        }
+      })();
+    </script>
+
+    <link rel="icon" href={url('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={url('/favicon-96.png')} sizes="96x96" type="image/png" />
+    <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
+    <meta name="theme-color" content="#f3ede3" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="de_DE" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main">Zum Inhalt springen</a>
+    <Header overlay={overlayHeader} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      /* Dezente Scroll-Einblendung */
+      const items = document.querySelectorAll('.reveal');
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add('is-in'));
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+---
+import ArticleLayout from '../../components/ArticleLayout.astro';
+import { NEWS } from '../../data/news';
+import { url } from '../../utils';
+
+const item = NEWS.find((n) => n.slug === 'siegerkomposition-drei-klaenge-der-heimat')!;
+---
+
+<ArticleLayout item={item}>
+  <h2>Siegerkomposition von Donaueschingen 2.0 im Frühjahrsprogramm</h2>
+
+  <p>
+    Im Jahr 1926 wurde bei den Donaueschinger Musiktagen ein wegweisendes Konzert veranstaltet, mit dem Ziel,
+    die deutsche Blasorchesterliteratur zu fördern.
+  </p>
+
+  <p>
+    Anlässlich des 100-jährigen Jubiläums dieses Konzertes rief der Blasmusikverband Baden-Württemberg e.V.
+    den Kompositionswettbewerb Donaueschingen 2.0 aus und beauftragte das Landesblasorchester
+    Baden-Württemberg mit der Durchführung. In Anlehnung an die Idee von 1926 sollten wertvolle Werke
+    entstehen, die die sinfonische Blasorchesterliteratur bereichern und erweitern. Im Gegensatz zu 1926 war
+    bei diesem Kompositionswettbewerb die Vorgabe, sich mit deutschen Volksliedern, Folklore und
+    Musiktraditionen auseinanderzusetzen.
+  </p>
+
+  <p>
+    Aus einem großen Teilnehmerfeld überzeugte der erst 22-jährige Frederik Abel die Jury mit seiner
+    Komposition <em>Drei-Klänge der Heimat</em>.
+  </p>
+
+  <p>
+    In seinem Werk verarbeitet er die Volkslieder <em>Viel Wollust mit sich bringet</em>,
+    <em>Wenn ich ein Vöglein wär’</em> und <em>Guten Abend, Gute Nacht</em>. Jedem der drei Lieder wird ein
+    eigener Raum geboten, zudem ziehen sich musikalische Verweise durch die gesamte Komposition.
+  </p>
+
+  <p>Diese Anklänge verbinden sich wie Mosaiksteine schließlich zu einem neuen, eigenständigen Werk.</p>
+
+  <p>
+    Dabei zeichnet sich das Werk <em>Drei-Klänge der Heimat</em> durch eine besonders frische Kompositionsweise
+    und eine abwechslungsreiche Instrumentierung aus, die eine stimmige Kombination aus alten und neuen
+    Blasorchesterklängen schafft.
+  </p>
+
+  <p>
+    Zu Ehren der historischen Konzerte von 1926 findet die Uraufführung des Werkes am 18.04.2026 in
+    Donaueschingen statt.
+  </p>
+
+  <p><a class="btn" href={url('/konzerttermine')}>Zu den Konzerten</a></p>
+</ArticleLayout>

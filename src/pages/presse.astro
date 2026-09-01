@@ -1,0 +1,156 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { url } from '../utils';
+
+import logoPreview from '../assets/logo/lbo-logo.svg?raw';
+import infomappe from '../assets/img/infomappe-thumb.png';
+import presse1 from '../assets/img/presse-orchester-1.jpg';
+import presse2 from '../assets/img/presse-orchester-2.jpg';
+import presse3 from '../assets/img/presse-orchester-3.jpg';
+import orchesterWeit from '../assets/img/orchester-weit.jpg';
+import portrait from '../assets/img/bjoern-bus-portrait.jpg';
+import bus2 from '../assets/img/bjoern-bus-2.jpg';
+import bus3 from '../assets/img/bjoern-bus-3.jpg';
+
+const orchestra = [
+  { src: presse1, alt: 'Das Landesblasorchester Baden-Württemberg, Orchesterbild 1' },
+  { src: presse2, alt: 'Das Landesblasorchester Baden-Württemberg, Orchesterbild 2' },
+  { src: presse3, alt: 'Das Landesblasorchester Baden-Württemberg, Orchesterbild 3' },
+  { src: orchesterWeit, alt: 'Das Landesblasorchester Baden-Württemberg im Konzert' },
+];
+
+const conductor = [
+  { src: portrait, alt: 'Björn Bus, Porträt' },
+  { src: bus2, alt: 'Björn Bus beim Dirigieren' },
+  { src: bus3, alt: 'Björn Bus im Konzert' },
+];
+---
+
+<BaseLayout
+  title="Presse"
+  description="Pressematerial des Landesblasorchesters Baden-Württemberg: Logo, Infomappe, Orchester- und Dirigentenbilder."
+>
+  <PageHeader
+    eyebrow="Medien"
+    title="Presse"
+    lead="Logo, Infomappe und Bildmaterial zum Download."
+  />
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="assets">
+        <div class="asset reveal">
+          <div class="asset__thumb asset__thumb--logo">
+            <span class="asset__logo" set:html={logoPreview} />
+          </div>
+          <h2 class="h4">Landesblasorchester Logo</h2>
+          <p class="asset__text">Logopaket mit Logovarianten als PNG und SVG.</p>
+          <a class="link" href="mailto:walter.melcher@landesblasorchester.de?subject=Logopaket%20LBO">
+            Logo anfragen
+            <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="asset reveal" data-delay="1">
+          <div class="asset__thumb">
+            <Image src={infomappe} alt="Titelseite der LBO-Infomappe" widths={[300, 600]} sizes="260px" loading="lazy" />
+          </div>
+          <h2 class="h4">LBO Infomappe</h2>
+          <p class="asset__text">Alle Informationen zum LBO in der Infomappe.</p>
+          <a class="link" href={url('/downloads/LBO-Infomappe.pdf')} download>
+            Download Infomappe
+            <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Orchesterbilder</span>
+        <p class="credit-note">Copyright der Orchesterbilder: Sabrina Kilian</p>
+      </div>
+      <div class="gal">
+        {orchestra.map((g, i) => (
+          <figure class="figure figure--zoom ratio-3-2 reveal" data-delay={String(Math.min(i, 3))}>
+            <Image src={g.src} alt={g.alt} widths={[500, 900, 1600]} sizes="(min-width: 900px) 46vw, 100vw" loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">Bilder des Dirigenten</span>
+      </div>
+      <div class="gal gal--three">
+        {conductor.map((g, i) => (
+          <figure class="figure figure--zoom ratio-3-4 reveal" data-delay={String(Math.min(i, 3))}>
+            <Image src={g.src} alt={g.alt} widths={[400, 700, 1200]} sizes="(min-width: 900px) 30vw, 100vw" loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="cta__box reveal">
+        <div>
+          <span class="eyebrow">Presseanfragen</span>
+          <h2 class="h3">Bildmaterial in hoher Auflösung erhalten Sie auf Anfrage.</h2>
+        </div>
+        <a class="btn" href="mailto:walter.melcher@landesblasorchester.de">
+          Presse kontaktieren
+          <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .assets { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .asset { padding: clamp(1.75rem, 3vw, 2.5rem); background: var(--bg-soft); border: 1px solid var(--line-soft); }
+  .asset__thumb {
+    display: flex; align-items: center; justify-content: center;
+    aspect-ratio: 16 / 9; margin-bottom: 1.75rem;
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+  .asset__thumb :global(img) { max-height: 100%; width: auto; object-fit: contain; }
+  .asset__logo { display: block; width: min(100%, 300px); color: var(--ink); }
+  .asset__logo :global(svg) { width: 100%; height: auto; fill: currentColor; }
+  .asset__text { margin: 0.7rem 0 1.4rem; font-size: 0.94rem; color: var(--ink-2); }
+
+  .sec-head {
+    display: flex; flex-wrap: wrap; align-items: baseline;
+    justify-content: space-between; gap: 0.5rem 2rem;
+    margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  }
+  .sec-head .eyebrow { margin-bottom: 0; }
+  .credit-note { margin: 0; font-size: 0.8rem; color: var(--ink-3); }
+
+  .gal { display: grid; gap: clamp(1rem, 2vw, 1.5rem); grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+  .gal--three { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+
+  .cta__box {
+    display: flex; flex-wrap: wrap; align-items: end;
+    justify-content: space-between; gap: 1.5rem 2.5rem;
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--line);
+  }
+  .cta__box h2 { max-width: 26ch; }
+</style>

@@ -1,0 +1,29 @@
+---
+/**
+ * Grafisches Element nach CD Manual: „Freihandlinien“ als Weiterführung des Logos.
+ * Laut Manual sehr sparsam einzusetzen – daher nur als dezenter Sektionsübergang.
+ */
+interface Props { class?: string; light?: boolean }
+const { class: cls = '', light = false } = Astro.props;
+---
+
+<div class:list={['swoosh', light && 'swoosh--light', cls]} aria-hidden="true">
+  <svg viewBox="0 0 1440 120" preserveAspectRatio="none" focusable="false">
+    <path d="M-20 84C170 84 232 22 420 22c188 0 250 62 440 62s252-62 440-62c126 0 180 26 180 26"
+          fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" />
+    <path d="M-20 98C180 98 244 44 430 44c186 0 258 54 448 54s244-54 434-54c118 0 168 20 168 20"
+          fill="none" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" opacity=".55" />
+    <path d="M-20 70C160 70 220 4 408 4c188 0 244 66 434 66s258-66 448-66c114 0 170 22 170 22"
+          fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" opacity=".3" />
+  </svg>
+</div>
+
+<style>
+  .swoosh {
+    color: var(--red);
+    opacity: 0.22;
+    pointer-events: none;
+  }
+  .swoosh--light { color: var(--red-light); opacity: 0.3; }
+  .swoosh svg { width: 100%; height: clamp(48px, 7vw, 96px); display: block; }
+</style>

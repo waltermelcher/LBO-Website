@@ -1,0 +1,151 @@
+---
+import Logo from './Logo.astro';
+import { NAV, FOOTER_LINKS, SOCIAL } from '../consts';
+import { url } from '../utils';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <Logo variant="full" class="ftr__logo" />
+        <p class="ftr__claim">Driven by music.<br />Connected by heart.</p>
+      </div>
+
+      <nav class="ftr__nav" aria-label="Fußzeilen-Navigation">
+        {NAV.filter((i) => i.children).map((group) => (
+          <div class="ftr__col">
+            <h2 class="ftr__head">{group.label}</h2>
+            <ul>
+              {group.children!.map((child) => (
+                <li>
+                  <a
+                    href={child.external ? child.href : url(child.href)}
+                    target={child.external ? '_blank' : undefined}
+                    rel={child.external ? 'noopener noreferrer' : undefined}
+                  >{child.label}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div class="ftr__col">
+          <h2 class="ftr__head">Verein</h2>
+          <ul>
+            <li><a href={url('/foerderverein')}>Förderverein</a></li>
+            <li><a href={url('/kontakt')}>Kontakt</a></li>
+            <li><a href={url('/news')}>Aktuelles</a></li>
+            <li><a href="https://intern.landesblasorchester.de/" target="_blank" rel="noopener noreferrer">Interner Bereich</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <div class="ftr__social">
+      {SOCIAL.map((s) => (
+        <a class="ftr__soc" href={s.href} target="_blank" rel="noopener noreferrer">
+          <span>{s.label}</span>
+          <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+            <path d="M2.5 7.5L7.5 2.5M3.6 2.5h3.9v3.9" fill="none" stroke="currentColor" stroke-width="1.1" />
+          </svg>
+        </a>
+      ))}
+    </div>
+
+    <div class="ftr__bottom">
+      <p class="ftr__copy">© {year} Landesblasorchester Baden-Württemberg</p>
+      <ul class="ftr__legal">
+        {FOOTER_LINKS.map((l) => (
+          <li>
+            <a
+              href={l.external ? l.href : url(l.href)}
+              target={l.external ? '_blank' : undefined}
+              rel={l.external ? 'noopener noreferrer' : undefined}
+            >{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    background: var(--dark);
+    color: var(--on-dark-2);
+    padding-block: clamp(3.5rem, 7vw, 6rem) 2.5rem;
+    font-size: 0.94rem;
+  }
+
+  .ftr__top {
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  @media (min-width: 940px) {
+    .ftr__top { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
+  }
+
+  .ftr__brand :global(.ftr__logo) { width: clamp(210px, 24vw, 290px); color: var(--on-dark); }
+  .ftr__claim {
+    margin: 1.6rem 0 0;
+    font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
+    font-weight: 300;
+    line-height: 1.25;
+    letter-spacing: -0.022em;
+    color: var(--red-light);
+    max-width: 20ch;
+  }
+
+  .ftr__nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  .ftr__head {
+    margin: 0 0 1.2rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--on-dark);
+  }
+  .ftr__nav ul { margin: 0; padding: 0; list-style: none; }
+  .ftr__nav li + li { margin-top: 0.55rem; }
+  .ftr__nav a {
+    font-size: 0.9rem;
+    font-weight: 300;
+    transition: color .25s var(--ease);
+  }
+  .ftr__nav a:hover { color: var(--on-dark); }
+
+  .ftr__social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 clamp(1.5rem, 4vw, 3rem);
+    padding: 1.6rem 0;
+    border-block: 1px solid var(--line-dark);
+  }
+  .ftr__soc {
+    display: inline-flex; align-items: center; gap: 0.45em;
+    padding: 0.4rem 0;
+    font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    transition: color .25s var(--ease);
+  }
+  .ftr__soc:hover { color: var(--red-light); }
+  .ftr__soc svg { opacity: 0.5; }
+
+  .ftr__bottom {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 1rem 2rem;
+    padding-top: 1.8rem;
+    font-size: 0.8rem;
+  }
+  .ftr__copy { margin: 0; color: rgba(243, 237, 227, 0.45); }
+  .ftr__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; margin: 0; padding: 0; list-style: none; }
+  .ftr__legal a { color: rgba(243, 237, 227, 0.55); transition: color .25s var(--ease); }
+  .ftr__legal a:hover { color: var(--on-dark); }
+</style>

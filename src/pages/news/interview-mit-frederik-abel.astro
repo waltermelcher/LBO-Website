@@ -1,0 +1,149 @@
+---
+import ArticleLayout from '../../components/ArticleLayout.astro';
+import { NEWS } from '../../data/news';
+import { url } from '../../utils';
+
+const item = NEWS.find((n) => n.slug === 'interview-mit-frederik-abel')!;
+
+type QA = { q: string; a: string };
+type Chapter = { heading: string; qa: QA[] };
+
+const chapters: Chapter[] = [
+  {
+    heading: 'Zwischen Bernstein und Bürki',
+    qa: [
+      {
+        q: 'Welcher Komponist hat dich am meisten inspiriert in deiner bisherigen Karriere?',
+        a: 'Das ist sehr schwer zu sagen, zumindest es auf einen Komponisten herunterzubrechen, denn das wechselt immer hin und her. Ich hatte eine lange Zeit, wo mich vor allem Leonard Bernstein sehr beeinflusst hat, ich bin immer noch ein riesen Fan. Wen ich auch immer wieder sehr beeindruckend finde, von der Ernsthaftigkeit und Tiefe der Stücke, ist Lili Boulanger. Aber auch in der Blasorchesterszene: Ich bin ein großer Fan von Oliver Waespi. Und auch ein riesen Mario-Bürki-Fan, weil ich ihn persönlich kenne und weiß, was für ein toller Mensch er ist.',
+      },
+      {
+        q: 'Wann hast du für dich gemerkt, dass Komponieren mehr als nur ein Hobby für dich sein soll?',
+        a: 'So wirklich mit dem Komponieren angefangen habe ich während Corona – in der Zeit, wo alle möglichen Menschen mit neuen Dingen angefangen haben. Ich habe vorher viel arrangiert, auch viel für Blasorchester, da komme ich ursprünglich auch her. Meine allererste Komposition für Blasorchester ist genau im Jahr 2020 entstanden und wurde 2023 unter der Leitung von Mario Bürki uraufgeführt. Komponieren als alleinigen Beruf zu sehen, das ist natürlich ein Wunsch, aber ich glaube, für die wenigsten ist das der Antrieb dahinter zu komponieren. Bei mir ist es das auf jeden Fall nicht. Jeder Mensch hat etwas zu sagen und ich habe eine Möglichkeit gefunden, Sachen auszudrücken und mich zu zeigen, wie ich bin und was ich fühle, und deshalb tue ich es.',
+      },
+    ],
+  },
+  {
+    heading: 'Donaueschingen 2.0 – Tradition trifft Moderne',
+    qa: [
+      {
+        q: 'Was hat dich persönlich am Kompositionswettbewerb Donaueschingen 2.0 gereizt?',
+        a: 'Was mich wirklich überzeugt hat teilzunehmen – unabhängig davon, dass ich es liebe, für Blasorchester zu schreiben, und vor allem auf dem Niveau, wie ihr spielt – ist, dass ich die Anlage vom Wettbewerb interessant und nicht so einschränkend fand, wie ich es im ersten Moment gedacht hätte. Das Ziel 1926 war, die zeitgenössische, teilweise sehr experimentelle, atonale Musik in die Blasmusikszene zu bringen und das hat damals nicht so gut funktioniert. Parallel hat in England eigentlich das stattgefunden, was ihr mit dem Wettbewerb wieder aufgeholt habt: die traditionelle Musik mit in diese Szene zu bringen und in die Gegenwart zu holen und das ist einfach schön. Ich mag die traditionelle und tonale und „schöne“ Musik. Aber ich mag genauso sehr auch das Experimentelle und auch das Schräge und Verrückte. Deshalb bewege ich mich gern genau dazwischen, wie auch euer Wettbewerb.',
+      },
+      {
+        q: 'Wie fühlt sich das für dich an, diesen großen Bogen zurück nach 1926 zu schlagen?',
+        a: 'Ich weiß gar nicht so sehr, ob es so ein Bogen zurück ist, ehrlicherweise. Ich finde, beide Aspekte – sowohl die traditionelle Musik, die Volkslieder, als auch dieses moderne Schreiben – sind heute genauso da, wie sie es zum Teil auch vor 200 Jahren schon da waren. Und die drei Volkslieder, die in dem Stück verarbeitet sind, waren ein ziemlich großer Bestandteil meiner Kindheit. Deshalb war es für mich normal, mit denen reinzukommen.',
+      },
+    ],
+  },
+  {
+    heading: 'Drei Volkslieder aus der Kindheit',
+    qa: [
+      {
+        q: 'Welche drei Volkslieder hast du dir ausgesucht und warum genau diese drei?',
+        a: 'Alle drei wurden mir früher vorgesungen, sowohl von meiner Mutter als auch von meinem Opa. Die drei Volkslieder sind „Viel Wollust mit sich bringt“, wo ich im Nachhinein rausgefunden habe, dass das eigentlich gar nicht so bekannt ist. Die anderen Lieder sind „Wenn ich ein Vöglein wär’“ und „Guten Abend, gute Nacht“, was ja ursprünglich gar kein Volkslied ist, sondern das „Wiegenlied“ von Brahms. Aber ich finde, es hat sich so etabliert, dass es eigentlich nicht mehr zu trennen ist von den anderen Volksliedern. Die drei wurden mir früher sehr, sehr viel vorgesungen und deshalb habe ich gedacht, hole ich sie in die heutige Zeit und bringe dann modernere Klänge mit rein. Ich finde es sehr wichtig, wenn wir verschiedene Dinge kombinieren. Die Antwort und der beste Weg liegen meistens in der Mitte zwischen den verschiedenen Positionen und wir können ihn nur finden, wenn wir aufeinander zugehen und miteinander reden.',
+      },
+      {
+        q: 'Gibt es ein Lied der drei, zu dem du einen ganz besonders emotionalen Bezug hast?',
+        a: '„Guten Abend, gute Nacht“, das wird man auch merken, wenn man meine Komposition hört. Dieses Lied zieht sich sowohl in Ausschnitten als auch als ganze Melodie durch das ganze Stück. Vor allem der Beginn vom zweiten Teil ist als „Leitmotiv“ sehr oft zu finden.',
+      },
+      {
+        q: 'Welchen emotionalen und musikalischen, vielleicht auch persönlichen Bezug siehst du zum Thema Heimat?',
+        a: 'Vielleicht ist das Einfachste als Erstes zu sagen, dass Heimat für mich mittlerweile nicht mehr wirklich ein Ort ist. Ich komme ursprünglich vom Niederrhein, direkt an der niederländischen Grenze, dort bin ich aufgewachsen. Aber ich lebe jetzt seit fast vier Jahren fürs Studium in Wien und es fühlt sich beides wie Heimat an. Das liegt daran, dass ich mich sowohl am Niederrhein als auch in Wien sehr willkommen fühle und man Menschen hat, mit denen man sich gerne umgibt. Heimat ist für mich eigentlich ein Gefühl und dieses Gefühl habe ich auch versucht rüberzubringen.',
+      },
+    ],
+  },
+  {
+    heading: 'Drei-Klänge der Heimat – ein vielschichtiges Wortspiel',
+    qa: [
+      {
+        q: 'Der Titel „Drei-Klänge der Heimat“ kann sehr mehrdeutig interpretiert werden. Was hast du dir dabei gedacht?',
+        a: 'Vielleicht das Offensichtlichste zuerst: Es sind drei Volkslieder, drei verschiedene Klänge aus der Volksliedtradition. Aber auch meine Herangehensweise war, größtenteils auf der Basis von Dreiklängen zu arbeiten, also eher simplere Harmonien, was im Kontext mit Volksliedern natürlich sehr gut funktioniert, weil sie meistens harmonisch sehr simpel gestaltet sind. Und es gibt noch einen weiteren Punkt: Ich spiele sehr viel mit dem Prinzip der Terzverwandtschaft, also quasi „drei Töne“. Das Einzige, wo diese Verwandtschaft nicht so wirklich drin ist, ist bei dem „Guten Abend, gute Nacht“-Teil, dem eigentlich ruhigsten und langsamsten Teil, der von Kirchenglocken eingeläutet wird und mit der Spieluhr endet.',
+      },
+      {
+        q: 'Wie sieht dein Kompositionsprozess aus, gerade bei einem Wettbewerbswerk wie diesem?',
+        a: 'Das ist das erste Stück seit langem, das ich wieder auf Papier geschrieben habe. Ich habe es im Urlaub geschrieben, letzten Sommer im Englandurlaub. Für den Urlaub habe ich mir vorgenommen, nichts mitzunehmen, kein Laptop, kein iPad, nichts Digitales. Und das war sehr befreiend und sehr schön, aus dem Kopf aufzuschreiben, ohne ein Notationsprogramm oder ein Klavier dazwischen zu haben. Auf der ersten Seite stehen die drei Volkslieder und darunter eine vierte Melodie, so habe ich begonnen. Von Anfang an war der Plan, diese drei Melodien zu einer vierten gemeinsamen neuen Melodie zu verbinden, die am Ende erklingt. Bevor ich diese vierte Melodie nicht fertig hatte, habe ich auch nicht mit dem Stück angefangen. Danach war es tatsächlich ein Stück-für-Stück-Schreiben, sehr intuitiv, und ich habe es auch chronologisch geschrieben, das ist unüblich. Lustigerweise wird meistens das Ende zuerst geschrieben. In dem Fall war es tatsächlich mal der Anfang.',
+      },
+    ],
+  },
+  {
+    heading: 'Klangfarben als Teil der Komposition',
+    qa: [
+      {
+        q: 'Wie siehst du Instrumentation im Kontext von Komposition? Und hast du dich intensiv mit den einzelnen Instrumenten und ihrem Zusammenklang im Blasorchester beschäftigt?',
+        a: 'Für mich ist die Instrumentation untrennbar beim Komponieren, da ich genau weiß, wofür und für welche Klangfarben ich schreibe. Zumindest in der Form, dass ich mir im Kopf schon vorstelle, wer das spielen soll und wer genau welche Rolle übernimmt. Viele dieser Entscheidungen wurden dabei allerdings unbewusst getroffen. Ich spiele seit 15 Jahren in Blasorchestern, da kommt einiges an Repertoire zusammen und vieles wird dann zur Intuition.',
+      },
+      {
+        q: 'Was reizt dich besonders am Klang eines symphonischen Blasorchesters?',
+        a: 'Erstens ist es immer wieder schön, den Saxophonklang mit drin zu haben, dieses Butterweiche, das aber bis ins Schärfste reingehen kann. Aber was ich wirklich am schönsten finde, ist dieser riesige Klarinettenapparat, bei dem man je nach Besetzung 20 bis 30 Klarinetten im Orchester sitzen hat und diesen besonderen Satzklang hat. Es wird oft gesagt, die Klarinetten sind die Streicher des Blasorchesters, zusammen mit den Saxophonen. Diesen großen Klang zu haben, das ist einfach vielfältig und gleichzeitig schwer zu beschreiben. Das ist ein großer Reiz. Und natürlich der Aspekt, dass ich ursprünglich Schlagwerker bin: ein riesiges Schlagwerk ist auch immer toll.',
+      },
+    ],
+  },
+  {
+    heading: 'Das LBO – ein Traum für Komponisten',
+    qa: [
+      {
+        q: 'Hast du das LBO davor schon mal gehört? Was begeistert dich daran?',
+        a: 'Bevor ich von dem Wettbewerb erfahren habe, habe ich noch nichts vom LBO gehört. Ich habe euch auch noch nie live gehört und ich freue mich sehr drauf, dass es bald das erste Mal sein wird. Aber ich habe, nachdem ich davon erfahren habe, erstmal ganz genau und ganz viel eure Aufnahmen gehört. Und was ich von Anfang an bei euch gemerkt habe: Ihr habt einen unglaublichen Zusammenklang. Ich habe selten so homogene Blasorchester gehört. Aber wenn es sein muss, geht halt auch genau das Gegenteil, dass Solisten heraustreten. Ich finde, das ist ein Traum, denn ich habe es häufig mitbekommen, dass Leute entweder in die eine oder in die andere Richtung gehen. Und wenn beides kombiniert wird, ist es umso schöner.',
+      },
+      {
+        q: 'Das Werk soll nicht nur vom LBO, sondern künftig auch von Musikvereinen gespielt werden können. Wie bist du mit diesem Spagat umgegangen?',
+        a: 'Der Hauptpunkt war, so blöd es klingt, das Stück gar nicht so schwer zu schreiben. Es ist ein Stück der Höchststufe, aber für mich bezieht sich diese Bezeichnung vor allem auf den musikalischen Ausdruck. In dem Stück gibt es sehr viele Sachen, die man eigentlich bis ins Kleinste proben kann und so viele Feinheiten, die man herausbringen kann. Das meiste ist technisch nicht unendlich schwer und auch machbar für deutlich mehr Orchester als nur das LBO.',
+      },
+      {
+        q: 'Welche konkreten Tipps würdest du einem Musikverein geben, der sich dein Werk aufs Programm setzt?',
+        a: 'Vielleicht als konkretesten Tipp: Tempoangaben werden immer als so fixiert angesehen. Wenn man ein bisschen drunter oder manchmal drüber ist, ist es nicht so schlimm. Das Wichtigste ist, Musik zu machen und zu schauen: Wohin geht das Stück eigentlich gerade? Was können wir rausbringen, was für eine Stimmung ist gerade da? Und wenn man sich auf die Sachen fokussiert, dann werden kleine Fehler verziehen. Wichtig ist, dass man merkt, die Leute sind dran, sie wollen etwas ausdrücken, sie wollen kommunizieren und sie wollen musizieren.',
+      },
+      {
+        q: 'Welche Emotionen möchtest du beim Publikum auslösen?',
+        a: 'Eines meiner Ziele war es, emotional gar nicht so explizit zu sein, wie man es vielleicht sich teilweise wünschen würde. Es spielt auch damit rein, dass der Heimatsbegriff für mich sehr offen ist. Die Menschen sollen sich selbst Sachen hineindenken können. Ich kann auch sagen, dass ich mir für das Stück eine dramaturgische Geschichte überlegt habe, sie ist aber für das Stück nicht so wichtig, eher für mich und meinen Schreibprozess. Mein erster Gedanke als Antwort auf die Frage war es, in Richtung Nostalgie zu gehen, aber ich glaube, das ist nicht das richtige Wort. Nostalgie ist immer ein Blick zurück und ich möchte eigentlich keinen reinen Blick zurück darstellen. Schöne Erinnerungen wiederzufinden und ein bisschen darin zu schwelgen, ist vollkommen in Ordnung und auch sehr wichtig. Aber man darf sich nicht darin verlieren. Der Blick soll auch nach vorne gehen. Es gibt im ganzen Stück auch immer mindestens ein, zwei Instrumente, die bisschen nach vorne treiben und das ist mir genauso wichtig. Ein anderer Punkt ist die Bandbreite zwischen intimen und großen Stellen. Beispielsweise im Kontext „Wenn ich ein Vöglein wär’“ gibt es eine Stelle, in der es mein persönliches Ziel war, das Gefühl zu erzeugen, man hebt jetzt gerade ab und fängt an zu fliegen. Solche Momente sollen entstehen, auch wenn es nicht bei allen Menschen die gleichen sein werden wie bei mir.',
+      },
+    ],
+  },
+  {
+    heading: 'Dankbarkeit und das Loslassen der Kontrolle',
+    qa: [
+      {
+        q: 'Was geht dir durch den Kopf, wenn du weißt, dass jetzt andere dein Werk interpretieren?',
+        a: 'Vor allem erstmal Dankbarkeit. In eurem Fall spielen 85 Menschen etwas, was sie nicht kennen und von dem sie eigentlich auch gar nicht so wirklich wissen können, was am Ende dabei rauskommt. Das auch noch von einer Person, die sie nicht kennen. Sie nehmen sich dem Werk trotzdem an und investieren viel Zeit, Mühe und Energie. Daher kommt diese ganze Dankbarkeit. Und ein bisschen aufgeregt bin ich immer. Aufgeregter als wenn ich selbst mitspielen würde, weil ich das Gefühl habe, ich sitze da und kann eh nichts tun. Man gibt die komplette Kontrolle ab und das ist ein Stück weit beängstigend, aber eigentlich vor allem schön. Und ich bin ein Fan davon, wenn Sachen nicht immer gleich gespielt werden. Solange es im Rahmen von dem ist, was ursprünglich da ist, freue ich mich über jegliche Freiheiten.',
+      },
+      {
+        q: 'Gibt es einen Moment im Werk, auf den du dich bei der Uraufführung besonders freust?',
+        a: 'Die schönsten Momente bei wirklich tollen Stücken sind eigentlich diese paar Sekunden nach dem Schlusston vor dem Applaus, einfach diese Energie, die da noch da ist. Ich hoffe darauf, dass eine ähnliche Spannung auch bei der Uraufführung entstehen wird. Aber aus dem Stück selbst: das erste Mal, wenn „Guten Abend, gute Nacht“ als vollständige Melodie kommt, in der kammermusikalischen Besetzung mit fünf Saxophonen. Und die andere Stelle ist genau dieser Moment im Teil „Wenn ich ein Vöglein wär’“, wo man das Gefühl hat abzuheben.',
+      },
+    ],
+  },
+  {
+    heading: 'Authentizität als Kompass',
+    qa: [
+      {
+        q: 'Was braucht es für die Zukunft der Blasorchesterliteratur und welchen Rat gibst du jungen Komponistinnen und Komponisten?',
+        a: 'Ich glaube, vor allem zwei Sachen: Authentizität, und in der Kombination damit, neue Dinge zu probieren. Das klingt vielleicht ein wenig widersprüchlich. Aber was ich damit meine, ist: immer die Ohren offen haben für neue Dinge, aber eben nicht neue Sachen tun, um etwas Neues zu machen. Dieser Drang, etwas komplett Neues schaffen zu müssen, bringt einen mehr von sich selbst weg als zu einem hin. Bleibt euch selbst treu, auch im Schreiben. Authentisch sein und authentisch schreiben, aus seinem eigenen Gefühl heraus, das ist das, was Menschen berührt. Letztendlich ist es zumindest mein Ziel und ich finde, es sollte unser aller Ziel sein, sowohl beim Schreiben von Musik als auch in der Performance. Und wir können andere Menschen nicht berühren, wenn es uns nicht zuerst selbst berührt.',
+      },
+    ],
+  },
+];
+---
+
+<ArticleLayout item={item}>
+  <p>
+    Mit seiner Komposition „Drei-Klänge der Heimat“ hat der 22-jährige Frederik Abel die Jury des
+    Kompositionswettbewerbs Donaueschingen 2.0 überzeugt. Abel, geboren 2003 in Geldern am Niederrhein,
+    studiert seit 2022 Komposition und Musiktheorie an der Universität für Musik und darstellende Kunst Wien.
+    Im Gespräch mit LBO-Musikreferent Elias Kowalski erzählt er von seinen musikalischen Vorbildern, dem
+    Kompositionsprozess im Englandurlaub und davon, warum Heimat für ihn vor allem ein Gefühl ist.
+  </p>
+
+  {chapters.map((c) => (
+    <>
+      <h2>{c.heading}</h2>
+      {c.qa.map((x) => (
+        <div class="qa">
+          <p class="qa__q">{x.q}</p>
+          <p class="qa__a">{x.a}</p>
+        </div>
+      ))}
+    </>
+  ))}
+
+  <p><a class="btn" href={url('/konzerttermine')}>Zu den Konzerten</a></p>
+</ArticleLayout>

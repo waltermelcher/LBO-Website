@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { REHEARSALS } from '../data/concerts';
+import { url } from '../utils';
+import registerKlarinetten from '../assets/img/register-klarinetten.jpg';
+
+const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
+---
+
+<BaseLayout
+  title="Mitglied werden"
+  description="Das Landesblasorchester Baden-Württemberg sucht laufend neue Musikerinnen und Musiker. Alle Informationen zu Probespiel und Probeterminen."
+>
+  <PageHeader
+    eyebrow="Orchester"
+    title="Mitglied werden"
+    lead="Du liebst das Musizieren im Orchester und Musik ist deine Passion? Dann spiel bei uns vor."
+    image={registerKlarinetten}
+    imageAlt="Klarinettenregister des Landesblasorchesters"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Du möchtest Mitglied im Orchester werden?</span></div>
+        <div class="prose reveal" data-delay="1">
+          <p>
+            Das Landesblasorchester Baden-Württemberg ist ständig daran interessiert, neue Musikerinnen und
+            Musiker in seinen Reihen aufzunehmen. In allen Registern lohnt sich ein Probespiel auf jeden Fall!
+            Wir besetzen kontinuierlich die Instrumente nach.
+          </p>
+          <p>
+            Du hast Interesse bei uns mitzuspielen? Dann schicke einfach eine E-Mail! Wir beantworten gerne
+            deine Fragen und informieren dich über Details. Die Vorspiele finden immer am Freitagnachmittag
+            jeder ersten Arbeitsphase pro Halbjahr statt – also im März und im September.
+          </p>
+
+          <p>Das Landesblasorchester trifft sich regelmäßig zu</p>
+          <ul>
+            {activities.map((a) => <li>{a}</li>)}
+          </ul>
+
+          <p>
+            Alle Termine werden rechtzeitig bekanntgegeben, sodass jedes Orchestermitglied seinen
+            Terminkalender darauf abstimmen kann. Dies ist auch wichtig, denn bei den wenigen gemeinsamen
+            Proben ist eine komplette Anwesenheit zu allen Terminen maßgeblich.
+          </p>
+
+          <p class="cta-inline">
+            <a class="btn" href="mailto:mitspielen@landesblasorchester.de">
+              Kontakt Mitglied werden
+              <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+              </svg>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--deep">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Unsere Probetermine</span></div>
+        <div>
+          <ul class="dates">
+            {REHEARSALS.map((r, i) => (
+              <li class="dates__item reveal" data-delay={String(i)}>
+                <span class="dates__date">{r.date}</span>
+                <span class="dates__place">{r.place}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="dates__note reveal">
+            Wann und wo wir in den nächsten beiden Halbjahren Konzerte spielen, findest du auf unserer Seite
+            <a href={url('/konzerttermine')}>Konzerttermine</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Probespiel</span></div>
+        <div class="prose reveal" data-delay="1">
+          <p>
+            Bedingung für eine Mitgliedschaft ist ein Probespiel. Dieses wird in der Regel vom Registerführer,
+            dem Dirigenten, dem Konzertmeister und von einem Mitglied der Vorstandschaft abgenommen. Es besteht
+            aus einem Selbstwahlstück, Probespielstellen aus vergangenen Konzertprogrammen und einem Stück vom
+            Blatt.
+          </p>
+          <p>
+            In dem Probespiel sollte erkannt werden, dass du in der Lage bist, sorgfältig und gewissenhaft zu
+            üben. Stärken in Tonkultur, Technik und musikalischem Ausdrucksvermögen sollten im Selbstwahlstück
+            zum Tragen kommen. Dies kann ein Stück aus einem Solokonzert, eine Etüde, aber auch etwas
+            Kammermusikalisches sein. Der Schwierigkeitsgrad ist nicht das Entscheidende, sondern die Qualität
+            der Ausführung! Die Probespielstellen werden ca. zwei Wochen vor dem Termin versendet und sind
+            sorgfältig vorzubereiten.
+          </p>
+          <p>
+            Deine konkreten Fragen zum Probespiel klären wir gerne. Schicke uns eine E-Mail an
+            <a href="mailto:mitspielen@landesblasorchester.de">mitspielen@landesblasorchester.de</a>.
+            Wir rufen dich gerne auch telefonisch zurück.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .cta-inline { margin-top: 2rem; }
+  .dates { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .dates__item {
+    display: grid; gap: 0.35rem 2.5rem;
+    padding: clamp(1.1rem, 2.2vw, 1.7rem) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 640px) { .dates__item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: baseline; } }
+  .dates__date {
+    font-size: clamp(1.1rem, 1rem + 0.6vw, 1.35rem);
+    font-weight: 300; letter-spacing: -0.018em; color: var(--red);
+  }
+  .dates__place { color: var(--ink-2); }
+  .dates__note { margin-top: 1.8rem; color: var(--ink-2); }
+  .dates__note a { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
+</style>

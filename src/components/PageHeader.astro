@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  credit?: string;
+}
+
+const { eyebrow, title, lead, image, imageAlt = '', credit } = Astro.props;
+---
+
+<section class:list={['ph', image && 'ph--with-image']}>
+  <div class="container">
+    <div class="ph__text reveal">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1 class="h1 ph__title">{title}</h1>
+      {lead && <p class="lead ph__lead">{lead}</p>}
+    </div>
+  </div>
+
+  {image && (
+    <div class="ph__media reveal" data-delay="1">
+      <div class="container">
+        <figure class="figure ph__figure">
+          <Image src={image} alt={imageAlt} widths={[900, 1400, 2000]} sizes="(min-width: 1400px) 1320px, 100vw" loading="eager" />
+        </figure>
+        {credit && <p class="caption ph__credit">{credit}</p>}
+      </div>
+    </div>
+  )}
+</section>
+
+<style>
+  .ph {
+    padding-top: clamp(9rem, 14vw, 13rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .ph--with-image { padding-bottom: 0; }
+
+  .ph__text { max-width: 30ch; }
+  .ph__title { max-width: 18ch; }
+  .ph__lead { margin-top: 1.6rem; max-width: 46ch; }
+  .ph:has(.ph__lead) .ph__text { max-width: none; }
+
+  .ph__media { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .ph__figure { aspect-ratio: 21 / 9; }
+  @media (max-width: 700px) { .ph__figure { aspect-ratio: 4 / 3; } }
+  .ph__credit { text-align: right; }
+</style>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from './PageHeader.astro';
+
+interface Props { title: string; lead?: string; description?: string }
+const { title, lead, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <PageHeader eyebrow="Rechtliches" title={title} lead={lead} />
+
+  <section class="section section--tight">
+    <div class="container">
+      <p class="placeholder reveal">
+        <strong>Platzhalter.</strong> Dieser Text ist ein Blindtext und noch nicht rechtsverbindlich. Vor dem
+        Livegang muss dieser Inhalt durch die final geprüfte Fassung ersetzt werden.
+      </p>
+      <div class="prose legal reveal" data-delay="1">
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .placeholder {
+    max-width: var(--maxw-text);
+    margin: 0 0 clamp(2rem, 4vw, 3rem);
+    padding: 1.1rem 1.4rem;
+    border-left: 2px solid var(--red);
+    background: var(--bg-soft);
+    font-size: 0.9rem;
+    color: var(--ink-2);
+  }
+  .placeholder strong { color: var(--red); }
+  .legal :global(h2:first-of-type) { margin-top: 0; }
+</style>

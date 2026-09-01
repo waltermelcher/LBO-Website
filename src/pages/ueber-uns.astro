@@ -1,0 +1,203 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { url } from '../utils';
+
+import orchesterWeit from '../assets/img/orchester-weit.jpg';
+import korea from '../assets/img/lbo-korea.jpg';
+import registerTuben from '../assets/img/register-tuben.jpg';
+import infomappe from '../assets/img/infomappe-thumb.png';
+
+const milestones = [
+  {
+    heading: 'Ursprünge',
+    body: [
+      'Bundes- und Landesmusikdirektor Hellmut Haase-Altendorf und Prof. Richard Zettler hatten in den 70er Jahren die Idee, ein Orchester zu gründen, in dem gute und engagierte Musiker aus allen Musikvereinen Baden-Württembergs zusammenkommen sollten. Dieses Orchester sollte dazu beitragen, wertvolle symphonische Blasorchesterliteratur zu pflegen und Komponisten originaler Blasmusik ein Forum zu geben. Zugleich sollte es Vorbild für über 2300 Amateurmusiker im Land werden und eine wichtige Multiplikatorenfunktion erfüllen. Damit war das LBO auch als Repräsentationsorchester des Landes gedacht.',
+    ],
+  },
+  {
+    heading: 'Gründung',
+    body: [
+      'Mit Hilfe des damaligen Landtagspräsidenten und Präsidenten des BVBW, Prof. Erich Ganzenmüller, konnte das Orchester im Jahre 1978 gegründet werden. Nach einem Aufruf im damaligen offiziellen Presseorgan des Verbandes konnten sich interessierte Musiker zu einem Vorspiel melden. Ab 07.10.1978 fanden dann regelmäßig in vierzehntägigem Rhythmus Proben in der Gemeindehalle Aldingen statt. Die Leitung übernahmen Hellmut Haase-Altendorf und Prof. Richard Zettler.',
+    ],
+  },
+  {
+    heading: 'Die Premiere',
+    body: [
+      'Der erste öffentliche Auftritt erfolgte kurz nach der Gründung am 11.11.1978 aus Anlass des 25-jährigen Bestehens des Landtags von Baden-Württemberg. Das erste Konzert folgte am 07.06.1980 in Böblingen.',
+    ],
+  },
+  {
+    heading: 'Leistung und Ansehen',
+    body: [
+      'Im August 1984 bekam das LBO eine eigene Satzung, in der Aufgaben und Kompetenzen im Orchester festgelegt wurden. Ein Jahr später wurden die Samstagsproben durch Probenwochenenden ersetzt. 1985 wurde mit einem Vorspiel der Leistungsstand des kompletten Orchesters überprüft.',
+      'Ab 1986 übernahm Harry D. Bath den Dirigentenstab und damit erstmals nicht mehr der Landesmusikdirektor. Er konnte die Leistung des Orchesters binnen kürzester Zeit steigern und formte das Orchester während seiner 10-jährigen Schaffenszeit zu einem beeindruckenden Klangkörper. Er führte es zu internationalem Ansehen, unter anderem zur Vize-Europameisterschaft in Kerkrade/Holland.',
+      '1995 war Franco Cesarini zu Gast beim LBO und dirigierte vor allem seine eigenen Kompositionen und Transkriptionen in zwei Konzerten. Harry D. Bath förderte die Zusammenarbeit mit dem Komponisten Rolf Rudin, von dem das Orchester einige Werke uraufführen durfte. In der Ära Bath wurden außerdem mehrere Auslandsreisen unternommen: nach England, Frankreich und Holland, sowie eine Deutschlandtournee.',
+      '1997 übernahm Heinz Friesen den Taktstock. Leider dauerte diese Leitung wegen seiner anderweitigen beruflichen Verpflichtungen nur knapp ein Jahr. Dem schlossen sich 3½ Jahre erfolgreiche Arbeit unter Walter Ratzek an, in denen weitere Auszeichnungen errungen wurden. Ab Sommer 2001 arbeitete das Orchester mit diversen Gastdirigenten zusammen: Johan de Meij, Philipp Kufner, Wolfgang Wössner, Isabelle Ruf-Weber und Bernhard Volk. Dies war für die Orchestermitglieder eine sehr lehrreiche und eindrucksvolle Zeit.',
+    ],
+  },
+  {
+    heading: 'Gegenwart und Zukunft',
+    body: [
+      'Ab 2004 leitete die Schweizer Dirigentin Isabelle Ruf-Weber das Landesblasorchester und setzte wieder auf Kontinuität. Spielfreude und Musikalität standen im Zentrum ihrer Orchesterarbeit. Vorläufiger Höhepunkt im Schaffen des Orchesters ist der vierte Platz in der Konzertklasse beim Weltmusikwettbewerb (WMC) in Kerkrade vom Juli 2005 und der Sieg des 2. Internationalen Blasorchesterwettbewerbs in der Berliner Philharmonie 2011.',
+      'Seit 2014 ist das Orchester unter der musikalischen Leitung des Niederländers Björn Bus. Erfolgreiche Konzerte und begeistertes Publikum bei den Konzerten 2013 unter seiner Leitung als Gastdirigent haben gezeigt, dass es dem Landesblasorchester abermals gelungen ist, einen adäquaten Dirigenten zu engagieren.',
+      'Die Idee der Multiplikatorenfunktion ist aufgegangen. Viele aktive und auch ehemalige LBO-Musiker sind oder waren Dirigenten und Ausbilder in den Musikvereinen und Blasorchestern in Baden-Württemberg. Sie bringen dort ihre prägenden Erfahrungen vom LBO in ihre tägliche Arbeit mit ein. Viele Kompositionen, die auf dem Konzertprogramm des LBOs vor 10–15 Jahren standen, gehören heute zum festen Konzertrepertoire guter Orchester im Land. Besonders zu erwähnen ist, dass z. B. mit Wolfgang Wössner und Bernhard Volk bereits ehemalige LBO-Musiker als äußerst kompetente Gastdirigenten zum LBO zurückgekehrt sind.',
+      'Auch in Zukunft wird das Landesblasorchester seinen Gründungszielen treu bleiben und der Interpretation symphonischer Blasmusik in Deutschland verpflichtet bleiben.',
+    ],
+  },
+];
+
+const awards = [
+  { year: '2005', text: 'Erster Preis in Gold mit Auszeichnung in der Konzertklasse beim World Music Contest (WMC) in Kerkrade, Niederlande – 4. Platz in der Gesamtplatzierung.' },
+  { year: '2011', text: 'Sieg beim 2. Internationalen Blasorchesterwettbewerb in der Berliner Philharmonie mit 99,5 von 100 möglichen Punkten.' },
+  { year: '2015', text: 'Vertretung Deutschlands und Europas bei der WASBE-Weltkonferenz in San José, Kalifornien – die größte Reise seit Bestehen des Orchesters.' },
+  { year: '2016', text: 'Vierter Platz bei der europäischen Meisterschaft (ECWO) für Blasorchester im niederländischen Utrecht.' },
+  { year: '2017', text: 'Vizeweltmeister beim WMC in Kerkrade – mit 96 Punkten die höchste jemals erreichte Punktzahl eines deutschen Orchesters.' },
+];
+---
+
+<BaseLayout
+  title="Über uns"
+  description="Das Landesblasorchester Baden-Württemberg ist das Auswahlorchester des Blasmusikverbandes Baden-Württemberg e.V. – seit 1978 europaweit anerkannt."
+>
+  <PageHeader
+    eyebrow="Orchester"
+    title="Über uns"
+    lead="Seit 1978 europaweit anerkannt – eines der erfolgreichsten deutschen Blasorchester."
+    image={orchesterWeit}
+    imageAlt="Das Landesblasorchester Baden-Württemberg"
+    credit="© Sabrina Kilian"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Wer wir sind</span></div>
+        <div class="prose reveal" data-delay="1">
+          <p>
+            Das Landesblasorchester Baden-Württemberg ist das Auswahlorchester des Blasmusikverbandes
+            Baden-Württemberg e.V. (BVBW). Es genießt seit seiner Gründung 1978 europaweit großes Ansehen und
+            gilt als eines der erfolgreichsten deutschen Blasorchester. Sein hohes musikalisches und
+            künstlerisches Niveau macht die Mitwirkung für die rund 85 hochqualifizierten und engagierten
+            Musikerinnen und Musiker besonders attraktiv.
+          </p>
+          <p>
+            An vier Wochenenden pro Jahr erarbeitet das Orchester in intensiven Proben die anstehenden
+            Konzertprogramme. Das Repertoire umfasst Originalkompositionen und Bearbeitungen klassischer Werke.
+            Uraufführungen und kammermusikalische Besetzungen sind ebenso Bestandteil des jährlichen Programms.
+            Zahlreiche internationale Preise, Referenzen und CD-Produktionen dokumentieren die besondere
+            Qualität des Landesblasorchesters Baden-Württemberg.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Erfolge -->
+  <section class="section section--deep">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Internationale Erfolge</span></div>
+        <div>
+          <ol class="awards">
+            {awards.map((a, i) => (
+              <li class="awards__item reveal" data-delay={String(Math.min(i, 4))}>
+                <span class="awards__year">{a.year}</span>
+                <p class="awards__text">{a.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bildpaar -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="imgpair">
+        <figure class="imgpair__fig reveal">
+          <span class="figure figure--zoom ratio-3-2">
+            <Image src={korea} alt="Das Landesblasorchester bei der WASBE-Konferenz in Südkorea" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
+          </span>
+          <figcaption class="caption">WASBE-Konferenz, Südkorea 2024</figcaption>
+        </figure>
+        <figure class="imgpair__fig reveal" data-delay="1">
+          <span class="figure figure--zoom ratio-3-2">
+            <Image src={registerTuben} alt="Tiefes Blech des Landesblasorchesters" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
+          </span>
+          <figcaption class="caption">© Heinz Bunse</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infomappe -->
+  <section class="section section--tight">
+    <div class="container">
+      <div class="infobox reveal">
+        <figure class="infobox__thumb">
+          <Image src={infomappe} alt="Titelseite der LBO-Infomappe" widths={[240, 480]} sizes="200px" loading="lazy" />
+        </figure>
+        <div>
+          <h2 class="h3">Alle Informationen zum LBO in der Infomappe.</h2>
+          <p class="infobox__text">Ausführliches Porträt, Historie und Kontaktdaten als PDF.</p>
+          <a class="btn btn--ghost" href={url('/downloads/LBO-Infomappe.pdf')} download>
+            Download LBO Infomappe
+            <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geschichte -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Geschichte und Zielsetzung</span></div>
+        <div class="prose reveal" data-delay="1">
+          {milestones.map((m) => (
+            <>
+              <h2>{m.heading}</h2>
+              {m.body.map((p) => <p>{p}</p>)}
+            </>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .awards { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .awards__item {
+    display: grid; gap: 0.4rem 2.5rem;
+    padding: clamp(1.3rem, 2.5vw, 2rem) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 700px) { .awards__item { grid-template-columns: 6rem 1fr; align-items: baseline; } }
+  .awards__year {
+    font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.7rem);
+    font-weight: 300; letter-spacing: -0.02em; color: var(--red);
+  }
+  .awards__text { margin: 0; color: var(--ink-2); max-width: 62ch; }
+
+  .imgpair { display: grid; gap: clamp(1.5rem, 2.5vw, 2rem); }
+  .imgpair__fig { margin: 0; }
+  .imgpair__fig .figure { display: block; }
+  @media (min-width: 800px) { .imgpair { grid-template-columns: 1fr 1fr; } }
+
+  .infobox {
+    display: flex; flex-wrap: wrap; align-items: center; gap: clamp(1.5rem, 4vw, 3.5rem);
+    padding: clamp(1.75rem, 4vw, 3rem);
+    background: var(--bg-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .infobox__thumb { margin: 0; flex: 0 0 auto; width: clamp(110px, 16vw, 165px); }
+  .infobox__thumb :global(img) { width: 100%; box-shadow: 0 20px 40px -28px rgba(25,23,21,.5); }
+  .infobox__text { margin: 0.7rem 0 1.5rem; color: var(--ink-2); max-width: 42ch; }
+</style>

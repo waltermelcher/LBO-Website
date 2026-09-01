@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ConcertList from '../components/ConcertList.astro';
+import { SEASON } from '../data/concerts';
+import { url } from '../utils';
+import orchesterSaal from '../assets/img/orchester-saal.jpg';
+---
+
+<BaseLayout
+  title="Konzerttermine"
+  description="Alle Konzerttermine des Landesblasorchesters Baden-Württemberg – Werkstattkonzerte, Doppelkonzerte und Wettbewerbsauftritte."
+>
+  <PageHeader
+    eyebrow="Konzerte"
+    title="Konzerttermine"
+    lead="Wo Sie das Landesblasorchester in dieser Saison live erleben können."
+    image={orchesterSaal}
+    imageAlt="Das Landesblasorchester im Konzertsaal"
+  />
+
+  <section class="section">
+    <div class="container">
+      <h2 class="h2 season reveal">{SEASON}</h2>
+      <ConcertList />
+
+      <div class="after reveal">
+        <p class="after__text">
+          Das Wettbewerbsprogramm für die Europameisterschaft ist bereits bei den Konzerten im Oktober
+          zu hören.
+        </p>
+        <a class="btn btn--ghost" href={url('/programm')}>
+          Zum Programm
+          <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .season { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+  .after {
+    display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 1.5rem 2.5rem;
+    margin-top: clamp(2.5rem, 5vw, 4rem);
+  }
+  .after__text { margin: 0; max-width: 46ch; color: var(--ink-2); }
+</style>

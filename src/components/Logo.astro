@@ -1,0 +1,13 @@
+---
+import full from '../assets/logo/lbo-logo.svg?raw';
+import mark from '../assets/logo/lbo-mark.svg?raw';
+
+interface Props { variant?: 'full' | 'mark'; class?: string }
+const { variant = 'full', class: cls = '' } = Astro.props;
+---
+<span class={`logo logo--${variant} ${cls}`} set:html={variant === 'full' ? full : mark} />
+
+<style>
+  .logo { display: block; color: currentColor; }
+  .logo :global(svg) { display: block; width: 100%; height: auto; fill: currentColor; }
+</style>

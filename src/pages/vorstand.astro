@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import registerHoerner from '../assets/img/register-hoerner.jpg';
+
+const board = [
+  { role: 'Vorsitzende', name: 'Ilka Hermann', mail: 'ilka.hermann@landesblasorchester.de' },
+  { role: 'Stellvertretender Vorsitzender', name: 'Thomas Kuhn', mail: 'thomas.kuhn@landesblasorchester.de' },
+  { role: 'Finanzreferentin', name: 'Ingrid Gökeler', mail: 'ingrid.goekeler@landesblasorchester.de' },
+  { role: 'Kommunikationsreferent', name: 'Walter Melcher', mail: 'walter.melcher@landesblasorchester.de' },
+  { role: 'Musikreferent', name: 'Elias Kowalski', mail: 'elias.kowalski@landesblasorchester.de' },
+  { role: 'Personalreferent', name: 'Erich Hermann', mail: 'erich.hermann@landesblasorchester.de' },
+  { role: 'Organisationsreferentin', name: 'Alexandra Zonca', mail: 'alexandra.zonca@landesblasorchester.de' },
+  { role: 'Konzertmeisterin', name: 'Maria Wunder', mail: 'maria.wunder@landesblasorchester.de' },
+];
+---
+
+<BaseLayout
+  title="Vorstand"
+  description="Die Vorstandschaft des Landesblasorchesters Baden-Württemberg – Ansprechpartnerinnen und Ansprechpartner."
+>
+  <PageHeader
+    eyebrow="Orchester"
+    title="Vorstand"
+    lead="Die Vorstandschaft ist das leitende Organ des Landesblasorchesters und vertritt dieses zudem nach außen. Die Vereinsmitglieder wählten die unten aufgeführten Personen in ihre Ämter."
+    image={registerHoerner}
+    imageAlt="Hornregister des Landesblasorchesters"
+  />
+
+  <section class="section">
+    <div class="container">
+      <p class="note reveal">Haben Sie Fragen oder ein Anliegen, zögern Sie nicht, die betreffende Person zu kontaktieren.</p>
+
+      <ul class="board">
+        {board.map((m, i) => (
+          <li class="board__item reveal" data-delay={String(Math.min(i % 4, 4))}>
+            <span class="board__role">{m.role}</span>
+            <h2 class="board__name">{m.name}</h2>
+            <a class="board__mail" href={`mailto:${m.mail}`}>
+              {m.mail}
+              <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+              </svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .note { margin: 0 0 clamp(2rem, 4vw, 3rem); max-width: 52ch; color: var(--ink-2); }
+
+  .board {
+    display: grid; gap: 1px;
+    margin: 0; padding: 0; list-style: none;
+    background: var(--line);
+    border: 1px solid var(--line);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+  .board__item {
+    background: var(--bg);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    transition: background .35s var(--ease);
+  }
+  .board__item:hover { background: var(--bg-soft); }
+  .board__role {
+    display: block;
+    font-size: 0.68rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--red);
+  }
+  .board__name {
+    margin: 0.9rem 0 0.7rem;
+    font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.6rem);
+    font-weight: 300; letter-spacing: -0.024em;
+  }
+  .board__mail {
+    display: inline-flex; align-items: center; gap: 0.5em;
+    font-size: 0.85rem; color: var(--ink-2);
+    word-break: break-word;
+    transition: color .25s var(--ease);
+  }
+  .board__mail:hover { color: var(--red); }
+  .board__mail:hover .arw { transform: translateX(3px); }
+  .arw { flex: 0 0 auto; transition: transform .3s var(--ease); opacity: .6; }
+</style>

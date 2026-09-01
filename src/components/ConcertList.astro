@@ -1,0 +1,84 @@
+---
+import { CONCERTS } from '../data/concerts';
+
+interface Props { limit?: number; compact?: boolean }
+const { limit, compact = false } = Astro.props;
+const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
+---
+
+<ol class:list={['clist', compact && 'clist--compact']}>
+  {items.map((c, i) => (
+    <li class="clist__item reveal" data-delay={String(Math.min(i, 4))}>
+      <time class="clist__date" datetime={c.dateISO}>
+        <span class="clist__day">{c.weekday}</span>
+        <span class="clist__full">{c.date}</span>
+      </time>
+      <div class="clist__body">
+        <h3 class="clist__place">{c.place}</h3>
+        {c.title && <p class="clist__title">{c.title}</p>}
+        {c.details && (
+          <ul class="clist__details">
+            {c.details.map((d) => <li>{d}</li>)}
+          </ul>
+        )}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .clist { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+
+  .clist__item {
+    display: grid;
+    gap: 0.5rem 3rem;
+    padding: clamp(1.5rem, 3vw, 2.4rem) 0;
+    border-bottom: 1px solid var(--line);
+    transition: background .4s var(--ease);
+  }
+  @media (min-width: 760px) {
+    .clist__item { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: baseline; }
+  }
+
+  .clist__date { display: block; }
+  .clist__day {
+    display: block;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 0.35rem;
+  }
+  .clist__full {
+    display: block;
+    font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+    font-weight: 300; letter-spacing: -0.02em; line-height: 1.15;
+    color: var(--red);
+  }
+
+  .clist__place {
+    margin: 0;
+    font-size: clamp(1.35rem, 1.1rem + 1.2vw, 2.15rem);
+    font-weight: 275; letter-spacing: -0.025em; line-height: 1.1;
+  }
+  .clist__title { margin: 0.55rem 0 0; color: var(--ink-2); max-width: 52ch; }
+  .clist__details {
+    margin: 0.85rem 0 0; padding: 0; list-style: none;
+    display: flex; flex-wrap: wrap; gap: 0.25rem 1.75rem;
+    font-size: 0.86rem; color: var(--ink-3);
+    letter-spacing: 0.01em;
+  }
+
+  /* kompakte Variante (Startseite) */
+  .clist--compact .clist__item { padding-block: clamp(1.1rem, 2vw, 1.6rem); }
+  .clist--compact .clist__place { font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.55rem); }
+  .clist--compact .clist__full { font-size: 1.05rem; }
+  .clist--compact .clist__title { font-size: 0.92rem; margin-top: 0.3rem; }
+
+  /* Auf dunklem Grund */
+  :global(.section--dark) .clist { border-color: var(--line-dark); }
+  :global(.section--dark) .clist__item { border-color: var(--line-dark); }
+  :global(.section--dark) .clist__day { color: rgba(243,237,227,.45); }
+  :global(.section--dark) .clist__full { color: var(--red-light); }
+  :global(.section--dark) .clist__title { color: var(--on-dark-2); }
+  :global(.section--dark) .clist__details { color: rgba(243,237,227,.45); }
+</style>

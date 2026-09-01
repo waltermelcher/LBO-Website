@@ -1,0 +1,368 @@
+---
+import Logo from './Logo.astro';
+import { NAV } from '../consts';
+import { url, isActive } from '../utils';
+
+interface Props { overlay?: boolean }
+const { overlay = false } = Astro.props;
+const path = Astro.url.pathname;
+
+const branchActive = (item: (typeof NAV)[number]) =>
+  isActive(path, item.href) || (item.children ?? []).some((c) => !c.external && isActive(path, c.href));
+---
+
+<header class:list={['hdr', overlay && 'hdr--overlay']} id="site-header">
+  <div class="hdr__inner container">
+    <a class="hdr__brand" href={url('/')} aria-label="Landesblasorchester Baden-Württemberg – Startseite">
+      <Logo variant="full" class="hdr__logo" />
+    </a>
+
+    <nav class="nav" aria-label="Hauptnavigation">
+      <ul class="nav__list">
+        {NAV.map((item) => (
+          <li class:list={['nav__item', item.children && 'has-children', branchActive(item) && 'is-active']}>
+            <a
+              class="nav__link"
+              href={item.external ? item.href : url(item.href)}
+              aria-haspopup={item.children ? 'true' : undefined}
+              aria-expanded={item.children ? 'false' : undefined}
+            >
+              <span>{item.label}</span>
+              {item.children && (
+                <svg class="nav__chev" width="9" height="6" viewBox="0 0 9 6" aria-hidden="true">
+                  <path d="M1 1l3.5 3.5L8 1" fill="none" stroke="currentColor" stroke-width="1.2" />
+                </svg>
+              )}
+            </a>
+
+            {item.children && (
+              <div class="drop">
+                <ul class="drop__list">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        class:list={['drop__link', !child.external && isActive(path, child.href) && 'is-current']}
+                        href={child.external ? child.href : url(child.href)}
+                        target={child.external ? '_blank' : undefined}
+                        rel={child.external ? 'noopener noreferrer' : undefined}
+                      >
+                        <span>{child.label}</span>
+                        {child.external && (
+                          <svg class="drop__ext" width="9" height="9" viewBox="0 0 10 10" aria-hidden="true">
+                            <path d="M2.5 7.5L7.5 2.5M3.6 2.5h3.9v3.9" fill="none" stroke="currentColor" stroke-width="1.1" />
+                          </svg>
+                        )}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <button class="burger" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-nav">
+      <span class="burger__box" aria-hidden="true"><span class="burger__bar"></span></span>
+      <span class="burger__label">Menü</span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Drawer -->
+<div class="drawer" id="mobile-nav" hidden>
+  <div class="drawer__inner">
+    <ul class="drawer__list">
+      {NAV.map((item) => (
+        <li class="drawer__item">
+          {item.children ? (
+            <>
+              <button class="drawer__toggle" type="button" aria-expanded="false">
+                <span>{item.label}</span>
+                <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true">
+                  <path d="M7 1v12M1 7h12" fill="none" stroke="currentColor" stroke-width="1.1" />
+                </svg>
+              </button>
+              <div class="drawer__panel">
+                <ul class="drawer__sub">
+                  {item.children.map((child) => (
+                    <li>
+                      <a
+                        class="drawer__sublink"
+                        href={child.external ? child.href : url(child.href)}
+                        target={child.external ? '_blank' : undefined}
+                        rel={child.external ? 'noopener noreferrer' : undefined}
+                      >
+                        {child.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </>
+          ) : (
+            <a class="drawer__link" href={url(item.href)}>{item.label}</a>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p class="drawer__claim">Driven by music.<br />Connected by heart.</p>
+  </div>
+</div>
+
+<style>
+  .hdr {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 100;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(140%) blur(14px);
+    -webkit-backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+    transition: background .45s var(--ease), color .45s var(--ease),
+                border-color .45s var(--ease), transform .45s var(--ease);
+  }
+
+  /* Über dem Hero: transparent, helle Typo */
+  :global(body.nav-open) .hdr--overlay,
+  .hdr--overlay.is-menu-open {
+    background: color-mix(in srgb, var(--bg) 92%, transparent) !important;
+    color: var(--ink) !important;
+    border-color: var(--line-soft) !important;
+  }
+  .hdr--overlay:not(.is-scrolled):not(.is-menu-open) {
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-color: transparent;
+    color: #fff;
+  }
+
+
+  /* Beim Hochscrollen ausblenden (nur wenn weit unten) */
+  .hdr.is-hidden { transform: translateY(-101%); }
+
+  .hdr__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    height: var(--hdr-h, 92px);
+    transition: height .45s var(--ease);
+  }
+  .hdr.is-scrolled .hdr__inner { --hdr-h: 74px; }
+
+  .hdr__brand { display: block; flex: 0 0 auto; }
+  .hdr__brand :global(.hdr__logo) {
+    width: clamp(190px, 20vw, 268px);
+    transition: width .45s var(--ease), opacity .3s var(--ease);
+  }
+  .hdr.is-scrolled .hdr__brand :global(.hdr__logo) { width: clamp(170px, 17vw, 226px); }
+  .hdr__brand:hover { opacity: 0.72; }
+
+  /* ---------- Desktop-Navigation ---------- */
+  .nav { display: none; margin-left: auto; }
+  @media (min-width: 1060px) { .nav { display: block; } }
+
+  .nav__list { display: flex; align-items: center; gap: clamp(0.5rem, 1.6vw, 1.4rem); margin: 0; padding: 0; list-style: none; }
+  .nav__item { position: relative; }
+
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.6rem 0.35rem;
+    font-size: 0.795rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: color .3s var(--ease), opacity .3s var(--ease);
+  }
+  .nav__link > span {
+    position: relative;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    padding-bottom: 3px;
+    transition: background-size .4s var(--ease);
+  }
+  .nav__item:hover > .nav__link > span,
+  .nav__item:focus-within > .nav__link > span,
+  .nav__item.is-active > .nav__link > span { background-size: 100% 1px; }
+  .nav__item.is-active > .nav__link { color: var(--red); }
+  .hdr--overlay:not(.is-scrolled):not(.is-menu-open) .nav__item.is-active > .nav__link { color: #fff; }
+
+  .nav__chev { opacity: 0.55; transition: transform .3s var(--ease); }
+  .nav__item:hover .nav__chev { transform: translateY(2px); }
+
+  /* Dropdown */
+  .drop {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 8px);
+    min-width: 232px;
+    padding-top: 0.75rem;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .3s var(--ease), transform .35s var(--ease), visibility .3s;
+  }
+  .nav__item:hover > .drop,
+  .nav__item:focus-within > .drop {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0);
+  }
+  .drop__list {
+    margin: 0; padding: 0.55rem 0; list-style: none;
+    background: var(--bg-soft);
+    color: var(--ink);
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 24px 60px -28px rgba(25, 23, 21, 0.42);
+  }
+  .drop__link {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.62rem 1.35rem;
+    font-size: 0.9rem;
+    font-weight: 350;
+    letter-spacing: 0.005em;
+    color: var(--ink-2);
+    transition: color .25s var(--ease), background .25s var(--ease), padding-left .3s var(--ease);
+  }
+  .drop__link:hover { color: var(--red); background: color-mix(in srgb, var(--red) 6%, transparent); padding-left: 1.65rem; }
+  .drop__link.is-current { color: var(--red); font-weight: 500; }
+  .drop__ext { opacity: 0.45; flex: 0 0 auto; }
+
+  /* ---------- Burger ---------- */
+  .burger {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    margin-left: auto; padding: 0.5rem 0;
+    background: none; border: 0; color: inherit; cursor: pointer;
+    font-family: inherit; font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+  @media (min-width: 1060px) { .burger { display: none; } }
+
+  .burger__box { position: relative; display: block; width: 26px; height: 12px; }
+  .burger__box::before, .burger__box::after, .burger__bar {
+    content: ''; position: absolute; left: 0; width: 100%; height: 1.5px;
+    background: currentColor; transition: transform .4s var(--ease), opacity .25s var(--ease);
+  }
+  .burger__box::before { top: 0; }
+  .burger__bar { top: 5px; }
+  .burger__box::after { top: 10px; }
+  .burger.is-open .burger__box::before { transform: translateY(5px) rotate(45deg); }
+  .burger.is-open .burger__bar { opacity: 0; }
+  .burger.is-open .burger__box::after { transform: translateY(-5px) rotate(-45deg); }
+
+  /* ---------- Mobile Drawer ---------- */
+  .drawer {
+    position: fixed; inset: 0; z-index: 99;
+    background: var(--bg);
+    overflow-y: auto;
+    opacity: 0;
+    transition: opacity .35s var(--ease);
+  }
+  .drawer[hidden] { display: none; }
+  .drawer.is-open { opacity: 1; }
+
+  .drawer__inner {
+    min-height: 100%;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: calc(var(--hdr-h, 92px) + 2.5rem) var(--gutter) 3rem;
+  }
+  .drawer__list { margin: 0; padding: 0; list-style: none; }
+  .drawer__item { border-bottom: 1px solid var(--line-soft); }
+
+  .drawer__link, .drawer__toggle {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    width: 100%; padding: 1.05rem 0;
+    background: none; border: 0; color: var(--ink); cursor: pointer;
+    font-family: inherit; font-size: 1.45rem; font-weight: 300; letter-spacing: -0.02em;
+    text-align: left;
+  }
+  .drawer__toggle svg { flex: 0 0 auto; opacity: 0.5; transition: transform .35s var(--ease); }
+  .drawer__toggle[aria-expanded='true'] svg { transform: rotate(45deg); }
+  .drawer__toggle[aria-expanded='true'] { color: var(--red); }
+
+  .drawer__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    overflow: hidden;
+    visibility: hidden;
+    transition: grid-template-rows .4s var(--ease), visibility 0s linear .4s;
+  }
+  .drawer__panel > * { overflow: hidden; min-height: 0; }
+  .drawer__item.is-open .drawer__panel {
+    grid-template-rows: 1fr;
+    visibility: visible;
+    transition: grid-template-rows .4s var(--ease), visibility 0s;
+  }
+  .drawer__sub { margin: 0; padding: 0 0 0.9rem; list-style: none; }
+  .drawer__sublink {
+    display: block; padding: 0.5rem 0 0.5rem 1.1rem;
+    font-size: 1rem; font-weight: 350; color: var(--ink-2);
+    border-left: 1px solid var(--line);
+  }
+  .drawer__sublink:hover { color: var(--red); }
+
+  .drawer__claim {
+    margin: 3rem 0 0;
+    font-size: 1.1rem; font-weight: 300; line-height: 1.3;
+    letter-spacing: -0.02em; color: var(--red);
+  }
+
+  :global(body.nav-open) { overflow: hidden; }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const burger = document.querySelector<HTMLButtonElement>('.burger');
+  const drawer = document.getElementById('mobile-nav');
+
+  /* --- Scroll-Zustand: kompakter Header + Overlay-Auflösung --- */
+  let lastY = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    if (!header) return;
+    header.classList.toggle('is-scrolled', y > 24);
+    const menuOpen = document.body.classList.contains('nav-open');
+    header.classList.toggle('is-hidden', !menuOpen && y > 420 && y > lastY);
+    lastY = y;
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* --- Mobile Drawer --- */
+  const setOpen = (open: boolean) => {
+    if (!burger || !drawer) return;
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    document.body.classList.toggle('nav-open', open);
+    header?.classList.toggle('is-menu-open', open);
+    if (open) {
+      drawer.hidden = false;
+      requestAnimationFrame(() => drawer.classList.add('is-open'));
+    } else {
+      drawer.classList.remove('is-open');
+      setTimeout(() => { if (!document.body.classList.contains('nav-open')) drawer.hidden = true; }, 350);
+    }
+  };
+
+  burger?.addEventListener('click', () => setOpen(!document.body.classList.contains('nav-open')));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('nav-open')) setOpen(false);
+  });
+
+  drawer?.querySelectorAll<HTMLButtonElement>('.drawer__toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.drawer__item');
+      const open = item?.classList.toggle('is-open') ?? false;
+      btn.setAttribute('aria-expanded', String(open));
+    });
+  });
+</script>

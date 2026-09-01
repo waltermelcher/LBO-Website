@@ -1,0 +1,174 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { url } from '../utils';
+import probe from '../assets/img/orchester-probe.jpg';
+import chimes from '../assets/img/detail-chimes.jpg';
+
+const voices = [
+  {
+    quote:
+      'Besonders interessant fand ich die neuen Eindrücke, die aus dem Orchester auf einen einwirken und die effektive Probenarbeit in Register- und Tutti-Proben.',
+    name: 'Alexander Beck',
+    role: 'Jugendleiter, Stadtkapelle Tailfingen',
+  },
+  {
+    quote:
+      'Es war klasse, dass ich das Orchester aktiv erlebt habe und selbst in den Proben wie jeder Musiker voll und ganz dabei sein konnte.',
+    name: 'Hautnah-Teilnehmer',
+  },
+  {
+    quote:
+      'Ich hoffe, dass die LBO-Akademie noch lange angeboten wird und es von vielen anderen Musikern genutzt wird. Es war einfach genial!',
+    name: 'Hautnah-Teilnehmer',
+  },
+];
+
+const BOOKING_MUSICIANS =
+  'https://app.seminarmanagercloud.de/bvbw-blasmusikverband-baden-wurttemberg-e-v/buchungsportal/lbo-akademie-hautnah-fur-instrumentalistinnen-und-instrumentalisten-herbst-2026-bed53899fd134a329cc718ce60dee287';
+const BOOKING_CONDUCTORS =
+  'https://app.seminarmanagercloud.de/bvbw-blasmusikverband-baden-wurttemberg-e-v/buchungsportal/lbo-akademie-hautnah-fur-dirigentinnen-und-dirigenten-herbst-2026-5faeb395c4f44c4a85e403981347cc6a';
+---
+
+<BaseLayout
+  title="LBO-hautnah"
+  description="Die LBO-Akademie „hautnah“ – das Landesblasorchester bei der Probenarbeit erleben oder aktiv mitspielen."
+>
+  <PageHeader
+    eyebrow="Orchester"
+    title="Die LBO-Akademie „hautnah“"
+    lead="Du willst das Landesblasorchester gerne einmal ganz „hautnah“ erleben? Und am liebsten sogar ein paar Proben aktiv miterleben?"
+    image={probe}
+    imageAlt="Probenarbeit des Landesblasorchesters"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="split split--label">
+        <div class="reveal"><span class="eyebrow">Das Angebot</span></div>
+        <div class="prose reveal" data-delay="1">
+          <p>
+            Melde Dich zur LBO-Akademie „hautnah“ an und tue genau das: schau dem Orchester bei der
+            Erarbeitung seines Konzertprogramms über die Schulter oder nimm aktiv an den Proben der ersten
+            Probephase teil!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stimmen -->
+  <section class="section section--dark">
+    <div class="container">
+      <p class="eyebrow reveal">Vier Teilnehmer berichten von ihren Eindrücken</p>
+      <div class="voices">
+        {voices.map((v, i) => (
+          <blockquote class="voice reveal" data-delay={String(i)}>
+            <p class="voice__quote">{v.quote}</p>
+            <footer class="voice__by">
+              <span class="voice__name">{v.name}</span>
+              {v.role && <span class="voice__role">{v.role}</span>}
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Anmeldung -->
+  <section class="section">
+    <div class="container">
+      <div class="split split--even signup">
+        <div class="reveal">
+          <span class="eyebrow">Haben wir Dein Interesse geweckt?</span>
+          <h2 class="h2">Das nächste hautnah-Wochenende</h2>
+          <div class="prose">
+            <p>
+              Vom 18. – 20. September 2026 im Musikzentrum Baden-Württemberg in 73207 Plochingen.
+            </p>
+            <p>Weitere Details zum hautnah-Wochenende und der Anmeldung findest Du hier:</p>
+          </div>
+          <div class="signup__actions">
+            <a class="btn" href={BOOKING_MUSICIANS} target="_blank" rel="noopener noreferrer">
+              Als Musiker teilnehmen
+              <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+              </svg>
+            </a>
+            <a class="btn btn--ghost" href={BOOKING_CONDUCTORS} target="_blank" rel="noopener noreferrer">
+              Als Dirigent teilnehmen
+            </a>
+          </div>
+          <p class="signup__mail">
+            Fragen? Schicke uns eine Mail an
+            <a href="mailto:hautnah@landesblasorchester.de">hautnah@landesblasorchester.de</a>.
+          </p>
+        </div>
+
+        <figure class="figure figure--zoom signup__figure reveal" data-delay="1">
+          <Image src={chimes} alt="Musikerin am Schlagwerk des Landesblasorchesters" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <div class="next reveal">
+        <div>
+          <span class="eyebrow">Davor</span>
+          <h2 class="h3">Erst einmal ein Lehrkonzert?</h2>
+          <p class="next__text">
+            Gemeinsam mit dem eigenen Musikverein und dem LBO an einem Klassiker der Blasmusik arbeiten.
+          </p>
+        </div>
+        <a class="btn btn--ghost" href={url('/lehrkonzert')}>
+          Zum Lehrkonzert
+          <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .voices {
+    display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  .voice { margin: 0; padding-top: 1.75rem; border-top: 1px solid var(--line-dark); }
+  .voice__quote {
+    margin: 0;
+    font-size: clamp(1.05rem, 0.98rem + 0.5vw, 1.25rem);
+    font-weight: 300; line-height: 1.45; letter-spacing: -0.014em;
+    color: var(--on-dark);
+  }
+  .voice__quote::before { content: '„'; }
+  .voice__quote::after { content: '“'; }
+  .voice__by { margin-top: 1.4rem; }
+  .voice__name {
+    display: block;
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--red-light);
+  }
+  .voice__role { display: block; margin-top: 0.35rem; font-size: 0.85rem; color: rgba(243,237,227,.5); }
+
+  .signup { align-items: center; }
+  .signup__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
+  .signup__mail { margin-top: 1.75rem; font-size: 0.92rem; color: var(--ink-2); }
+  .signup__mail a { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
+  .signup__figure { aspect-ratio: 4 / 3; }
+
+  .next {
+    display: flex; flex-wrap: wrap; align-items: end;
+    justify-content: space-between; gap: 1.5rem 2.5rem;
+    padding-top: clamp(2rem, 4vw, 3rem);
+    border-top: 1px solid var(--line);
+  }
+  .next__text { margin: 0.8rem 0 0; max-width: 42ch; color: var(--ink-2); }
+</style>
