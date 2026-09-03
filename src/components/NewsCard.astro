@@ -21,8 +21,6 @@ const { item, delay = 0, featured = false } = Astro.props;
     <div class="ncard__body">
       <p class="ncard__meta">
         <time datetime={item.dateISO}>{item.date}</time>
-        <span class="ncard__sep" aria-hidden="true">—</span>
-        <span>{item.kicker}</span>
       </p>
       <h3 class="ncard__title">{item.title}</h3>
       <p class="ncard__excerpt">{item.excerpt}</p>
@@ -50,7 +48,6 @@ const { item, delay = 0, featured = false } = Astro.props;
     letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--accent);
   }
-  .ncard__sep { opacity: 0.5; }
 
   .ncard__title {
     margin: 0;

@@ -87,7 +87,6 @@ const board = [
   bodyClass="theme-blue"
 >
   <PageHeader
-    eyebrow="Förderverein"
     title="Freunde des Landesblasorchesters"
     lead="Ein gemeinnütziger Verein für die Weiterentwicklung des Kulturgutes sinfonische Blasmusik."
     image={registerTuben}
@@ -151,7 +150,7 @@ const board = [
   <!-- Mitgliedschaften Privat -->
   <section class="section section--deep">
     <div class="container">
-      <SectionHead eyebrow="Mitgliedschaft" title="Privatpersonen" />
+      <SectionHead title="Mitgliedschaft für Privatpersonen" />
       <div class="tiers">
         {privateTiers.map((t, i) => (
           <div class:list={['tier', 'reveal', t.name === 'Gold' && 'tier--accent']} data-delay={String(Math.min(i, 3))}>
@@ -177,7 +176,7 @@ const board = [
   <!-- Mitgliedschaften Firmen -->
   <section class="section">
     <div class="container">
-      <SectionHead eyebrow="Mitgliedschaft" title="Firmen und Institutionen" />
+      <SectionHead title="Mitgliedschaft für Firmen und Institutionen" />
       <div class="tiers">
         {companyTiers.map((t, i) => (
           <div class:list={['tier', 'reveal', t.name === 'Gold' && 'tier--accent']} data-delay={String(Math.min(i, 3))}>
@@ -220,7 +219,6 @@ const board = [
     <div class="container">
       <SectionHead
         size="md"
-        eyebrow="Danke"
         title="Wir danken allen Mitgliedern, die uns dabei helfen, unsere Förderzwecke zu erfüllen, herzlich!"
       />
       <div class="sbody">
@@ -260,12 +258,12 @@ const board = [
 
   .tier__name {
     margin: 0;
-    font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent);
+    font-size: 1.15rem; font-weight: 500;
+    letter-spacing: -0.012em;
+    color: var(--ink);
   }
   .tier__price {
-    margin: 1.1rem 0 1.5rem;
+    margin: 0.7rem 0 1.5rem;
     font-size: clamp(1.8rem, 1.3rem + 1.8vw, 2.6rem);
     font-weight: 250; letter-spacing: -0.035em; line-height: 1;
   }

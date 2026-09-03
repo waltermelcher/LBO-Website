@@ -52,21 +52,18 @@ const facts = [
 
 const paths = [
   {
-    eyebrow: 'Für Musikerinnen und Musiker',
     title: 'Mitglied werden',
-    text: 'In allen Registern lohnt sich ein Probespiel. Die Vorspiele finden im März und im September statt.',
+    text: 'Für Musikerinnen und Musiker: In allen Registern lohnt sich ein Probespiel. Die Vorspiele finden im März und im September statt.',
     href: '/mitglied-werden',
   },
   {
-    eyebrow: 'Akademie',
-    title: 'LBO-hautnah',
+    title: 'Die Akademie LBO-hautnah',
     text: 'Ein Wochenende lang das Orchester erleben – zuschauen oder aktiv in den Proben mitspielen.',
     href: '/lbo-hautnah',
   },
   {
-    eyebrow: 'Für Musikvereine',
     title: 'Lehrkonzert',
-    text: 'Gemeinsam mit dem LBO an einem Klassiker der sinfonischen oder traditionellen Blasmusik arbeiten.',
+    text: 'Für Musikvereine: Gemeinsam mit dem LBO an einem Klassiker der sinfonischen oder traditionellen Blasmusik arbeiten.',
     href: '/lehrkonzert',
   },
 ];
@@ -134,7 +131,6 @@ const featured = NEWS[0];
     <div class="container">
       <SectionHead
         size="md"
-        eyebrow="Das Orchester"
         title="Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes."
       />
       <div class="sbody">
@@ -180,13 +176,12 @@ const featured = NEWS[0];
     <div class="container">
       <div class="split split--even feature__grid">
         <div class="feature__text reveal">
-          <span class="eyebrow">Im Fokus · 22. November 2026</span>
-          <h2 class="h2">Heimspiel bei der Europameisterschaft</h2>
+          <h2 class="h2">Heimspiel bei der Europameisterschaft in Stuttgart</h2>
           <div class="prose">
             <p>
-              Im Rahmen der BRAWO-Messe wird die Europameisterschaft für sinfonische Blasorchester (ECWO)
-              erstmals in Deutschland ausgetragen – in Stuttgart. Das Landesblasorchester vertritt dabei
-              Deutschland.
+              Am 22. November 2026 wird die Europameisterschaft für sinfonische Blasorchester (ECWO) im
+              Rahmen der BRAWO-Messe erstmals in Deutschland ausgetragen. Das Landesblasorchester vertritt
+              dabei Deutschland.
             </p>
             <p>
               Das gesamte zweite Halbjahr steht im Zeichen des Wettbewerbs: mehr Probenzeit für jedes einzelne
@@ -217,7 +212,6 @@ const featured = NEWS[0];
   <section class="section section--tight">
     <div class="container">
       <SectionHead
-        eyebrow="Konzertprogramm"
         title={PROGRAMME.season}
         lead="Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur Europameisterschaft begleiten."
       />
@@ -253,8 +247,7 @@ const featured = NEWS[0];
           <Image src={dirigent} alt="Björn Bus dirigiert das Landesblasorchester" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
         </figure>
         <div class="conductor__text reveal" data-delay="1">
-          <span class="eyebrow">Künstlerische Leitung</span>
-          <h2 class="h2">Björn Bus</h2>
+          <h2 class="h2">Björn Bus – künstlerische Leitung</h2>
           <p class="lead">
             Seit 2014 prägt der Niederländer Björn Bus den Klang des Landesblasorchesters – als General
             Artistic Manager des World Music Contest in Kerkrade und Vorstandsmitglied der WASBE ist er
@@ -293,7 +286,6 @@ const featured = NEWS[0];
     <div class="container">
       <div class="split split--even listen">
         <div class="listen__text reveal">
-          <span class="eyebrow">Hören</span>
           <h2 class="h2">Wildflowers – zu Hause erleben</h2>
           <div class="prose">
             <p>
@@ -333,11 +325,10 @@ const featured = NEWS[0];
   <!-- ============ MITMACHEN ============ -->
   <section class="section paths">
     <div class="container">
-      <SectionHead eyebrow="Mitmachen" title="Drei Wege ins Landesblasorchester" />
+      <SectionHead title="Drei Wege ins Landesblasorchester" />
       <div class="paths__grid">
         {paths.map((p, i) => (
           <a class="pathcard reveal" data-delay={String(i)} href={url(p.href)}>
-            <span class="pathcard__eyebrow">{p.eyebrow}</span>
             <h3 class="pathcard__title">{p.title}</h3>
             <p class="pathcard__text">{p.text}</p>
             <span class="pathcard__more">
@@ -357,7 +348,6 @@ const featured = NEWS[0];
     <div class="container">
       <div class="split split--even support__grid">
         <div class="reveal">
-          <span class="eyebrow">Förderverein</span>
           <h2 class="h2">Freunde des Landesblasorchesters</h2>
           <p class="lead">
             Ehemalige und aktive Musiker, Konzertbesucher, Freunde und Gönner unterstützen die kulturelle
@@ -381,7 +371,7 @@ const featured = NEWS[0];
   <!-- ============ FÖRDERER ============ -->
   <section class="section section--tight">
     <div class="container">
-      <p class="eyebrow text-center funders__head">Gefördert von</p>
+      <SectionHead size="md" title="Gefördert von" />
       <div class="funders reveal">
         <Image class="funders__logo funders__logo--wide" src={logoBvbw} alt="Blasmusikverband Baden-Württemberg" widths={[240, 480]} sizes="220px" loading="lazy" />
         <Image class="funders__logo funders__logo--tall" src={logoLmv} alt="Landesmusikverband Baden-Württemberg e.V." widths={[200, 400]} sizes="120px" loading="lazy" />
@@ -395,7 +385,6 @@ const featured = NEWS[0];
     <div class="container">
       <div class="cta__box reveal">
         <div>
-          <span class="eyebrow">Kontakt</span>
           <h2 class="h2 cta__title">Ob Galakonzert, Mitgliedschaft oder Lehrangebot – sprechen Sie uns an.</h2>
         </div>
         <a class="btn" href={url('/kontakt')}>
@@ -612,13 +601,8 @@ const featured = NEWS[0];
   }
   .pathcard:hover { background: #fff; border-color: var(--line-accent); transform: translateY(-3px); }
   .pathcard:hover::before { height: 6px; }
-  .pathcard__eyebrow {
-    font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent);
-  }
   .pathcard__title {
-    margin: 1.1rem 0 0;
+    margin: 0;
     font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);
     font-weight: 300; letter-spacing: -0.024em;
   }
@@ -639,10 +623,9 @@ const featured = NEWS[0];
   .support .lead { margin-block: 1.5rem 2.2rem; }
 
   /* ---------------- Förderer ---------------- */
-  .funders__head { margin-bottom: 2.25rem; }
   .funders {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-    gap: clamp(2rem, 6vw, 5rem);
+    display: flex; flex-wrap: wrap; align-items: center;
+    gap: clamp(2rem, 6vw, 4.5rem);
   }
   .funders :global(.funders__logo) {
     width: auto; height: clamp(38px, 4.2vw, 52px);

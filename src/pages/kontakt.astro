@@ -7,13 +7,13 @@ import trompeten from '../assets/img/detail-trompeten.jpg';
 
 const contacts = [
   {
-    role: 'Konzertanfragen oder allgemeine Anfragen',
+    topic: 'Konzertanfragen und allgemeine Anfragen',
     name: 'Ilka Hermann',
     position: 'Vorsitzende',
     mail: 'ilka.hermann@landesblasorchester.de',
   },
   {
-    role: 'Anfragen rund um Kommunikation und Presse',
+    topic: 'Anfragen rund um Kommunikation und Presse',
     name: 'Walter Melcher',
     position: 'Kommunikationsreferent',
     mail: 'walter.melcher@landesblasorchester.de',
@@ -34,7 +34,6 @@ const topics = [
   description="Kontakt zum Landesblasorchester Baden-Württemberg – Konzertanfragen, Presse und alle weiteren Themen."
 >
   <PageHeader
-    eyebrow="Kontakt"
     title="Sie haben Fragen rund um das Landesblasorchester?"
     lead="Dann nehmen Sie einfach Kontakt mit uns auf."
     image={trompeten}
@@ -46,9 +45,8 @@ const topics = [
       <ul class="contacts">
         {contacts.map((c, i) => (
           <li class="contact reveal" data-delay={String(i)}>
-            <span class="contact__role">{c.role}</span>
-            <h2 class="contact__name">{c.name}</h2>
-            <p class="contact__pos">{c.position}</p>
+            <h2 class="contact__topic">{c.topic}</h2>
+            <p class="contact__person">{c.name} <span class="contact__pos">({c.position})</span></p>
             <a class="contact__mail" href={`mailto:${c.mail}`}>
               {c.mail}
               <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
@@ -93,19 +91,17 @@ const topics = [
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
   .contact { background: var(--bg); padding: clamp(1.75rem, 3.5vw, 3rem); box-shadow: inset 0 2px 0 var(--accent); }
-  .contact__role {
-    display: block;
-    font-size: 0.68rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent);
-    max-width: 26ch;
+  .contact__topic {
+    margin: 0;
+    font-size: clamp(1.35rem, 1.15rem + 1vw, 1.9rem);
+    font-weight: 275; letter-spacing: -0.026em; line-height: 1.15;
+    max-width: 24ch;
   }
-  .contact__name {
-    margin: 1.3rem 0 0.4rem;
-    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
-    font-weight: 275; letter-spacing: -0.028em;
+  .contact__person {
+    margin: 1.1rem 0 1.4rem;
+    font-size: 1.05rem; font-weight: 400; color: var(--ink-2);
   }
-  .contact__pos { margin: 0 0 1.4rem; font-size: 0.9rem; color: var(--ink-3); }
+  .contact__pos { color: var(--ink-3); font-weight: 300; }
   .contact__mail {
     display: inline-flex; align-items: center; gap: 0.5em;
     font-size: 0.95rem; color: var(--ink-2);

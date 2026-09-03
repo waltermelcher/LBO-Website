@@ -4,7 +4,6 @@
  * optionaler Einleitungssatz. Steht immer über dem Inhalt und in voller Breite.
  */
 interface Props {
-  eyebrow?: string;
   title: string;
   lead?: string;
   /** 'lg' (Standard) für kurze Titel, 'md' für lange Sätze als Überschrift */
@@ -13,28 +12,25 @@ interface Props {
   class?: string;
 }
 
-const { eyebrow, title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = Astro.props;
+const { title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = Astro.props;
 ---
 
 <header class:list={['shead', `shead--${size}`, cls]}>
-  {eyebrow && <p class="eyebrow shead__eyebrow reveal">{eyebrow}</p>}
   <div class="shead__row">
-    <Tag class="shead__title reveal" data-delay={eyebrow ? '1' : undefined}>{title}</Tag>
+    <Tag class="shead__title reveal">{title}</Tag>
     {Astro.slots.has('action') && (
-      <div class="shead__action reveal" data-delay="2"><slot name="action" /></div>
+      <div class="shead__action reveal" data-delay="1"><slot name="action" /></div>
     )}
   </div>
-  {lead && <p class="lead shead__lead reveal" data-delay="2">{lead}</p>}
+  {lead && <p class="lead shead__lead reveal" data-delay="1">{lead}</p>}
 </header>
 
 <style>
   .shead {
-    padding-top: clamp(1.4rem, 2.6vw, 2.1rem);
+    padding-top: clamp(1.7rem, 3.1vw, 2.6rem);
     border-top: 2px solid var(--accent);
     margin-bottom: clamp(2rem, 4.5vw, 3.5rem);
   }
-
-  .shead__eyebrow { margin-bottom: 1.05rem; }
 
   .shead__row {
     display: flex;

@@ -45,7 +45,7 @@ const others = NEWS.filter((n) => n.slug !== item.slug).slice(0, 2);
 
   <section class="section more">
     <div class="container">
-      <p class="eyebrow reveal">Weitere Meldungen</p>
+      <h2 class="h3 more__head reveal">Weitere Meldungen</h2>
       <div class="more__grid">
         {others.map((n, i) => <NewsCard item={n} delay={i} />)}
       </div>
@@ -104,6 +104,7 @@ const others = NEWS.filter((n) => n.slug !== item.slug).slice(0, 2);
   }
 
   .more { border-top: 2px solid var(--accent); }
+  .more__head { margin-bottom: 0.5rem; }
   .more__grid {
     display: grid; gap: clamp(2rem, 4vw, 3rem);
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
