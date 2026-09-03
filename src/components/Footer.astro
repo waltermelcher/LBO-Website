@@ -72,10 +72,17 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
+  /*
+    Der Footer ist auf allen Seiten identisch und folgt bewusst KEINEM
+    Seiten-Theme: eigene Grundfläche, eigene Linien, Schrift ausschließlich
+    in Weiß mit abgestufter Deckkraft.
+  */
   .ftr {
+    --ftr-bg:   #1b1210;
+    --ftr-line: rgba(255, 255, 255, 0.16);
     position: relative;
-    background: var(--dark);
-    color: var(--on-dark-2);
+    background: var(--ftr-bg);
+    color: rgba(255, 255, 255, 0.68);
     padding-block: clamp(3.5rem, 7vw, 6rem) 2.5rem;
     font-size: 0.94rem;
   }
@@ -83,7 +90,7 @@ const year = new Date().getFullYear();
     content: '';
     position: absolute; inset: 0 0 auto;
     height: 3px;
-    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-mid) 48%, var(--accent-light) 100%);
+    background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 48%, var(--red-light) 100%);
   }
 
   .ftr__top {
@@ -95,14 +102,14 @@ const year = new Date().getFullYear();
     .ftr__top { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); }
   }
 
-  .ftr__brand :global(.ftr__logo) { width: clamp(210px, 24vw, 290px); color: var(--on-dark); }
+  .ftr__brand :global(.ftr__logo) { width: clamp(210px, 24vw, 290px); color: #fff; }
   .ftr__claim {
     margin: 1.6rem 0 0;
     font-size: clamp(1.15rem, 1rem + 0.7vw, 1.45rem);
     font-weight: 300;
     line-height: 1.25;
     letter-spacing: -0.022em;
-    color: var(--accent-light);
+    color: #fff;
     max-width: 20ch;
   }
 
@@ -117,7 +124,7 @@ const year = new Date().getFullYear();
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--accent-light);
+    color: #fff;
   }
   .ftr__nav ul { margin: 0; padding: 0; list-style: none; }
   .ftr__nav li + li { margin-top: 0.55rem; }
@@ -126,14 +133,14 @@ const year = new Date().getFullYear();
     font-weight: 300;
     transition: color .25s var(--ease);
   }
-  .ftr__nav a:hover { color: var(--on-dark); }
+  .ftr__nav a:hover { color: #fff; }
 
   .ftr__social {
     display: flex;
     flex-wrap: wrap;
     gap: 0 clamp(1.5rem, 4vw, 3rem);
     padding: 1.6rem 0;
-    border-block: 1px solid var(--line-dark-red);
+    border-block: 1px solid var(--ftr-line);
   }
   .ftr__soc {
     display: inline-flex; align-items: center; gap: 0.45em;
@@ -142,7 +149,7 @@ const year = new Date().getFullYear();
     letter-spacing: 0.16em; text-transform: uppercase;
     transition: color .25s var(--ease);
   }
-  .ftr__soc:hover { color: var(--accent-light); }
+  .ftr__soc:hover { color: #fff; }
   .ftr__soc svg { opacity: 0.5; }
 
   .ftr__bottom {
@@ -151,8 +158,8 @@ const year = new Date().getFullYear();
     padding-top: 1.8rem;
     font-size: 0.8rem;
   }
-  .ftr__copy { margin: 0; color: rgba(243, 237, 227, 0.45); }
+  .ftr__copy { margin: 0; color: rgba(255, 255, 255, 0.45); }
   .ftr__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; margin: 0; padding: 0; list-style: none; }
-  .ftr__legal a { color: rgba(243, 237, 227, 0.55); transition: color .25s var(--ease); }
-  .ftr__legal a:hover { color: var(--on-dark); }
+  .ftr__legal a { color: rgba(255, 255, 255, 0.55); transition: color .25s var(--ease); }
+  .ftr__legal a:hover { color: #fff; }
 </style>
