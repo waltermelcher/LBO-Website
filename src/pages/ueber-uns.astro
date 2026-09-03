@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { url } from '../utils';
 
 import orchesterWeit from '../assets/img/orchester-weit.jpg';
@@ -72,9 +73,9 @@ const awards = [
 
   <section class="section">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Wer wir sind</span></div>
-        <div class="prose reveal" data-delay="1">
+      <SectionHead title="Wer wir sind" />
+      <div class="sbody">
+        <div class="prose reveal">
           <p>
             Das Landesblasorchester Baden-Württemberg ist das Auswahlorchester des Blasmusikverbandes
             Baden-Württemberg e.V. (BVBW). Es genießt seit seiner Gründung 1978 europaweit großes Ansehen und
@@ -97,8 +98,8 @@ const awards = [
   <!-- Erfolge -->
   <section class="section section--deep">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Internationale Erfolge</span></div>
+      <SectionHead title="Internationale Erfolge" />
+      <div class="sbody">
         <div>
           <ol class="awards">
             {awards.map((a, i) => (
@@ -157,9 +158,9 @@ const awards = [
   <!-- Geschichte -->
   <section class="section">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Geschichte und Zielsetzung</span></div>
-        <div class="prose reveal" data-delay="1">
+      <SectionHead title="Geschichte und Zielsetzung" />
+      <div class="sbody">
+        <div class="prose reveal">
           {milestones.map((m) => (
             <>
               <h2>{m.heading}</h2>

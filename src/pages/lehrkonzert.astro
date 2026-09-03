@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { url } from '../utils';
 import probe from '../assets/img/lbo-probe.jpg';
 import registerHolz from '../assets/img/register-holz.jpg';
@@ -103,10 +104,9 @@ const traditional = [
 
   <section class="section section--deep">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Konzept</span></div>
-        <div class="prose reveal" data-delay="1">
-          <h2>Ablauf des Lehrkonzerts</h2>
+      <SectionHead eyebrow="Konzept" title="Ablauf des Lehrkonzerts" />
+      <div class="sbody">
+        <div class="prose reveal">
           {concept.map((p) => <p>{p}</p>)}
 
           <h2>Warum Klassiker der sinfonischen Blasmusik?</h2>

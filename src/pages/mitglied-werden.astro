@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { REHEARSALS } from '../data/concerts';
 import { url } from '../utils';
 import registerKlarinetten from '../assets/img/register-klarinetten.jpg';
@@ -22,9 +23,9 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
 
   <section class="section">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Du möchtest Mitglied im Orchester werden?</span></div>
-        <div class="prose reveal" data-delay="1">
+      <SectionHead size="md" title="Du möchtest Mitglied im Orchester werden?" />
+      <div class="sbody">
+        <div class="prose reveal">
           <p>
             Das Landesblasorchester Baden-Württemberg ist ständig daran interessiert, neue Musikerinnen und
             Musiker in seinen Reihen aufzunehmen. In allen Registern lohnt sich ein Probespiel auf jeden Fall!
@@ -62,8 +63,8 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
 
   <section class="section section--deep">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Unsere Probetermine</span></div>
+      <SectionHead title="Unsere Probetermine" />
+      <div class="sbody">
         <div>
           <ul class="dates">
             {REHEARSALS.map((r, i) => (
@@ -74,7 +75,7 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
             ))}
           </ul>
           <p class="dates__note reveal">
-            Wann und wo wir in den nächsten beiden Halbjahren Konzerte spielen, findest du auf unserer Seite
+            Wann und wo wir in den nächsten beiden Halbjahren Konzerte spielen, findest du auf unserer Seite{' '}
             <a href={url('/konzerttermine')}>Konzerttermine</a>.
           </p>
         </div>
@@ -84,9 +85,9 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
 
   <section class="section">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Probespiel</span></div>
-        <div class="prose reveal" data-delay="1">
+      <SectionHead title="Probespiel" />
+      <div class="sbody">
+        <div class="prose reveal">
           <p>
             Bedingung für eine Mitgliedschaft ist ein Probespiel. Dieses wird in der Regel vom Registerführer,
             dem Dirigenten, dem Konzertmeister und von einem Mitglied der Vorstandschaft abgenommen. Es besteht
@@ -102,7 +103,7 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
             sorgfältig vorzubereiten.
           </p>
           <p>
-            Deine konkreten Fragen zum Probespiel klären wir gerne. Schicke uns eine E-Mail an
+            Deine konkreten Fragen zum Probespiel klären wir gerne. Schicke uns eine E-Mail an{' '}
             <a href="mailto:mitspielen@landesblasorchester.de">mitspielen@landesblasorchester.de</a>.
             Wir rufen dich gerne auch telefonisch zurück.
           </p>

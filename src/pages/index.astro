@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ConcertList from '../components/ConcertList.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Swoosh from '../components/Swoosh.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { CLAIM, SUBCLAIM } from '../consts';
 import { url } from '../utils';
 import { NEWS } from '../data/news';
@@ -109,15 +110,14 @@ const featured = NEWS[0];
   <!-- ============ NÄCHSTE KONZERTE ============ -->
   <section class="section section--tight" id="konzerte">
     <div class="container">
-      <div class="sec-head">
-        <span class="eyebrow">Nächste Konzerte</span>
-        <a class="link" href={url('/konzerttermine')}>
+      <SectionHead title="Nächste Konzerte">
+        <a slot="action" class="link" href={url('/konzerttermine')}>
           Alle Termine
           <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
             <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
           </svg>
         </a>
-      </div>
+      </SectionHead>
       <ConcertList limit={4} compact />
     </div>
   </section>
@@ -125,14 +125,13 @@ const featured = NEWS[0];
   <!-- ============ POSITIONIERUNG ============ -->
   <section class="section section--deep">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal">
-          <span class="eyebrow">Das Orchester</span>
-        </div>
+      <SectionHead
+        size="md"
+        eyebrow="Das Orchester"
+        title="Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes."
+      />
+      <div class="sbody">
         <div>
-          <h2 class="h2 reveal">
-            Das Auswahlorchester des Blasmusikverbandes&nbsp;Baden-Württemberg – seit 1978 der Klangkörper des Landes.
-          </h2>
           <div class="intro__grid">
             <div class="prose reveal" data-delay="1">
               <p>
@@ -210,12 +209,12 @@ const featured = NEWS[0];
   <!-- ============ PROGRAMM ============ -->
   <section class="section section--tight">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal">
-          <span class="eyebrow">{PROGRAMME.season}</span>
-          <p class="prog__hint">Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur
-            Europameisterschaft begleiten.</p>
-        </div>
+      <SectionHead
+        eyebrow="Konzertprogramm"
+        title={PROGRAMME.season}
+        lead="Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur Europameisterschaft begleiten."
+      />
+      <div class="sbody">
         <div>
           <ol class="prog">
             {PROGRAMME.works.map((w, i) => (
@@ -269,15 +268,14 @@ const featured = NEWS[0];
   <!-- ============ AKTUELLES ============ -->
   <section class="section">
     <div class="container">
-      <div class="sec-head">
-        <span class="eyebrow">Aktuelles</span>
-        <a class="link" href={url('/news')}>
+      <SectionHead title="Aktuelles">
+        <a slot="action" class="link" href={url('/news')}>
           Alle Meldungen
           <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
             <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
           </svg>
         </a>
-      </div>
+      </SectionHead>
       <div class="news-grid">
         {NEWS.map((item, i) => <NewsCard item={item} delay={i} />)}
       </div>
@@ -318,10 +316,10 @@ const featured = NEWS[0];
   <!-- ============ BILDSTRECKE ============ -->
   <section class="section section--tight gal">
     <div class="container">
-      <div class="sec-head">
-        <span class="eyebrow">Nah dran</span>
-        <p class="gal__hint">Die Musiker und ihre Instrumente – das Herzstück des Orchesters.</p>
-      </div>
+      <SectionHead
+        title="Nah dran"
+        lead="Die Musiker und ihre Instrumente – das Herzstück des Orchesters."
+      />
     </div>
     <div class="gal__scroller reveal">
       {gallery.map((g) => (
@@ -335,10 +333,7 @@ const featured = NEWS[0];
   <!-- ============ MITMACHEN ============ -->
   <section class="section paths">
     <div class="container">
-      <div class="sec-head sec-head--stack">
-        <span class="eyebrow">Mitmachen</span>
-        <h2 class="h2 paths__title">Drei Wege ins Landesblasorchester</h2>
-      </div>
+      <SectionHead eyebrow="Mitmachen" title="Drei Wege ins Landesblasorchester" />
       <div class="paths__grid">
         {paths.map((p, i) => (
           <a class="pathcard reveal" data-delay={String(i)} href={url(p.href)}>
@@ -507,18 +502,10 @@ const featured = NEWS[0];
   @keyframes cue { 0%,100% { transform: translateY(0); opacity: .6 } 50% { transform: translateY(5px); opacity: 1 } }
   @media (min-width: 1060px) { .hero__cue { display: flex; } }
 
-  /* ---------------- Sektionsköpfe ---------------- */
-  .sec-head {
-    display: flex; flex-wrap: wrap; align-items: baseline;
-    justify-content: space-between; gap: 1rem 2rem;
-    margin-bottom: clamp(1.75rem, 3vw, 2.75rem);
-  }
-  .sec-head .eyebrow { margin-bottom: 0; }
-  .sec-head--stack { display: block; }
-  .sec-head--stack .eyebrow { margin-bottom: 1.2rem; }
 
   /* ---------------- Positionierung ---------------- */
   .intro__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
+  .intro__grid .prose { max-width: none; }
   @media (min-width: 780px) {
     .intro__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
   }
@@ -556,7 +543,6 @@ const featured = NEWS[0];
   .divider { margin-block: clamp(1rem, 3vw, 2.5rem); }
 
   /* ---------------- Programm ---------------- */
-  .prog__hint { margin: 0.9rem 0 0; font-size: 0.9rem; color: var(--ink-3); max-width: 28ch; }
   .prog { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
   .prog__item {
     display: grid;
@@ -605,7 +591,6 @@ const featured = NEWS[0];
   }
 
   /* ---------------- Galerie ---------------- */
-  .gal__hint { margin: 0; font-size: 0.9rem; color: var(--ink-3); max-width: 34ch; }
   .gal__scroller {
     display: flex;
     gap: clamp(0.75rem, 1.5vw, 1.25rem);
@@ -627,12 +612,10 @@ const featured = NEWS[0];
   .gal__item:nth-child(even) { aspect-ratio: 4 / 3; align-self: center; }
 
   /* ---------------- Wege ---------------- */
-  .paths__title { max-width: 20ch; }
   .paths__grid {
     display: grid;
     gap: clamp(1rem, 2vw, 1.5rem);
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    margin-top: clamp(2rem, 4vw, 3rem);
   }
   .pathcard {
     display: flex; flex-direction: column;

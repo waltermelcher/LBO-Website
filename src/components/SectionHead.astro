@@ -1,0 +1,72 @@
+---
+/**
+ * Sektionskopf: Haarlinie, optionaler kleiner Kicker, große Überschrift,
+ * optionaler Einleitungssatz. Steht immer über dem Inhalt und in voller Breite.
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  /** 'lg' (Standard) für kurze Titel, 'md' für lange Sätze als Überschrift */
+  size?: 'lg' | 'md';
+  as?: 'h2' | 'h3';
+  class?: string;
+}
+
+const { eyebrow, title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = Astro.props;
+---
+
+<header class:list={['shead', `shead--${size}`, cls]}>
+  {eyebrow && <p class="eyebrow shead__eyebrow reveal">{eyebrow}</p>}
+  <div class="shead__row">
+    <Tag class="shead__title reveal" data-delay={eyebrow ? '1' : undefined}>{title}</Tag>
+    {Astro.slots.has('action') && (
+      <div class="shead__action reveal" data-delay="2"><slot name="action" /></div>
+    )}
+  </div>
+  {lead && <p class="lead shead__lead reveal" data-delay="2">{lead}</p>}
+</header>
+
+<style>
+  .shead {
+    padding-top: clamp(1.4rem, 2.6vw, 2.1rem);
+    border-top: 1px solid var(--line);
+    margin-bottom: clamp(2rem, 4.5vw, 3.5rem);
+  }
+
+  .shead__eyebrow { margin-bottom: 1.05rem; }
+
+  .shead__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.9rem clamp(1.5rem, 4vw, 3rem);
+  }
+  .shead__action { flex: 0 0 auto; }
+
+  .shead__title {
+    margin: 0;
+    font-weight: 250;
+    line-height: 1.04;
+    letter-spacing: -0.032em;
+    text-wrap: balance;
+  }
+  .shead--lg .shead__title {
+    font-size: clamp(2.1rem, 1.35rem + 3.1vw, 3.5rem);
+    max-width: 20ch;
+  }
+  .shead--md .shead__title {
+    font-size: clamp(1.75rem, 1.25rem + 2.1vw, 2.7rem);
+    line-height: 1.1;
+    max-width: 30ch;
+  }
+
+  .shead__lead {
+    margin-top: clamp(1.1rem, 2vw, 1.6rem);
+    max-width: 54ch;
+  }
+
+  /* auf dunklem oder abgesetztem Grund */
+  :global(.section--dark) .shead { border-top-color: var(--line-dark); }
+</style>

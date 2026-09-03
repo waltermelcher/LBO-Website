@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { url } from '../utils';
 import trompeten from '../assets/img/detail-trompeten.jpg';
 
@@ -62,8 +63,8 @@ const topics = [
 
   <section class="section section--deep">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Weitere Themen rund um das LBO</span></div>
+      <SectionHead size="md" title="Weitere Themen rund um das LBO" />
+      <div class="sbody">
         <div>
           <ul class="topics">
             {topics.map((t, i) => (

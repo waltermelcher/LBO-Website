@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { url } from '../utils';
 import probe from '../assets/img/orchester-probe.jpg';
 import chimes from '../assets/img/detail-chimes.jpg';
@@ -45,9 +46,9 @@ const BOOKING_CONDUCTORS =
 
   <section class="section">
     <div class="container">
-      <div class="split split--label">
-        <div class="reveal"><span class="eyebrow">Das Angebot</span></div>
-        <div class="prose reveal" data-delay="1">
+      <SectionHead title="Das Angebot" />
+      <div class="sbody">
+        <div class="prose reveal">
           <p>
             Melde Dich zur LBO-Akademie „hautnah“ an und tue genau das: schau dem Orchester bei der
             Erarbeitung seines Konzertprogramms über die Schulter oder nimm aktiv an den Proben der ersten
@@ -61,7 +62,7 @@ const BOOKING_CONDUCTORS =
   <!-- Stimmen -->
   <section class="section section--dark">
     <div class="container">
-      <p class="eyebrow reveal">Vier Teilnehmer berichten von ihren Eindrücken</p>
+      <SectionHead size="md" title="Vier Teilnehmer berichten von ihren Eindrücken" />
       <div class="voices">
         {voices.map((v, i) => (
           <blockquote class="voice reveal" data-delay={String(i)}>
@@ -101,7 +102,7 @@ const BOOKING_CONDUCTORS =
             </a>
           </div>
           <p class="signup__mail">
-            Fragen? Schicke uns eine Mail an
+            Fragen? Schicke uns eine Mail an{' '}
             <a href="mailto:hautnah@landesblasorchester.de">hautnah@landesblasorchester.de</a>.
           </p>
         </div>
@@ -138,7 +139,6 @@ const BOOKING_CONDUCTORS =
   .voices {
     display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    margin-top: clamp(1.5rem, 3vw, 2.5rem);
   }
   .voice { margin: 0; padding-top: 1.75rem; border-top: 1px solid var(--line-dark); }
   .voice__quote {
