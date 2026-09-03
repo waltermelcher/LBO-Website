@@ -15,25 +15,23 @@ import orchesterBuehne from '../assets/img/orchester-buehne.jpg';
 import dirigent from '../assets/img/dirigent-konzert.jpg';
 import wildflowers from '../assets/covers/wildflowers.jpg';
 import detailDaempfer from '../assets/img/detail-daempfer.jpg';
-import detailTuben from '../assets/img/detail-tuben.jpg';
-import detailKlarinetten from '../assets/img/detail-klarinetten-blau.jpg';
-import detailSax from '../assets/img/detail-sax-hand.jpg';
-import detailBecken from '../assets/img/detail-becken.jpg';
 import detailEuph from '../assets/img/detail-euphonium.jpg';
-import detailHolz from '../assets/img/detail-holz.jpg';
+import detailKlarinetten from '../assets/img/detail-klarinetten-blau.jpg';
+import detailChimes from '../assets/img/detail-chimes.jpg';
+import detailTrompeten from '../assets/img/detail-trompeten.jpg';
+import detailSaxophon from '../assets/img/detail-saxophon.jpg';
 import registerKlarinetten from '../assets/img/register-klarinetten.jpg';
 import logoBvbw from '../assets/logos/bvbw.png';
 import logoLmv from '../assets/logos/lmv-bw.png';
 import logoFreunde from '../assets/logos/freunde-lbo.png';
 
 const gallery = [
-  { src: detailDaempfer, alt: 'Dämpfer und Notenpult im Konzertlicht' },
-  { src: detailTuben, alt: 'Goldene Tubaschalltrichter im Orchester' },
-  { src: detailKlarinetten, alt: 'Klarinettenregister im blauen Bühnenlicht' },
-  { src: detailSax, alt: 'Hand am Saxophon während des Spiels' },
-  { src: detailBecken, alt: 'Schlagwerk mit Becken und Gong' },
+  { src: detailDaempfer, alt: 'Dämpfer auf der Bühne, bereitgelegt für den nächsten Satz' },
   { src: detailEuph, alt: 'Euphonium-Solo im Konzert' },
-  { src: detailHolz, alt: 'Holzbläser im Konzert' },
+  { src: detailKlarinetten, alt: 'Bassklarinetten im blauen Bühnenlicht' },
+  { src: detailChimes, alt: 'Musikerin am Röhrenglockenspiel' },
+  { src: detailTrompeten, alt: 'Trompetenregister im Konzert' },
+  { src: detailSaxophon, alt: 'Saxophonist beim Spiel' },
 ];
 
 const facts = [
@@ -320,13 +318,19 @@ const featured = NEWS[0];
         title="Nah dran"
         lead="Die Musiker und ihre Instrumente – das Herzstück des Orchesters."
       />
-    </div>
-    <div class="gal__scroller reveal">
-      {gallery.map((g) => (
-        <figure class="figure figure--zoom gal__item">
-          <Image src={g.src} alt={g.alt} widths={[400, 700, 1100]} sizes="(min-width: 900px) 30vw, 72vw" loading="lazy" />
-        </figure>
-      ))}
+      <div class="gal__grid">
+        {gallery.map((g, i) => (
+          <figure class="figure figure--zoom gal__item reveal" data-delay={String(Math.min(i % 3, 4))}>
+            <Image
+              src={g.src}
+              alt={g.alt}
+              widths={[420, 700, 1000]}
+              sizes="(min-width: 1000px) 32vw, (min-width: 600px) 48vw, 92vw"
+              loading="lazy"
+            />
+          </figure>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -591,25 +595,15 @@ const featured = NEWS[0];
   }
 
   /* ---------------- Galerie ---------------- */
-  .gal__scroller {
-    display: flex;
-    gap: clamp(0.75rem, 1.5vw, 1.25rem);
-    overflow-x: auto;
-    --gal-pad: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
-    scroll-padding-inline: var(--gal-pad);
-    padding-inline: var(--gal-pad);
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: var(--line) transparent;
-    padding-bottom: 1rem;
+  .gal__grid {
+    display: grid;
+    gap: clamp(0.7rem, 1.3vw, 1.15rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-  .gal__scroller::after { content: ''; flex: 0 0 1px; }
-  .gal__item {
-    flex: 0 0 min(72vw, 380px);
-    aspect-ratio: 4 / 5;
-    scroll-snap-align: start;
-  }
-  .gal__item:nth-child(even) { aspect-ratio: 4 / 3; align-self: center; }
+  @media (max-width: 900px) { .gal__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 520px) { .gal__grid { grid-template-columns: minmax(0, 1fr); } }
+
+  .gal__item { aspect-ratio: 4 / 5; margin: 0; }
 
   /* ---------------- Wege ---------------- */
   .paths__grid {
