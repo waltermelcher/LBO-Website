@@ -247,7 +247,7 @@ const featured = NEWS[0];
   </section>
 
   <!-- ============ KÜNSTLERISCHE LEITUNG ============ -->
-  <section class="section section--dark conductor">
+  <section class="section section--dark section--wine conductor">
     <div class="container">
       <div class="split split--even conductor__grid">
         <figure class="figure figure--zoom conductor__figure reveal">
@@ -382,7 +382,7 @@ const featured = NEWS[0];
   <!-- ============ FÖRDERER ============ -->
   <section class="section section--tight">
     <div class="container">
-      <p class="eyebrow eyebrow--muted text-center funders__head">Gefördert von</p>
+      <p class="eyebrow text-center funders__head">Gefördert von</p>
       <div class="funders reveal">
         <Image class="funders__logo funders__logo--wide" src={logoBvbw} alt="Blasmusikverband Baden-Württemberg" widths={[240, 480]} sizes="220px" loading="lazy" />
         <Image class="funders__logo funders__logo--tall" src={logoLmv} alt="Landesmusikverband Baden-Württemberg e.V." widths={[200, 400]} sizes="120px" loading="lazy" />
@@ -517,7 +517,7 @@ const featured = NEWS[0];
     gap: clamp(1.5rem, 3vw, 2.5rem);
     margin: clamp(2.75rem, 5vw, 4rem) 0 0;
     padding-top: clamp(2rem, 4vw, 3rem);
-    border-top: 1px solid var(--line);
+    border-top: 2px solid var(--red);
   }
   .facts__item { margin: 0; }
   .facts__value {
@@ -545,6 +545,7 @@ const featured = NEWS[0];
 
   /* ---------------- Programm ---------------- */
   .prog { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .prog__item:hover { background: var(--red-wash); }
   .prog__item {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -554,8 +555,8 @@ const featured = NEWS[0];
     border-bottom: 1px solid var(--line);
   }
   .prog__num {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
-    color: var(--red-light);
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--red);
   }
   .prog__work { display: block; }
   .prog__title {
@@ -600,13 +601,22 @@ const featured = NEWS[0];
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
   .pathcard {
+    position: relative;
     display: flex; flex-direction: column;
     padding: clamp(1.75rem, 3vw, 2.5rem);
     background: var(--bg-soft);
     border: 1px solid var(--line-soft);
+    border-top: 2px solid var(--red);
     transition: background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
   }
-  .pathcard:hover { background: #fff; border-color: var(--line); transform: translateY(-3px); }
+  .pathcard::before {
+    content: '';
+    position: absolute; inset: -2px 0 auto 0;
+    height: 2px; background: var(--red);
+    transition: height .35s var(--ease);
+  }
+  .pathcard:hover { background: #fff; border-color: var(--line-red); transform: translateY(-3px); }
+  .pathcard:hover::before { height: 6px; }
   .pathcard__eyebrow {
     font-size: 0.68rem; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase;
@@ -654,7 +664,7 @@ const featured = NEWS[0];
     display: flex; flex-wrap: wrap; align-items: end;
     justify-content: space-between; gap: 2rem 3rem;
     padding-top: clamp(2.5rem, 5vw, 4rem);
-    border-top: 1px solid var(--line);
+    border-top: 2px solid var(--red);
   }
   .cta__title { max-width: 20ch; margin-top: 0; }
 </style>

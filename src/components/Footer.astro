@@ -73,10 +73,17 @@ const year = new Date().getFullYear();
 
 <style>
   .ftr {
+    position: relative;
     background: var(--dark);
     color: var(--on-dark-2);
     padding-block: clamp(3.5rem, 7vw, 6rem) 2.5rem;
     font-size: 0.94rem;
+  }
+  .ftr::before {
+    content: '';
+    position: absolute; inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 48%, var(--red-light) 100%);
   }
 
   .ftr__top {
@@ -110,7 +117,7 @@ const year = new Date().getFullYear();
     font-weight: 600;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--on-dark);
+    color: var(--red-light);
   }
   .ftr__nav ul { margin: 0; padding: 0; list-style: none; }
   .ftr__nav li + li { margin-top: 0.55rem; }
@@ -126,7 +133,7 @@ const year = new Date().getFullYear();
     flex-wrap: wrap;
     gap: 0 clamp(1.5rem, 4vw, 3rem);
     padding: 1.6rem 0;
-    border-block: 1px solid var(--line-dark);
+    border-block: 1px solid var(--line-dark-red);
   }
   .ftr__soc {
     display: inline-flex; align-items: center; gap: 0.45em;

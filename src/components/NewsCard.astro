@@ -41,14 +41,14 @@ const { item, delay = 0, featured = false } = Astro.props;
   .ncard__figure { aspect-ratio: 16 / 10; margin: 0; }
   .ncard--featured .ncard__figure { aspect-ratio: 16 / 9; }
 
-  .ncard__body { padding-top: 1.5rem; }
+  .ncard__body { margin-top: 1.25rem; padding-top: 1.4rem; border-top: 2px solid var(--red); }
 
   .ncard__meta {
     margin: 0 0 0.9rem;
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem;
     font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--ink-3);
+    color: var(--red);
   }
   .ncard__sep { opacity: 0.5; }
 
