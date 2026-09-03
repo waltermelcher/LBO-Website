@@ -1,0 +1,266 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  items: { src: ImageMetadata; alt: string }[];
+  /** Autoplay-Intervall in Millisekunden */
+  interval?: number;
+  label?: string;
+}
+
+const { items, interval = 5000, label = 'Bildergalerie' } = Astro.props;
+---
+
+<div class="slider" data-interval={String(interval)}>
+  <ul
+    class="slider__track"
+    role="group"
+    aria-roledescription="Bildergalerie"
+    aria-label={label}
+    tabindex="0"
+  >
+    {items.map((it, i) => (
+      <li class="slider__slide" aria-label={`Bild ${i + 1} von ${items.length}`}>
+        <figure class="figure figure--zoom slider__figure">
+          <Image
+            src={it.src}
+            alt={it.alt}
+            widths={[320, 560, 920]}
+            sizes="(max-width: 700px) 78vw, (max-width: 1533px) 30vw, 460px"
+            loading={i < 3 ? 'eager' : 'lazy'}
+          />
+        </figure>
+      </li>
+    ))}
+  </ul>
+
+  <div class="slider__bar container">
+    <div class="slider__progress" aria-hidden="true"><span class="slider__progress-fill"></span></div>
+    <div class="slider__nav">
+      <button class="slider__btn" type="button" data-dir="-1" aria-label="Vorheriges Bild">
+        <svg width="17" height="11" viewBox="0 0 16 10" aria-hidden="true">
+          <path d="M16 5H2M6 1L2 5l4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+        </svg>
+      </button>
+      <button class="slider__btn" type="button" data-dir="1" aria-label="Nächstes Bild">
+        <svg width="17" height="11" viewBox="0 0 16 10" aria-hidden="true">
+          <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .slider {
+    --slide-w: clamp(260px, 30vw, 460px);
+    --slide-gap: clamp(0.7rem, 1.3vw, 1.15rem);
+    /* linker Anschlag bündig zum Raster, rechts läuft der Streifen aus dem Bild */
+    --slider-pad: max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter)));
+  }
+
+  .slider__track {
+    display: flex;
+    gap: var(--slide-gap);
+    margin: 0;
+    padding: 0 var(--slider-pad);
+    list-style: none;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--slider-pad);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+  }
+  .slider__track::-webkit-scrollbar { display: none; }
+
+  /* auf kleinen Displays bleiben die Bilder groß, das nächste blitzt am Rand auf */
+  @media (max-width: 700px) { .slider { --slide-w: min(78vw, 420px); } }
+  .slider__track:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+  /* Während des Ziehens: kein Snapping, damit die Bewegung der Maus folgt */
+  .slider.is-dragging .slider__track {
+    cursor: grabbing;
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+    user-select: none;
+  }
+  .slider.is-dragging .slider__figure :global(img) { pointer-events: none; }
+
+  .slider__slide {
+    flex: 0 0 var(--slide-w);
+    scroll-snap-align: start;
+  }
+  .slider__figure {
+    aspect-ratio: 4 / 5;
+    margin: 0;
+    background: var(--bg-deep);
+  }
+
+  /* ---------- Fortschritt und Navigation ---------- */
+  .slider__bar {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-top: clamp(1.25rem, 2.5vw, 1.9rem);
+  }
+
+  .slider__progress {
+    position: relative;
+    flex: 1 1 auto;
+    height: 1px;
+    background: var(--line);
+  }
+  .slider__progress-fill {
+    position: absolute;
+    inset: -1px auto;
+    display: block;
+    width: 0;
+    height: 3px;
+    background: var(--red);
+    transition: width .35s var(--ease);
+  }
+
+  .slider__nav { display: flex; gap: 0.6rem; flex: 0 0 auto; }
+  .slider__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    background: transparent;
+    color: var(--red);
+    border: 1px solid var(--line-red);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease);
+  }
+  .slider__btn:hover:not(:disabled) { background: var(--red); color: #fff; border-color: var(--red); }
+  .slider__btn:disabled { opacity: 0.3; cursor: default; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .slider__progress-fill { transition: none; }
+  }
+</style>
+
+<script>
+  const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLElement>('.slider').forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>('.slider__track');
+    const fill = slider.querySelector<HTMLElement>('.slider__progress-fill');
+    const buttons = slider.querySelectorAll<HTMLButtonElement>('.slider__btn');
+    if (!track) return;
+
+    const interval = Number(slider.dataset.interval ?? 5000);
+    const step = () => {
+      const slide = track.querySelector<HTMLElement>('.slider__slide');
+      if (!slide) return 300;
+      const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
+      return slide.getBoundingClientRect().width + gap;
+    };
+    const maxScroll = () => track.scrollWidth - track.clientWidth;
+    const atEnd = () => track.scrollLeft >= maxScroll() - 2;
+
+    /* ---------- Fortschritt und Buttonzustand ---------- */
+    const update = () => {
+      const max = maxScroll();
+      if (fill) fill.style.width = `${max > 0 ? (track.scrollLeft / max) * 100 : 0}%`;
+      buttons.forEach((b) => {
+        const dir = Number(b.dataset.dir);
+        b.disabled = max <= 0 || (dir < 0 && track.scrollLeft <= 2);
+      });
+    };
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    /* ---------- Blättern ---------- */
+    const go = (dir: number, smooth = true) => {
+      const behavior: ScrollBehavior = smooth && !REDUCED ? 'smooth' : 'auto';
+      if (dir > 0 && atEnd()) track.scrollTo({ left: 0, behavior });
+      else track.scrollBy({ left: dir * step(), behavior });
+    };
+    buttons.forEach((b) => {
+      b.addEventListener('click', () => { go(Number(b.dataset.dir)); restart(); });
+    });
+
+    /* ---------- Autoplay ---------- */
+    let timer: number | undefined;
+    let paused = false;
+    const tick = () => { if (!paused && !document.hidden) go(1); };
+    const start = () => { if (!REDUCED && timer === undefined) timer = window.setInterval(tick, interval); };
+    const stop = () => { if (timer !== undefined) { clearInterval(timer); timer = undefined; } };
+    const restart = () => { stop(); start(); };
+
+    slider.addEventListener('pointerenter', () => { paused = true; });
+    slider.addEventListener('pointerleave', () => { paused = false; });
+    /* Wischen mit dem Finger: solange die Hand am Bild ist, läuft nichts weiter */
+    slider.addEventListener('pointerdown', () => { paused = true; });
+    window.addEventListener('pointerup', () => { paused = false; restart(); });
+    slider.addEventListener('focusin', () => { paused = true; });
+    slider.addEventListener('focusout', () => { paused = false; });
+    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+
+    /* Nur laufen lassen, solange der Slider sichtbar ist */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        (entries) => entries.forEach((e) => (e.isIntersecting ? start() : stop())),
+        { threshold: 0.25 },
+      ).observe(slider);
+    } else {
+      start();
+    }
+
+    /* ---------- Ziehen mit der Maus ---------- */
+    let dragging = false;
+    let startX = 0;
+    let startLeft = 0;
+    let moved = 0;
+
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'touch') return; // Touch übernimmt der Browser
+      dragging = true;
+      moved = 0;
+      startX = e.clientX;
+      startLeft = track.scrollLeft;
+      slider.classList.add('is-dragging');
+      track.setPointerCapture(e.pointerId);
+    });
+
+    track.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      moved = Math.max(moved, Math.abs(dx));
+      track.scrollLeft = startLeft - dx;
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!dragging) return;
+      dragging = false;
+      slider.classList.remove('is-dragging');
+      if (track.hasPointerCapture(e.pointerId)) track.releasePointerCapture(e.pointerId);
+      /* nach dem Ziehen auf das nächstgelegene Bild einrasten */
+      if (moved > 4) {
+        const s = step();
+        track.scrollTo({
+          left: Math.round(track.scrollLeft / s) * s,
+          behavior: REDUCED ? 'auto' : 'smooth',
+        });
+      }
+      restart();
+    };
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+
+    /* ---------- Tastatur ---------- */
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(1); restart(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); restart(); }
+    });
+  });
+</script>

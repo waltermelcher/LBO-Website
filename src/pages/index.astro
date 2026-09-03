@@ -5,6 +5,7 @@ import ConcertList from '../components/ConcertList.astro';
 import NewsCard from '../components/NewsCard.astro';
 import Swoosh from '../components/Swoosh.astro';
 import SectionHead from '../components/SectionHead.astro';
+import PhotoSlider from '../components/PhotoSlider.astro';
 import { CLAIM, SUBCLAIM } from '../consts';
 import { url } from '../utils';
 import { NEWS } from '../data/news';
@@ -20,6 +21,10 @@ import detailKlarinetten from '../assets/img/detail-klarinetten-blau.jpg';
 import detailChimes from '../assets/img/detail-chimes.jpg';
 import detailTrompeten from '../assets/img/detail-trompeten.jpg';
 import detailSaxophon from '../assets/img/detail-saxophon.jpg';
+import detailFagott from '../assets/img/detail-fagott.jpg';
+import detailPosaunen from '../assets/img/detail-posaunen.jpg';
+import detailBecken from '../assets/img/detail-becken.jpg';
+import detailTuben from '../assets/img/detail-tuben.jpg';
 import registerKlarinetten from '../assets/img/register-klarinetten.jpg';
 import logoBvbw from '../assets/logos/bvbw.png';
 import logoLmv from '../assets/logos/lmv-bw.png';
@@ -32,6 +37,10 @@ const gallery = [
   { src: detailChimes, alt: 'Musikerin am Röhrenglockenspiel' },
   { src: detailTrompeten, alt: 'Trompetenregister im Konzert' },
   { src: detailSaxophon, alt: 'Saxophonist beim Spiel' },
+  { src: detailFagott, alt: 'Fagotte im Holzbläserregister' },
+  { src: detailPosaunen, alt: 'Posaunenregister im Konzert' },
+  { src: detailBecken, alt: 'Schlagwerk mit Gong und Becken' },
+  { src: detailTuben, alt: 'Tubenschalltrichter im Orchester' },
 ];
 
 const facts = [
@@ -318,20 +327,8 @@ const featured = NEWS[0];
         title="Nah dran"
         lead="Die Musiker und ihre Instrumente – das Herzstück des Orchesters."
       />
-      <div class="gal__grid">
-        {gallery.map((g, i) => (
-          <figure class="figure figure--zoom gal__item reveal" data-delay={String(Math.min(i % 3, 4))}>
-            <Image
-              src={g.src}
-              alt={g.alt}
-              widths={[420, 700, 1000]}
-              sizes="(min-width: 1000px) 32vw, (min-width: 600px) 48vw, 92vw"
-              loading="lazy"
-            />
-          </figure>
-        ))}
-      </div>
     </div>
+    <PhotoSlider items={gallery} interval={5000} label="Nahaufnahmen aus dem Orchester" />
   </section>
 
   <!-- ============ MITMACHEN ============ -->
@@ -595,15 +592,6 @@ const featured = NEWS[0];
   }
 
   /* ---------------- Galerie ---------------- */
-  .gal__grid {
-    display: grid;
-    gap: clamp(0.7rem, 1.3vw, 1.15rem);
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  @media (max-width: 900px) { .gal__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 520px) { .gal__grid { grid-template-columns: minmax(0, 1fr); } }
-
-  .gal__item { aspect-ratio: 4 / 5; margin: 0; }
 
   /* ---------------- Wege ---------------- */
   .paths__grid {
