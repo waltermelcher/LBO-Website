@@ -7,19 +7,20 @@
 :root {
   /* Flächen */
   --bg:          #f3ede3;   /* leichtes Beige – Grundfläche */
-  --bg-soft:     #f8f4ec;   /* aufgehellt, für Karten */
-  --bg-deep:     #e9e0d2;   /* abgesetzte Sektionen */
+  --bg-soft:     #fbf5f0;   /* aufgehellt, für Karten */
+  --bg-deep:     #ecdfd9;   /* abgesetzte Sektionen, warm rötlich */
   --ink:         #191715;   /* Typo, fast schwarz */
-  --ink-2:       #4c463f;   /* Fließtext gedeckt */
-  --ink-3:       #877f73;   /* Meta, Captions */
-  --line:        rgba(25, 23, 21, 0.14);
-  --line-soft:   rgba(25, 23, 21, 0.08);
+  --ink-2:       #4f443f;   /* Fließtext gedeckt, warm */
+  --ink-3:       #8a7c76;   /* Meta, Captions, warm */
+  --line:        rgba(74, 24, 38, 0.18);
+  --line-soft:   rgba(74, 24, 38, 0.11);
 
   /* Primärfarben CD Manual */
   --red:         #631f31;   /* LBO-Rot dunkel */
   --red-mid:     #a34e61;   /* LBO-Rot mittel */
   --red-light:   #b47a88;   /* LBO-Rot hell */
   --red-deep:    #4a1826;   /* Rot dunkel, abgedunkelt für Hover */
+  --red-wash:    rgba(99, 31, 49, 0.07);   /* zarter Rotschleier für Flächen */
   --line-red:    rgba(99, 31, 49, 0.32);        /* rote Kontur auf hellem Grund */
   --line-red-lt: rgba(180, 122, 136, 0.55);     /* rote Kontur auf dunklem Grund */
 
@@ -28,11 +29,12 @@
   --azur:        #3793b1;
 
   /* Dunkle Sektionen */
-  --dark:        #17150f;
-  --dark-2:      #221f19;
+  --dark:        #1b1210;
+  --dark-2:      #261a17;
   --on-dark:     #f3ede3;
   --on-dark-2:   rgba(243, 237, 227, 0.68);
   --line-dark:   rgba(243, 237, 227, 0.16);
+  --line-dark-red: rgba(180, 122, 136, 0.42);
 
   /* Typografie */
   --font: 'Source Sans 3 Variable', 'Myriad Pro', -apple-system, BlinkMacSystemFont,
@@ -135,7 +137,21 @@ p:last-child { margin-bottom: 0; }
 }
 
 .prose { max-width: var(--maxw-text); color: var(--ink-2); }
-.prose h2 { margin: 2.8em 0 0.7em; font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem); color: var(--ink); font-weight: 275; }
+.prose h2 {
+  position: relative;
+  margin: 2.8em 0 0.7em;
+  padding-top: 0.85em;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  color: var(--ink);
+  font-weight: 275;
+}
+.prose h2::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2.6rem; height: 2px;
+  background: var(--red-mid);
+}
 .prose h3 { margin: 2.2em 0 0.6em; font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem); color: var(--ink); font-weight: 500; letter-spacing: -0.01em; }
 .prose > :first-child { margin-top: 0; }
 .prose a { color: var(--red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(99,31,49,.35); transition: text-decoration-color .25s var(--ease); }
@@ -164,6 +180,8 @@ p:last-child { margin-bottom: 0; }
 .section--tight { padding-block: clamp(3rem, 6vw, 5rem); }
 .section--deep { background: var(--bg-deep); }
 .section--dark { background: var(--dark); color: var(--on-dark); }
+/* Weinrote Variante – erbt alle .section--dark-Regeln */
+.section--wine { background: var(--red-deep); }
 .section--dark .eyebrow { color: var(--red-light); }
 .section--dark .lead { color: var(--on-dark-2); }
 
@@ -309,3 +327,17 @@ a:hover > .figure img, .figure--zoom:hover img { transform: scale(1.035); }
 
 .text-center { text-align: center; }
 .mx-auto { margin-inline: auto; }
+
+
+/* ============================================================
+   Rote Markenkante am oberen Seitenrand (Experiment)
+   ============================================================ */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 300;
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 48%, var(--red-light) 100%);
+  pointer-events: none;
+}

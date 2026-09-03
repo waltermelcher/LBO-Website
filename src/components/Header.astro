@@ -120,7 +120,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: saturate(140%) blur(14px);
     -webkit-backdrop-filter: saturate(140%) blur(14px);
-    border-bottom: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-red);
     transition: background .45s var(--ease), color .45s var(--ease),
                 border-color .45s var(--ease), transform .45s var(--ease);
   }
@@ -221,7 +221,8 @@ const branchActive = (item: (typeof NAV)[number]) =>
     background: var(--bg-soft);
     color: var(--ink);
     border: 1px solid var(--line-soft);
-    box-shadow: 0 24px 60px -28px rgba(25, 23, 21, 0.42);
+    border-top: 2px solid var(--red);
+    box-shadow: 0 24px 60px -28px rgba(99, 31, 49, 0.4);
   }
   .drop__link {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -304,6 +305,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
   .drawer__sub { margin: 0; padding: 0 0 0.9rem; list-style: none; }
   .drawer__sublink {
     display: block; padding: 0.5rem 0 0.5rem 1.1rem;
+    border-left-color: var(--line-red);
     font-size: 1rem; font-weight: 350; color: var(--ink-2);
     border-left: 1px solid var(--line);
   }
@@ -311,6 +313,8 @@ const branchActive = (item: (typeof NAV)[number]) =>
 
   .drawer__claim {
     margin: 3rem 0 0;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--red);
     font-size: 1.1rem; font-weight: 300; line-height: 1.3;
     letter-spacing: -0.02em; color: var(--red);
   }

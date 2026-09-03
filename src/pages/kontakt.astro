@@ -92,7 +92,7 @@ const topics = [
     border: 1px solid var(--line);
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
-  .contact { background: var(--bg); padding: clamp(1.75rem, 3.5vw, 3rem); }
+  .contact { background: var(--bg); padding: clamp(1.75rem, 3.5vw, 3rem); box-shadow: inset 0 2px 0 var(--red); }
   .contact__role {
     display: block;
     font-size: 0.68rem; font-weight: 600;
@@ -115,7 +115,7 @@ const topics = [
   .contact__mail:hover { color: var(--red); }
   .contact__mail:hover .arw { transform: translateX(3px); }
 
-  .topics { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .topics { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--red); }
   .topics li { border-bottom: 1px solid var(--line); }
   .topics__link {
     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
