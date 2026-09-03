@@ -226,7 +226,6 @@ const featured = NEWS[0];
           <ol class="prog">
             {PROGRAMME.works.map((w, i) => (
               <li class="prog__item reveal" data-delay={String(i)}>
-                <span class="prog__num">{String(i + 1).padStart(2, '0')}</span>
                 <span class="prog__work">
                   <span class="prog__title">{w.title}</span>
                   <span class="prog__composer">{w.composer} <span class="prog__life">({w.life})</span></span>
@@ -517,7 +516,7 @@ const featured = NEWS[0];
     gap: clamp(1.5rem, 3vw, 2.5rem);
     margin: clamp(2.75rem, 5vw, 4rem) 0 0;
     padding-top: clamp(2rem, 4vw, 3rem);
-    border-top: 2px solid var(--accent);
+    border-top: 1px solid var(--line);
   }
   .facts__item { margin: 0; }
   .facts__value {
@@ -548,15 +547,11 @@ const featured = NEWS[0];
   .prog__item:hover { background: var(--accent-wash); }
   .prog__item {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     align-items: baseline;
     gap: 0.4rem 1.5rem;
     padding: clamp(1.1rem, 2.2vw, 1.7rem) 0;
     border-bottom: 1px solid var(--line);
-  }
-  .prog__num {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
-    color: var(--accent);
   }
   .prog__work { display: block; }
   .prog__title {

@@ -160,7 +160,8 @@ const guestConductors = [
   @media (min-width: 800px) { .lists { grid-template-columns: 1fr 1fr; } }
   .lists__head { margin-bottom: 1.5rem; }
 
-  .roster { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
+  .roster { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .roster__item:hover { background: var(--accent-wash); }
   .roster__item {
     display: grid; grid-template-columns: 8.5rem 1fr; align-items: baseline; gap: 1rem;
     padding: 0.85rem 0;

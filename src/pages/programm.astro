@@ -25,7 +25,6 @@ import detail from '../assets/img/detail-daempfer.jpg';
       <ol class="works">
         {PROGRAMME.works.map((w, i) => (
           <li class="works__item reveal" data-delay={String(i)}>
-            <span class="works__num">{String(i + 1).padStart(2, '0')}</span>
             <div class="works__body">
               <p class="works__composer">{w.composer} <span class="works__life">({w.life})</span></p>
               <h3 class="works__title">{w.title}</h3>
@@ -50,19 +49,15 @@ import detail from '../assets/img/detail-daempfer.jpg';
 <style>
   .prog__season { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
 
-  .works { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
+  .works { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
   .works__item:hover { background: var(--accent-wash); }
   .works__item {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto;
     align-items: start;
     gap: 0.5rem 2rem;
     padding: clamp(1.6rem, 3vw, 2.6rem) 0;
     border-bottom: 1px solid var(--line);
-  }
-  .works__num {
-    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.16em;
-    color: var(--accent); font-weight: 700; padding-top: 0.9em;
   }
   .works__composer { margin: 0 0 0.5rem; font-size: 0.86rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
   .works__life { text-transform: none; letter-spacing: 0.02em; }

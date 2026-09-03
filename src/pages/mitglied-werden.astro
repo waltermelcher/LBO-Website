@@ -115,7 +115,8 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
 
 <style>
   .cta-inline { margin-top: 2rem; }
-  .dates { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
+  .dates { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+  .dates__item:hover { background: var(--accent-wash); }
   .dates__item {
     display: grid; gap: 0.35rem 2.5rem;
     padding: clamp(1.1rem, 2.2vw, 1.7rem) 0;

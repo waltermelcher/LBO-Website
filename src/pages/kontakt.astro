@@ -115,8 +115,9 @@ const topics = [
   .contact__mail:hover { color: var(--accent); }
   .contact__mail:hover .arw { transform: translateX(3px); }
 
-  .topics { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
+  .topics { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
   .topics li { border-bottom: 1px solid var(--line); }
+  .topics li:hover { background: var(--accent-wash); }
   .topics__link {
     display: flex; align-items: center; justify-content: space-between; gap: 1.5rem;
     padding: clamp(1rem, 2vw, 1.5rem) 0;
