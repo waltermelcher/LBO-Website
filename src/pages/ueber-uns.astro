@@ -174,8 +174,8 @@ const awards = [
 </BaseLayout>
 
 <style>
-  .awards { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--red); }
-  .awards__item:hover { background: var(--red-wash); }
+  .awards { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
+  .awards__item:hover { background: var(--accent-wash); }
   .awards__item {
     display: grid; gap: 0.4rem 2.5rem;
     padding: clamp(1.3rem, 2.5vw, 2rem) 0;
@@ -184,7 +184,7 @@ const awards = [
   @media (min-width: 700px) { .awards__item { grid-template-columns: 6rem 1fr; align-items: baseline; } }
   .awards__year {
     font-size: clamp(1.35rem, 1.15rem + 0.8vw, 1.7rem);
-    font-weight: 300; letter-spacing: -0.02em; color: var(--red);
+    font-weight: 300; letter-spacing: -0.02em; color: var(--accent);
   }
   .awards__text { margin: 0; color: var(--ink-2); max-width: 62ch; }
 

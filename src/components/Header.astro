@@ -120,7 +120,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
     background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: saturate(140%) blur(14px);
     -webkit-backdrop-filter: saturate(140%) blur(14px);
-    border-bottom: 1px solid var(--line-red);
+    border-bottom: 1px solid var(--line-accent);
     transition: background .45s var(--ease), color .45s var(--ease),
                 border-color .45s var(--ease), transform .45s var(--ease);
   }
@@ -193,7 +193,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
   .nav__item:hover > .nav__link > span,
   .nav__item:focus-within > .nav__link > span,
   .nav__item.is-active > .nav__link > span { background-size: 100% 1px; }
-  .nav__item.is-active > .nav__link { color: var(--red); }
+  .nav__item.is-active > .nav__link { color: var(--accent); }
   .hdr--overlay:not(.is-scrolled):not(.is-menu-open) .nav__item.is-active > .nav__link { color: #fff; }
 
   .nav__chev { opacity: 0.55; transition: transform .3s var(--ease); }
@@ -221,7 +221,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
     background: var(--bg-soft);
     color: var(--ink);
     border: 1px solid var(--line-soft);
-    border-top: 2px solid var(--red);
+    border-top: 2px solid var(--accent);
     box-shadow: 0 24px 60px -28px rgba(99, 31, 49, 0.4);
   }
   .drop__link {
@@ -233,8 +233,8 @@ const branchActive = (item: (typeof NAV)[number]) =>
     color: var(--ink-2);
     transition: color .25s var(--ease), background .25s var(--ease), padding-left .3s var(--ease);
   }
-  .drop__link:hover { color: var(--red); background: color-mix(in srgb, var(--red) 6%, transparent); padding-left: 1.65rem; }
-  .drop__link.is-current { color: var(--red); font-weight: 500; }
+  .drop__link:hover { color: var(--accent); background: color-mix(in srgb, var(--accent) 6%, transparent); padding-left: 1.65rem; }
+  .drop__link.is-current { color: var(--accent); font-weight: 500; }
   .drop__ext { opacity: 0.45; flex: 0 0 auto; }
 
   /* ---------- Burger ---------- */
@@ -287,7 +287,7 @@ const branchActive = (item: (typeof NAV)[number]) =>
   }
   .drawer__toggle svg { flex: 0 0 auto; opacity: 0.5; transition: transform .35s var(--ease); }
   .drawer__toggle[aria-expanded='true'] svg { transform: rotate(45deg); }
-  .drawer__toggle[aria-expanded='true'] { color: var(--red); }
+  .drawer__toggle[aria-expanded='true'] { color: var(--accent); }
 
   .drawer__panel {
     display: grid;
@@ -305,18 +305,18 @@ const branchActive = (item: (typeof NAV)[number]) =>
   .drawer__sub { margin: 0; padding: 0 0 0.9rem; list-style: none; }
   .drawer__sublink {
     display: block; padding: 0.5rem 0 0.5rem 1.1rem;
-    border-left-color: var(--line-red);
+    border-left-color: var(--line-accent);
     font-size: 1rem; font-weight: 350; color: var(--ink-2);
     border-left: 1px solid var(--line);
   }
-  .drawer__sublink:hover { color: var(--red); }
+  .drawer__sublink:hover { color: var(--accent); }
 
   .drawer__claim {
     margin: 3rem 0 0;
     padding-top: 1.5rem;
-    border-top: 2px solid var(--red);
+    border-top: 2px solid var(--accent);
     font-size: 1.1rem; font-weight: 300; line-height: 1.3;
-    letter-spacing: -0.02em; color: var(--red);
+    letter-spacing: -0.02em; color: var(--accent);
   }
 
   :global(body.nav-open) { overflow: hidden; }

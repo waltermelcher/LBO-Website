@@ -30,7 +30,7 @@ const { eyebrow, title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = A
 <style>
   .shead {
     padding-top: clamp(1.4rem, 2.6vw, 2.1rem);
-    border-top: 2px solid var(--red);
+    border-top: 2px solid var(--accent);
     margin-bottom: clamp(2rem, 4.5vw, 3.5rem);
   }
 
@@ -68,5 +68,5 @@ const { eyebrow, title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = A
   }
 
   /* auf dunklem oder abgesetztem Grund */
-  :global(.section--dark) .shead { border-top-color: var(--red-light); }
+  :global(.section--dark) .shead { border-top-color: var(--accent-light); }
 </style>

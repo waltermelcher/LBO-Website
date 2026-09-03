@@ -84,6 +84,7 @@ const board = [
 <BaseLayout
   title="Förderverein"
   description="Die Freunde des Landesblasorchesters Baden-Württemberg fördern die kulturelle Arbeit des LBO ideell und materiell."
+  bodyClass="theme-blue"
 >
   <PageHeader
     eyebrow="Förderverein"
@@ -255,13 +256,13 @@ const board = [
     display: flex; flex-direction: column;
   }
   :global(.section--deep) .tier { background: var(--bg-deep); }
-  .tier--accent { background: var(--bg-soft) !important; box-shadow: inset 0 3px 0 var(--red); }
+  .tier--accent { background: var(--bg-soft) !important; box-shadow: inset 0 3px 0 var(--accent); }
 
   .tier__name {
     margin: 0;
     font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--red);
+    color: var(--accent);
   }
   .tier__price {
     margin: 1.1rem 0 1.5rem;
@@ -293,11 +294,11 @@ const board = [
     font-weight: 300; letter-spacing: -0.02em; color: var(--on-dark);
     transition: color .25s var(--ease);
   }
-  .fboard__name:hover { color: var(--red-light); }
+  .fboard__name:hover { color: var(--accent-light); }
 
   .thanks__head { max-width: 40ch; }
   .thanks__text { margin: 1.4rem 0 0.6rem; color: var(--ink-2); }
-  .thanks__names { margin: 0; font-size: 1.15rem; font-weight: 400; color: var(--red); }
+  .thanks__names { margin: 0; font-size: 1.15rem; font-weight: 400; color: var(--accent); }
   .thanks__sub {
     margin: 2.75rem 0 1rem;
     font-size: 0.7rem; font-weight: 600;
@@ -310,5 +311,5 @@ const board = [
     color: var(--ink-2);
     transition: color .25s var(--ease), padding-left .3s var(--ease);
   }
-  .docs a:hover { color: var(--red); padding-left: 0.5rem; }
+  .docs a:hover { color: var(--accent); padding-left: 0.5rem; }
 </style>

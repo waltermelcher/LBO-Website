@@ -41,14 +41,14 @@ const { item, delay = 0, featured = false } = Astro.props;
   .ncard__figure { aspect-ratio: 16 / 10; margin: 0; }
   .ncard--featured .ncard__figure { aspect-ratio: 16 / 9; }
 
-  .ncard__body { margin-top: 1.25rem; padding-top: 1.4rem; border-top: 2px solid var(--red); }
+  .ncard__body { margin-top: 1.25rem; padding-top: 1.4rem; border-top: 2px solid var(--accent); }
 
   .ncard__meta {
     margin: 0 0 0.9rem;
     display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem;
     font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--red);
+    color: var(--accent);
   }
   .ncard__sep { opacity: 0.5; }
 
@@ -60,7 +60,7 @@ const { item, delay = 0, featured = false } = Astro.props;
   }
   .ncard--featured .ncard__title { font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.6rem); }
 
-  .ncard__link:hover .ncard__title { color: var(--red); }
+  .ncard__link:hover .ncard__title { color: var(--accent); }
 
   .ncard__excerpt {
     margin: 0.85rem 0 0;
@@ -79,7 +79,7 @@ const { item, delay = 0, featured = false } = Astro.props;
     margin-top: 1.35rem;
     font-size: 0.74rem; font-weight: 600;
     letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--red);
+    color: var(--accent);
   }
   .ncard__link:hover .arw { transform: translateX(4px); }
   .arw { transition: transform .3s var(--ease); }

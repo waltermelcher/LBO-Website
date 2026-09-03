@@ -21,6 +21,27 @@
   --red-light:   #b47a88;   /* LBO-Rot hell */
   --red-deep:    #4a1826;   /* Rot dunkel, abgedunkelt für Hover */
   --red-wash:    rgba(99, 31, 49, 0.07);   /* zarter Rotschleier für Flächen */
+
+  /* Sekundärfarben CD Manual – Blau, für den Förderverein */
+  --blue:        #0e495b;   /* LBO-Petrol (Sekundärfarbe) */
+  --blue-deep:   #0a3646;   /* abgedunkelt für Hover und Flächen */
+  --blue-mid:    #2a7290;   /* Buttonfläche auf dunklem Grund */
+  --blue-light:  #3793b1;   /* LBO-Azur (Sekundärfarbe) */
+  --blue-wash:   rgba(14, 73, 91, 0.07);
+  --line-blue:   rgba(14, 73, 91, 0.30);
+  --line-blue-lt: rgba(55, 147, 177, 0.5);
+
+  /*
+    Semantische Akzentfarbe. Standard ist das LBO-Rot; einzelne Seiten können
+    sie über eine Theme-Klasse am <body> umschalten (siehe .theme-blue).
+  */
+  --accent:         var(--red);
+  --accent-deep:    var(--red-deep);
+  --accent-mid:     var(--red-mid);
+  --accent-light:   var(--red-light);
+  --accent-wash:    var(--red-wash);
+  --line-accent:    var(--line-red);
+  --line-accent-lt: var(--line-red-lt);
   --line-red:    rgba(99, 31, 49, 0.32);        /* rote Kontur auf hellem Grund */
   --line-red-lt: rgba(180, 122, 136, 0.55);     /* rote Kontur auf dunklem Grund */
 
@@ -50,6 +71,30 @@
   /* Bewegung */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --dur: 0.5s;
+}
+
+/* ============================================================
+   Theme „Blau" – Seiten des Fördervereins.
+   Nur Akzentfarben und die davon abhängigen Flächen; Raster,
+   Typografie und Formen bleiben identisch.
+   ============================================================ */
+.theme-blue {
+  --accent:         var(--blue);
+  --accent-deep:    var(--blue-deep);
+  --accent-mid:     var(--blue-mid);
+  --accent-light:   var(--blue-light);
+  --accent-wash:    var(--blue-wash);
+  --line-accent:    var(--line-blue);
+  --line-accent-lt: var(--line-blue-lt);
+
+  /* Haarlinien und abgesetzte Flächen verlieren den roten Unterton */
+  --line:      rgba(10, 54, 70, 0.18);
+  --line-soft: rgba(10, 54, 70, 0.11);
+  --bg-soft:   #f6f5ef;
+  --bg-deep:   #e5e6e0;
+  --dark:      #10191d;
+  --dark-2:    #16232a;
+  --line-dark-red: rgba(55, 147, 177, 0.42);
 }
 
 /* ============================================================
@@ -93,10 +138,10 @@ h1, h2, h3, h4, h5 {
 p { margin: 0 0 1.15em; }
 p:last-child { margin-bottom: 0; }
 
-::selection { background: var(--red); color: #fff; }
+::selection { background: var(--accent); color: #fff; }
 
 :focus-visible {
-  outline: 2px solid var(--red);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -122,11 +167,11 @@ p:last-child { margin-bottom: 0; }
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent);
   margin: 0 0 1.4rem;
 }
 .eyebrow--muted { color: var(--ink-3); }
-.eyebrow--light { color: var(--red-light); }
+.eyebrow--light { color: var(--accent-light); }
 
 .lead {
   font-size: clamp(1.125rem, 1.02rem + 0.5vw, 1.4rem);
@@ -150,19 +195,19 @@ p:last-child { margin-bottom: 0; }
   position: absolute;
   top: 0; left: 0;
   width: 2.6rem; height: 2px;
-  background: var(--red-mid);
+  background: var(--accent-mid);
 }
 .prose h3 { margin: 2.2em 0 0.6em; font-size: clamp(1.15rem, 1.05rem + 0.5vw, 1.4rem); color: var(--ink); font-weight: 500; letter-spacing: -0.01em; }
 .prose > :first-child { margin-top: 0; }
-.prose a { color: var(--red); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: rgba(99,31,49,.35); transition: text-decoration-color .25s var(--ease); }
-.prose a:hover { text-decoration-color: var(--red); }
+.prose a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; text-decoration-color: var(--line-accent); transition: text-decoration-color .25s var(--ease); }
+.prose a:hover { text-decoration-color: var(--accent); }
 /* Buttons/Links im Fließtext behalten ihre eigene Gestaltung */
 .prose a.btn { color: var(--btn-fg); text-decoration: none; }
-.prose a.link { color: var(--red); text-decoration: none; }
-.prose a.link.link--light { color: var(--red-light); }
+.prose a.link { color: var(--accent); text-decoration: none; }
+.prose a.link.link--light { color: var(--accent-light); }
 .prose ul { margin: 0 0 1.15em; padding-left: 1.15em; }
 .prose li { margin-bottom: 0.4em; }
-.prose li::marker { color: var(--red-light); }
+.prose li::marker { color: var(--accent-light); }
 .prose strong { font-weight: 600; color: var(--ink); }
 
 /* ============================================================
@@ -181,8 +226,8 @@ p:last-child { margin-bottom: 0; }
 .section--deep { background: var(--bg-deep); }
 .section--dark { background: var(--dark); color: var(--on-dark); }
 /* Weinrote Variante – erbt alle .section--dark-Regeln */
-.section--wine { background: var(--red-deep); }
-.section--dark .eyebrow { color: var(--red-light); }
+.section--wine { background: var(--accent-deep); }
+.section--dark .eyebrow { color: var(--accent-light); }
 .section--dark .lead { color: var(--on-dark-2); }
 
 .rule { height: 1px; background: var(--line); border: 0; margin: 0; }
@@ -214,7 +259,7 @@ p:last-child { margin-bottom: 0; }
 */
 .btn {
   --btn-fg: #fff;
-  --btn-bg: var(--red);
+  --btn-bg: var(--accent);
   --btn-bd: var(--btn-bg);
   display: inline-flex;
   align-items: center;
@@ -231,18 +276,18 @@ p:last-child { margin-bottom: 0; }
   cursor: pointer;
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
-.btn:hover { --btn-bg: var(--red-deep); --btn-bd: var(--red-deep); transform: translateY(-1px); }
+.btn:hover { --btn-bg: var(--accent-deep); --btn-bd: var(--accent-deep); transform: translateY(-1px); }
 .btn .arw { transition: transform .3s var(--ease); }
 .btn:hover .arw { transform: translateX(4px); }
 
-.btn--ghost { --btn-bg: transparent; --btn-fg: var(--red); --btn-bd: var(--line-red); }
-.btn--ghost:hover { --btn-bg: var(--red); --btn-fg: #fff; --btn-bd: var(--red); }
+.btn--ghost { --btn-bg: transparent; --btn-fg: var(--accent); --btn-bd: var(--line-accent); }
+.btn--ghost:hover { --btn-bg: var(--accent); --btn-fg: #fff; --btn-bd: var(--accent); }
 
-.btn--light { --btn-bg: var(--red-mid); --btn-fg: #fff; --btn-bd: var(--red-mid); }
-.btn--light:hover { --btn-bg: var(--red-light); --btn-fg: var(--dark); --btn-bd: var(--red-light); }
+.btn--light { --btn-bg: var(--accent-mid); --btn-fg: #fff; --btn-bd: var(--accent-mid); }
+.btn--light:hover { --btn-bg: var(--accent-light); --btn-fg: var(--dark); --btn-bd: var(--accent-light); }
 
-.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--red-light); --btn-bd: var(--line-red-lt); }
-.btn--outline-light:hover { --btn-bg: var(--red-mid); --btn-fg: #fff; --btn-bd: var(--red-mid); }
+.btn--outline-light { --btn-bg: transparent; --btn-fg: var(--accent-light); --btn-bd: var(--line-accent-lt); }
+.btn--outline-light:hover { --btn-bg: var(--accent-mid); --btn-fg: #fff; --btn-bd: var(--accent-mid); }
 
 /* Textlink mit Unterstrich-Animation */
 .link {
@@ -253,7 +298,7 @@ p:last-child { margin-bottom: 0; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--accent);
   padding-bottom: 0.35em;
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 100% 1px;
@@ -264,7 +309,7 @@ p:last-child { margin-bottom: 0; }
 .link:hover { background-size: 30% 1px; }
 .link .arw { transition: transform .3s var(--ease); }
 .link:hover .arw { transform: translateX(4px); }
-.link--light { color: var(--red-light); }
+.link--light { color: var(--accent-light); }
 
 /* ============================================================
    Bilder
@@ -338,6 +383,6 @@ body::before {
   inset: 0 0 auto;
   height: 3px;
   z-index: 300;
-  background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 48%, var(--red-light) 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-mid) 48%, var(--accent-light) 100%);
   pointer-events: none;
 }

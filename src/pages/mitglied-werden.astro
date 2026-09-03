@@ -115,7 +115,7 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
 
 <style>
   .cta-inline { margin-top: 2rem; }
-  .dates { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--red); }
+  .dates { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
   .dates__item {
     display: grid; gap: 0.35rem 2.5rem;
     padding: clamp(1.1rem, 2.2vw, 1.7rem) 0;
@@ -124,9 +124,9 @@ const activities = ['Proben', 'Konzerten', 'CD-Produktionen', 'Konzertreisen'];
   @media (min-width: 640px) { .dates__item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: baseline; } }
   .dates__date {
     font-size: clamp(1.1rem, 1rem + 0.6vw, 1.35rem);
-    font-weight: 300; letter-spacing: -0.018em; color: var(--red);
+    font-weight: 300; letter-spacing: -0.018em; color: var(--accent);
   }
   .dates__place { color: var(--ink-2); }
   .dates__note { margin-top: 1.8rem; color: var(--ink-2); }
-  .dates__note a { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
+  .dates__note a { color: var(--accent); text-decoration: underline; text-underline-offset: 0.2em; }
 </style>

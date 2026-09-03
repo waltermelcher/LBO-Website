@@ -27,7 +27,7 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
 </ol>
 
 <style>
-  .clist { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--red); }
+  .clist { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--accent); }
 
   .clist__item {
     display: grid;
@@ -36,7 +36,7 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
     border-bottom: 1px solid var(--line);
     transition: background .4s var(--ease), box-shadow .4s var(--ease);
   }
-  .clist__item:hover { background: var(--red-wash); box-shadow: inset 3px 0 0 var(--red); }
+  .clist__item:hover { background: var(--accent-wash); box-shadow: inset 3px 0 0 var(--accent); }
   @media (min-width: 760px) {
     .clist__item { grid-template-columns: minmax(0, 3fr) minmax(0, 9fr); align-items: baseline; }
   }
@@ -53,7 +53,7 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
     display: block;
     font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
     font-weight: 300; letter-spacing: -0.02em; line-height: 1.15;
-    color: var(--red);
+    color: var(--accent);
   }
 
   .clist__place {
@@ -76,11 +76,11 @@ const items = limit ? CONCERTS.slice(0, limit) : CONCERTS;
   .clist--compact .clist__title { font-size: 0.92rem; margin-top: 0.3rem; }
 
   /* Auf dunklem Grund */
-  :global(.section--dark) .clist { border-color: var(--red-light); }
-  :global(.section--dark) .clist__item:hover { background: rgba(180,122,136,.12); box-shadow: inset 3px 0 0 var(--red-light); }
+  :global(.section--dark) .clist { border-color: var(--accent-light); }
+  :global(.section--dark) .clist__item:hover { background: color-mix(in srgb, var(--accent-light) 14%, transparent); box-shadow: inset 3px 0 0 var(--accent-light); }
   :global(.section--dark) .clist__item { border-color: var(--line-dark); }
   :global(.section--dark) .clist__day { color: rgba(243,237,227,.45); }
-  :global(.section--dark) .clist__full { color: var(--red-light); }
+  :global(.section--dark) .clist__full { color: var(--accent-light); }
   :global(.section--dark) .clist__title { color: var(--on-dark-2); }
   :global(.section--dark) .clist__details { color: rgba(243,237,227,.45); }
 </style>
