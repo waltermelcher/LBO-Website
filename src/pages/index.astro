@@ -43,13 +43,6 @@ const gallery = [
   { src: detailTuben, alt: 'Tubenschalltrichter im Orchester' },
 ];
 
-const facts = [
-  { value: '1978', label: 'gegründet als Auswahlorchester des BVBW' },
-  { value: '85', label: 'Musikerinnen und Musiker aus ganz Baden-Württemberg' },
-  { value: '4', label: 'intensive Probenwochenenden pro Jahr' },
-  { value: '96', label: 'Punkte beim WMC 2017 – Vizeweltmeister' },
-];
-
 const paths = [
   {
     title: 'Mitglied werden',
@@ -134,38 +127,27 @@ const featured = NEWS[0];
         title="Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes."
       />
       <div class="sbody">
-        <div>
-          <div class="intro__grid">
-            <div class="prose reveal" data-delay="1">
-              <p>
-                Rund 85 hochqualifizierte Musikerinnen und Musiker aus allen Musikvereinen des Landes kommen
-                viermal im Jahr zusammen, um in intensiven Probenwochenenden ein Konzertprogramm zu erarbeiten.
-                Das Repertoire umfasst Originalkompositionen und Bearbeitungen klassischer Werke, Uraufführungen
-                und kammermusikalische Besetzungen.
-              </p>
-              <p>
-                Zahlreiche internationale Preise, Referenzen und CD-Produktionen dokumentieren die besondere
-                Qualität des Landesblasorchesters – zuletzt der Titel des Vizeweltmeisters beim World Music
-                Contest in Kerkrade.
-              </p>
-              <p><a class="link" href={url('/ueber-uns')}>Über uns
-                <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
-                  <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
-                </svg></a></p>
-            </div>
-            <figure class="figure figure--zoom ratio-4-5 reveal" data-delay="2">
-              <Image src={orchesterBuehne} alt="Das Landesblasorchester auf der Bühne" widths={[500, 900, 1400]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" />
-            </figure>
+        <div class="intro__grid">
+          <div class="prose reveal">
+            <p>
+              Rund 85 hochqualifizierte Musikerinnen und Musiker aus allen Musikvereinen des Landes kommen
+              viermal im Jahr zusammen, um in intensiven Probenwochenenden ein Konzertprogramm zu erarbeiten.
+              Das Repertoire umfasst Originalkompositionen und Bearbeitungen klassischer Werke, Uraufführungen
+              und kammermusikalische Besetzungen.
+            </p>
+            <p>
+              Zahlreiche internationale Preise, Referenzen und CD-Produktionen dokumentieren die besondere
+              Qualität des Landesblasorchesters – zuletzt der Titel des Vizeweltmeisters beim World Music
+              Contest in Kerkrade.
+            </p>
+            <p><a class="link" href={url('/ueber-uns')}>Über uns
+              <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+              </svg></a></p>
           </div>
-
-          <dl class="facts">
-            {facts.map((f, i) => (
-              <div class="facts__item reveal" data-delay={String(i)}>
-                <dt class="facts__value">{f.value}</dt>
-                <dd class="facts__label">{f.label}</dd>
-              </div>
-            ))}
-          </dl>
+          <figure class="figure figure--zoom ratio-4-5 reveal" data-delay="1">
+            <Image src={orchesterBuehne} alt="Das Landesblasorchester auf der Bühne" widths={[500, 900, 1400]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" />
+          </figure>
         </div>
       </div>
     </div>
@@ -496,29 +478,9 @@ const featured = NEWS[0];
   .intro__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
   .intro__grid .prose { max-width: none; }
   @media (min-width: 780px) {
-    .intro__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+    .intro__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; }
   }
 
-  .facts {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: clamp(1.5rem, 3vw, 2.5rem);
-    margin: clamp(2.75rem, 5vw, 4rem) 0 0;
-    padding-top: clamp(2rem, 4vw, 3rem);
-    border-top: 1px solid var(--line);
-  }
-  .facts__item { margin: 0; }
-  .facts__value {
-    font-size: clamp(2.1rem, 1.4rem + 2.4vw, 3.4rem);
-    font-weight: 250; letter-spacing: -0.04em; line-height: 1;
-    color: var(--accent);
-  }
-  .facts__label {
-    margin: 0.75rem 0 0;
-    font-size: 0.86rem; line-height: 1.45;
-    color: var(--ink-2);
-    max-width: 22ch;
-  }
 
   /* ---------------- Feature ---------------- */
   .feature__grid { align-items: center; }
