@@ -101,15 +101,18 @@ const featured = NEWS[0];
   <!-- ============ NÄCHSTE KONZERTE ============ -->
   <section class="section section--tight" id="konzerte">
     <div class="container">
-      <SectionHead title="Nächste Konzerte">
-        <a slot="action" class="link" href={url('/konzerttermine')}>
+      <SectionHead title="Nächste Konzerte" />
+      <ConcertList limit={4} compact />
+
+      <div class="konzerte__actions reveal">
+        <a class="btn" href={url('/konzerttermine')}>
           Alle Termine
-          <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
-            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+          <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
           </svg>
         </a>
-      </SectionHead>
-      <ConcertList limit={4} compact />
+        <a class="btn btn--ghost" href={url('/programm')}>Programm</a>
+      </div>
     </div>
   </section>
 
@@ -452,6 +455,12 @@ const featured = NEWS[0];
   }
 
 
+
+  /* ---------------- Nächste Konzerte ---------------- */
+  .konzerte__actions {
+    display: flex; flex-wrap: wrap; gap: 0.85rem;
+    margin-top: clamp(1.75rem, 3.5vw, 2.5rem);
+  }
 
   /* ---------------- Positionierung ---------------- */
   .intro__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
