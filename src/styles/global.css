@@ -77,6 +77,10 @@
    Theme „Blau" – Seiten des Fördervereins.
    Nur Akzentfarben und die davon abhängigen Flächen; Raster,
    Typografie und Formen bleiben identisch.
+
+   Lässt sich am <body> für eine ganze Seite setzen oder an einer
+   einzelnen Sektion – etwa beim Fördervereins-Teaser der Startseite,
+   der damit die Farbwelt seiner Zielseite vorwegnimmt.
    ============================================================ */
 .theme-blue {
   --accent:         var(--blue);
