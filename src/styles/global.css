@@ -364,7 +364,9 @@ a:hover > .figure img, .figure--zoom:hover img { transform: scale(1.035); }
 
 
 /* ============================================================
-   Rote Markenkante am oberen Seitenrand (Experiment)
+   Rote Markenkante am oberen Seitenrand.
+   Gehört optisch zur Navigation und ist deshalb – wie die Kante
+   über dem Footer – auf allen Seiten dieselbe.
    ============================================================ */
 body::before {
   content: '';
@@ -372,6 +374,6 @@ body::before {
   inset: 0 0 auto;
   height: 3px;
   z-index: 300;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-mid) 48%, var(--accent-light) 100%);
+  background: linear-gradient(90deg, var(--red) 0%, var(--red-mid) 48%, var(--red-light) 100%);
   pointer-events: none;
 }
