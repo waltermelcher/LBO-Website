@@ -90,8 +90,8 @@ const { id, title, poster, posterAlt } = Astro.props;
 
   .video__play {
     position: absolute;
-    top: 50%; left: 50%;
-    inset: auto;
+    /* eine einzige inset-Angabe, sonst überschreibt sie top/left wieder */
+    inset: 50% auto auto 50%;
     transform: translate(-50%, -50%);
     display: flex; align-items: center; justify-content: center;
     width: clamp(64px, 8vw, 88px);
