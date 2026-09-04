@@ -36,8 +36,15 @@ const { item, delay = 0, featured = false } = Astro.props;
 
 <style>
   .ncard__link { display: block; }
-  .ncard__figure { aspect-ratio: 16 / 10; margin: 0; }
-  .ncard--featured .ncard__figure { aspect-ratio: 16 / 9; }
+  /*
+    Newsbanner sind gestaltete Motive mit Text – sie werden nie beschnitten.
+    Der Rahmen hat das native Seitenverhältnis der Banner (1748 × 1240);
+    "contain" sorgt dafür, dass auch abweichende Formate vollständig sichtbar
+    bleiben, statt angeschnitten zu werden. Aus demselben Grund kein Hover-Zoom.
+  */
+  .ncard__figure { aspect-ratio: 1748 / 1240; margin: 0; background: none; }
+  .ncard__figure :global(img) { object-fit: contain; }
+  .ncard__link:hover .ncard__figure :global(img) { transform: none; }
 
   .ncard__body { margin-top: 1.25rem; padding-top: 1.4rem; border-top: 2px solid var(--accent); }
 
