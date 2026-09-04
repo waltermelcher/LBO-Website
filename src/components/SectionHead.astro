@@ -27,8 +27,6 @@ const { title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = Astro.prop
 
 <style>
   .shead {
-    padding-top: clamp(1.7rem, 3.1vw, 2.6rem);
-    border-top: 2px solid var(--accent);
     margin-bottom: clamp(2rem, 4.5vw, 3.5rem);
   }
 
@@ -64,5 +62,4 @@ const { title, lead, size = 'lg', as: Tag = 'h2', class: cls = '' } = Astro.prop
   }
 
   /* auf dunklem oder abgesetztem Grund */
-  :global(.section--dark) .shead { border-top-color: var(--accent-light); }
 </style>

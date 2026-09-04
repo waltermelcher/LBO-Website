@@ -537,22 +537,13 @@ const featured = NEWS[0];
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   }
   .pathcard {
-    position: relative;
     display: flex; flex-direction: column;
     padding: clamp(1.75rem, 3vw, 2.5rem);
     background: var(--bg-soft);
     border: 1px solid var(--line-soft);
-    border-top: 2px solid var(--accent);
     transition: background .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
   }
-  .pathcard::before {
-    content: '';
-    position: absolute; inset: -2px 0 auto 0;
-    height: 2px; background: var(--accent);
-    transition: height .35s var(--ease);
-  }
   .pathcard:hover { background: #fff; border-color: var(--line-accent); transform: translateY(-3px); }
-  .pathcard:hover::before { height: 6px; }
   .pathcard__title {
     margin: 0;
     font-size: clamp(1.35rem, 1.15rem + 0.9vw, 1.75rem);
@@ -593,8 +584,6 @@ const featured = NEWS[0];
   .cta__box {
     display: flex; flex-wrap: wrap; align-items: end;
     justify-content: space-between; gap: 2rem 3rem;
-    padding-top: clamp(2.5rem, 5vw, 4rem);
-    border-top: 2px solid var(--accent);
   }
   .cta__title { max-width: 20ch; margin-top: 0; }
 </style>
