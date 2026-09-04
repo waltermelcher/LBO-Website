@@ -301,7 +301,9 @@ p:last-child { margin-bottom: 0; }
 /* ============================================================
    Bilder
    ============================================================ */
-.figure { position: relative; overflow: hidden; background: var(--bg-deep); }
+/* figure hat im Browser standardmäßig 40px Seitenrand – der wird hier aufgehoben,
+   damit Bilder bündig zum Textraster stehen. */
+.figure { position: relative; overflow: hidden; margin: 0; background: var(--bg-deep); }
 .figure img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 a:hover > .figure img, .figure--zoom:hover img { transform: scale(1.035); }
 .figure figcaption, .caption {

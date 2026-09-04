@@ -1,0 +1,118 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+/**
+ * YouTube-Einbindung mit vorgeschaltetem Standbild.
+ * Vor dem Klick wird keinerlei Verbindung zu YouTube aufgebaut – das Vorschaubild
+ * liegt lokal. Erst beim Klick lädt der Player, und zwar über youtube-nocookie.com.
+ */
+interface Props {
+  id: string;
+  title: string;
+  poster: ImageMetadata;
+  posterAlt?: string;
+}
+
+const { id, title, poster, posterAlt } = Astro.props;
+---
+
+<figure class="video">
+  <button class="video__trigger" type="button" data-video-id={id} data-video-title={title}>
+    <span class="figure video__poster">
+      <Image
+        src={poster}
+        alt={posterAlt ?? `Vorschaubild: ${title}`}
+        widths={[640, 1000, 1280]}
+        sizes="(min-width: 1000px) 900px, 100vw"
+        loading="lazy"
+      />
+    </span>
+    <span class="video__play" aria-hidden="true">
+      <svg width="26" height="30" viewBox="0 0 26 30"><path d="M25 15 0 30V0z" fill="currentColor" /></svg>
+    </span>
+    <span class="video__label">
+      <span class="video__title">{title}</span>
+      <span class="video__hint">Video abspielen · lädt erst beim Klick von YouTube</span>
+    </span>
+  </button>
+</figure>
+
+<style>
+  .video { margin: 0; }
+
+  .video__trigger {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+  }
+
+  .video__poster { display: block; aspect-ratio: 16 / 9; }
+  .video__poster :global(img) {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .video__trigger:hover .video__poster :global(img) { transform: scale(1.035); }
+
+  .video__play {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex; align-items: center; justify-content: center;
+    width: clamp(64px, 8vw, 88px);
+    aspect-ratio: 1;
+    padding-left: 0.35em;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 88%, transparent);
+    color: #fff;
+    backdrop-filter: blur(2px);
+    transition: background .3s var(--ease), transform .3s var(--ease);
+  }
+  .video__trigger:hover .video__play { background: var(--accent); transform: translate(-50%, -50%) scale(1.06); }
+  .video__trigger:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  .video__label { display: block; margin-top: 1rem; }
+  .video__title {
+    display: block;
+    font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.2rem);
+    font-weight: 400;
+    letter-spacing: -0.014em;
+  }
+  .video__hint {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    color: var(--ink-3);
+  }
+
+  /* auf dunklem Grund */
+  :global(.section--dark) .video__hint { color: rgba(243, 237, 227, 0.55); }
+  :global(.section--dark) .video__title { color: var(--on-dark); }
+
+  .video__frame { aspect-ratio: 16 / 9; width: 100%; border: 0; display: block; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.video__trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.videoId;
+      const title = btn.dataset.videoTitle ?? 'Video';
+      if (!id) return;
+      const frame = document.createElement('iframe');
+      frame.className = 'video__frame';
+      frame.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      frame.title = title;
+      frame.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      frame.setAttribute('allowfullscreen', '');
+      frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+      btn.replaceWith(frame);
+    });
+  });
+</script>
