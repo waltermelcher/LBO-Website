@@ -37,14 +37,14 @@ const { item, delay = 0, featured = false } = Astro.props;
 <style>
   .ncard__link { display: block; }
   /*
-    Newsbanner sind gestaltete Motive mit Text – sie werden nie beschnitten.
-    Der Rahmen hat das native Seitenverhältnis der Banner (1748 × 1240);
-    "contain" sorgt dafür, dass auch abweichende Formate vollständig sichtbar
-    bleiben, statt angeschnitten zu werden. Aus demselben Grund kein Hover-Zoom.
+    Newsbanner sind gestaltete Motive mit Text und werden im Ruhezustand nie
+    beschnitten: Der Rahmen hat das native Seitenverhältnis (1748 × 1240),
+    "contain" hält auch abweichende Formate vollständig sichtbar.
+    Der Hover-Zoom von 1,035 nimmt je Seite 1,75 % weg – geprüft, dass davon
+    bei allen Bannern nur leerer Rand betroffen ist, kein Text.
   */
   .ncard__figure { aspect-ratio: 1748 / 1240; margin: 0; background: none; }
   .ncard__figure :global(img) { object-fit: contain; }
-  .ncard__link:hover .ncard__figure :global(img) { transform: none; }
 
   .ncard__body { margin-top: 1.25rem; padding-top: 1.4rem; border-top: 2px solid var(--accent); }
 

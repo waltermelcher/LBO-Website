@@ -181,7 +181,7 @@ const featured = NEWS[0];
           </div>
         </div>
 
-        <figure class="figure feature__figure reveal" data-delay="1">
+        <figure class="figure figure--zoom feature__figure reveal" data-delay="1">
           <Image src={featured.image} alt={featured.imageAlt} widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
         </figure>
       </div>
@@ -485,7 +485,7 @@ const featured = NEWS[0];
   /* ---------------- Feature ---------------- */
   .feature__grid { align-items: center; }
   .feature__text .prose { margin-top: 1.5rem; }
-  /* Newsbanner vollständig zeigen, siehe NewsCard */
+  /* Newsbanner im Ruhezustand vollständig zeigen, siehe NewsCard */
   .feature__figure { aspect-ratio: 1748 / 1240; background: none; }
   .feature__figure :global(img) { object-fit: contain; }
   .feature__actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
