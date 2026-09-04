@@ -1,70 +1,85 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import SectionHead from '../components/SectionHead.astro';
 import { PROGRAMME } from '../data/concerts';
 import { url } from '../utils';
-import detail from '../assets/img/detail-daempfer.jpg';
+import detail from '../assets/img/detail-kontrabassklarinette.jpg';
 ---
 
 <BaseLayout
-  title="Programm"
-  description="Das aktuelle Konzertprogramm des Landesblasorchesters Baden-Württemberg."
+  title="Konzertprogramm"
+  description="Das aktuelle Konzertprogramm des Landesblasorchesters Baden-Württemberg mit Werkbeschreibungen."
 >
   <PageHeader
     title="Konzertprogramm"
     lead="Die Werke, die das Landesblasorchester in dieser Saison erarbeitet."
     image={detail}
-    imageAlt="Dämpfer und Notenpult im Konzertlicht"
+    imageAlt="Musiker des Landesblasorchesters an der Kontrabassklarinette"
   />
 
   <section class="section">
     <div class="container">
-      <h2 class="h2 prog__season reveal">{PROGRAMME.season}</h2>
+      <SectionHead title={PROGRAMME.season} />
+      <div class="sbody">
+        <ol class="works">
+          {PROGRAMME.works.map((w) => (
+            <li class="works__item reveal">
+              <div class="works__head">
+                <p class="works__composer">{w.composer} <span class="works__life">({w.life})</span></p>
+                <h3 class="works__title">{w.title}</h3>
+                <span class="works__year">{w.year}</span>
+              </div>
+              <div class="prose works__text">
+                {w.notes.map((t) => <p>{t}</p>)}
+              </div>
+            </li>
+          ))}
+        </ol>
 
-      <ol class="works">
-        {PROGRAMME.works.map((w, i) => (
-          <li class="works__item reveal" data-delay={String(i)}>
-            <div class="works__body">
-              <p class="works__composer">{w.composer} <span class="works__life">({w.life})</span></p>
-              <h3 class="works__title">{w.title}</h3>
-            </div>
-            <span class="works__year">{w.year}</span>
-          </li>
-        ))}
-      </ol>
-
-      <p class="works__cta reveal">
-        <a class="btn btn--ghost" href={url('/konzerttermine')}>
-          Konzerttermine
-          <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
-            <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
-          </svg>
-        </a>
-      </p>
+        <p class="works__cta reveal">
+          <a class="btn btn--ghost" href={url('/konzerttermine')}>
+            Konzerttermine
+            <svg class="arw" width="16" height="10" viewBox="0 0 16 10" aria-hidden="true">
+              <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
+            </svg>
+          </a>
+        </p>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .prog__season { margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
-
   .works { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-  .works__item:hover { background: var(--accent-wash); }
   .works__item {
     display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: start;
-    gap: 0.5rem 2rem;
-    padding: clamp(1.6rem, 3vw, 2.6rem) 0;
+    gap: clamp(1.1rem, 3vw, 3rem);
+    padding: clamp(2rem, 4vw, 3.5rem) 0;
     border-bottom: 1px solid var(--line);
   }
-  .works__composer { margin: 0 0 0.5rem; font-size: 0.86rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+  @media (min-width: 900px) {
+    .works__item { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: start; }
+    /* Werktitel bleibt beim Lesen der Beschreibung stehen */
+    .works__head { position: sticky; top: 130px; }
+  }
+
+  .works__composer {
+    margin: 0 0 0.5rem;
+    font-size: 0.86rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
   .works__life { text-transform: none; letter-spacing: 0.02em; }
   .works__title {
     margin: 0;
-    font-size: clamp(1.6rem, 1.2rem + 1.8vw, 2.8rem);
+    font-size: clamp(1.6rem, 1.2rem + 1.7vw, 2.5rem);
     font-weight: 250; letter-spacing: -0.03em; line-height: 1.05;
   }
-  .works__year { font-size: 0.85rem; color: var(--ink-3); letter-spacing: 0.06em; padding-top: 1em; }
+  .works__year {
+    display: block; margin-top: 0.7rem;
+    font-size: 0.85rem; letter-spacing: 0.06em; color: var(--ink-3);
+  }
+
+  .works__text { max-width: none; }
   .works__cta { margin-top: clamp(2.5rem, 5vw, 4rem); }
 </style>

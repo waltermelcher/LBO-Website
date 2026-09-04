@@ -3,12 +3,30 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
+import PhotoSlider from '../components/PhotoSlider.astro';
 import { url } from '../utils';
 
 import orchesterWeit from '../assets/img/orchester-weit.jpg';
 import korea from '../assets/img/lbo-korea.jpg';
-import registerTuben from '../assets/img/register-tuben.jpg';
 import infomappe from '../assets/img/infomappe-thumb.png';
+
+// Orchesterbilder – ganzes Ensemble
+import orchesterBuehne from '../assets/img/orchester-buehne.jpg';
+import orchesterSaal from '../assets/img/orchester-saal.jpg';
+import presseOrchester2 from '../assets/img/presse-orchester-2.jpg';
+import orchesterProbe from '../assets/img/orchester-probe.jpg';
+
+// Bildstrecke – Musikerinnen und Musiker
+import registerKlarinetten from '../assets/img/register-klarinetten.jpg';
+import registerTuben from '../assets/img/register-tuben.jpg';
+import registerHoerner from '../assets/img/register-hoerner.jpg';
+import registerHolz from '../assets/img/register-holz.jpg';
+import registerOboe from '../assets/img/register-oboe.jpg';
+import registerFagott from '../assets/img/register-fagott.jpg';
+import detailEnglischhorn from '../assets/img/detail-englischhorn.jpg';
+import detailSchlagwerk from '../assets/img/detail-schlagwerk.jpg';
+import detailSaxophon2 from '../assets/img/detail-saxophon-2.jpg';
+import detailKlarinettenBlau2 from '../assets/img/detail-klarinetten-blau-2.jpg';
 
 const milestones = [
   {
@@ -47,6 +65,27 @@ const milestones = [
       'Auch in Zukunft wird das Landesblasorchester seinen Gründungszielen treu bleiben und der Interpretation symphonischer Blasmusik in Deutschland verpflichtet bleiben.',
     ],
   },
+];
+
+const musiker = [
+  { src: registerKlarinetten, alt: 'Klarinettistin im Konzert' },
+  { src: registerTuben, alt: 'Tiefes Blech und Saxophone im Konzert' },
+  { src: registerHoerner, alt: 'Hornregister des Landesblasorchesters' },
+  { src: detailEnglischhorn, alt: 'Musiker am Englischhorn' },
+  { src: registerHolz, alt: 'Querflöte im Holzbläserregister' },
+  { src: detailSchlagwerk, alt: 'Musikerin am Stabspiel' },
+  { src: registerOboe, alt: 'Oboistin im Konzert' },
+  { src: detailSaxophon2, alt: 'Saxophonistin beim Spiel' },
+  { src: registerFagott, alt: 'Fagottistin im Orchester' },
+  { src: detailKlarinettenBlau2, alt: 'Klarinetten im blauen Bühnenlicht' },
+];
+
+const orchesterbilder = [
+  { src: orchesterBuehne, alt: 'Das Landesblasorchester auf der Bühne, von oben gesehen', caption: 'Werkstattkonzert im Musikzentrum' },
+  { src: orchesterSaal, alt: 'Das Landesblasorchester im vollen Konzertsaal', caption: 'Konzert vor vollem Haus' },
+  { src: korea, alt: 'Das Landesblasorchester bei der WASBE-Konferenz in Südkorea', caption: 'WASBE-Konferenz, Südkorea 2024' },
+  { src: presseOrchester2, alt: 'Gruppenbild des Landesblasorchesters', caption: '© Sabrina Kilian' },
+  { src: orchesterProbe, alt: 'Probenarbeit des Landesblasorchesters', caption: 'Probenwochenende in Plochingen' },
 ];
 
 const awards = [
@@ -94,6 +133,17 @@ const awards = [
     </div>
   </section>
 
+  <!-- Bildstrecke: Musikerinnen und Musiker -->
+  <section class="section section--tight">
+    <div class="container">
+      <SectionHead
+        title="Die Musikerinnen und Musiker"
+        lead="Rund 85 Menschen aus allen Musikvereinen des Landes – vier Wochenenden im Jahr an einem Pult."
+      />
+    </div>
+    <PhotoSlider items={musiker} interval={5000} label="Musikerinnen und Musiker des Landesblasorchesters" />
+  </section>
+
   <!-- Erfolge -->
   <section class="section section--deep">
     <div class="container">
@@ -114,21 +164,19 @@ const awards = [
   </section>
 
   <!-- Bildpaar -->
-  <section class="section section--tight">
+  <!-- Orchesterbilder -->
+  <section class="section">
     <div class="container">
-      <div class="imgpair">
-        <figure class="imgpair__fig reveal">
-          <span class="figure figure--zoom ratio-3-2">
-            <Image src={korea} alt="Das Landesblasorchester bei der WASBE-Konferenz in Südkorea" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
-          </span>
-          <figcaption class="caption">WASBE-Konferenz, Südkorea 2024</figcaption>
-        </figure>
-        <figure class="imgpair__fig reveal" data-delay="1">
-          <span class="figure figure--zoom ratio-3-2">
-            <Image src={registerTuben} alt="Tiefes Blech des Landesblasorchesters" widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
-          </span>
-          <figcaption class="caption">© Heinz Bunse</figcaption>
-        </figure>
+      <SectionHead title="Das Orchester" />
+      <div class="orchestergalerie">
+        {orchesterbilder.map((b, i) => (
+          <figure class:list={['ogal__fig', 'reveal', i === 0 && 'ogal__fig--breit']} data-delay={String(Math.min(i, 3))}>
+            <span class="figure figure--zoom ratio-3-2">
+              <Image src={b.src} alt={b.alt} widths={[600, 1000, 1600]} sizes="(min-width: 900px) 46vw, 100vw" loading="lazy" />
+            </span>
+            <figcaption class="caption">{b.caption}</figcaption>
+          </figure>
+        ))}
       </div>
     </div>
   </section>
@@ -187,10 +235,17 @@ const awards = [
   }
   .awards__text { margin: 0; color: var(--ink-2); max-width: 62ch; }
 
-  .imgpair { display: grid; gap: clamp(1.5rem, 2.5vw, 2rem); }
-  .imgpair__fig { margin: 0; }
-  .imgpair__fig .figure { display: block; }
-  @media (min-width: 800px) { .imgpair { grid-template-columns: 1fr 1fr; } }
+  .orchestergalerie {
+    display: grid;
+    gap: clamp(1.5rem, 2.5vw, 2rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  }
+  @media (min-width: 860px) {
+    .orchestergalerie { grid-template-columns: 1fr 1fr; }
+    .ogal__fig--breit { grid-column: 1 / -1; }
+  }
+  .ogal__fig { margin: 0; }
+  .ogal__fig .figure { display: block; }
 
   .infobox {
     display: flex; flex-wrap: wrap; align-items: center; gap: clamp(1.5rem, 4vw, 3.5rem);
