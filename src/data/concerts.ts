@@ -39,6 +39,7 @@ export const CONCERTS: Concert[] = [
     dateISO: '2026-11-22',
     place: 'ECWO in Stuttgart',
     title: 'Europameisterschaft für sinfonische Blasorchester im Rahmen der BRAWO Messe',
+    details: ['Unser Auftritt: 12:30 Uhr'],
   },
 ];
 
