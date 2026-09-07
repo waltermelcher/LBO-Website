@@ -116,42 +116,8 @@ const featured = NEWS[0];
     </div>
   </section>
 
-  <!-- ============ POSITIONIERUNG ============ -->
-  <section class="section section--deep">
-    <div class="container">
-      <SectionHead
-        size="md"
-        title="Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes."
-      />
-      <div class="sbody">
-        <div class="intro__grid">
-          <div class="prose reveal">
-            <p>
-              Rund 85 hochqualifizierte Musikerinnen und Musiker aus allen Musikvereinen des Landes kommen
-              viermal im Jahr zusammen, um in intensiven Probenwochenenden ein Konzertprogramm zu erarbeiten.
-              Das Repertoire umfasst Originalkompositionen und Bearbeitungen klassischer Werke, Uraufführungen
-              und kammermusikalische Besetzungen.
-            </p>
-            <p>
-              Zahlreiche internationale Preise, Referenzen und CD-Produktionen dokumentieren die besondere
-              Qualität des Landesblasorchesters – zuletzt der Titel des Vizeweltmeisters beim World Music
-              Contest in Kerkrade.
-            </p>
-            <p><a class="link" href={url('/ueber-uns')}>Über uns
-              <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
-                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
-              </svg></a></p>
-          </div>
-          <figure class="figure figure--zoom ratio-4-5 reveal" data-delay="1">
-            <Image src={orchesterBuehne} alt="Das Landesblasorchester auf der Bühne" widths={[500, 900, 1400]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" />
-          </figure>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ AUFMACHER ECWO ============ -->
-  <section class="section feature">
+  <section class="section section--deep feature">
     <div class="container">
       <div class="split split--even feature__grid">
         <div class="feature__text reveal">
@@ -181,6 +147,40 @@ const featured = NEWS[0];
         <figure class="figure figure--zoom feature__figure reveal" data-delay="1">
           <Image src={featured.image} alt={featured.imageAlt} widths={[600, 1000, 1600]} sizes="(min-width: 900px) 48vw, 100vw" loading="lazy" />
         </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ POSITIONIERUNG ============ -->
+  <section class="section">
+    <div class="container">
+      <SectionHead
+        size="md"
+        title="Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes."
+      />
+      <div class="sbody">
+        <div class="intro__grid">
+          <div class="prose reveal">
+            <p>
+              Rund 85 hochqualifizierte Musikerinnen und Musiker aus allen Musikvereinen des Landes kommen
+              viermal im Jahr zusammen, um in intensiven Probenwochenenden ein Konzertprogramm zu erarbeiten.
+              Das Repertoire umfasst Originalkompositionen und Bearbeitungen klassischer Werke, Uraufführungen
+              und kammermusikalische Besetzungen.
+            </p>
+            <p>
+              Zahlreiche internationale Preise, Referenzen und CD-Produktionen dokumentieren die besondere
+              Qualität des Landesblasorchesters – zuletzt der Titel des Vizeweltmeisters beim World Music
+              Contest in Kerkrade.
+            </p>
+            <p><a class="link" href={url('/ueber-uns')}>Über uns
+              <svg class="arw" width="15" height="9" viewBox="0 0 16 10" aria-hidden="true">
+                <path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2" />
+              </svg></a></p>
+          </div>
+          <figure class="figure figure--zoom ratio-4-5 reveal" data-delay="1">
+            <Image src={orchesterBuehne} alt="Das Landesblasorchester auf der Bühne" widths={[500, 900, 1400]} sizes="(min-width: 900px) 38vw, 100vw" loading="lazy" />
+          </figure>
+        </div>
       </div>
     </div>
   </section>
