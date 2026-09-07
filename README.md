@@ -1,6 +1,14 @@
 # LBO-Website
 
+**Live: https://waltermelcher.github.io/LBO-Website/**
+
 Relaunch der Website des **Landesblasorchesters Baden-Württemberg** – gebaut mit [Astro](https://astro.build).
+
+| | |
+| --- | --- |
+| Vorschau (GitHub Pages) | https://waltermelcher.github.io/LBO-Website/ |
+| Produktion (geplant) | https://www.landesblasorchester.de |
+| Bisherige Website | https://www.landesblasorchester.de |
 
 ## Entwicklung
 
@@ -59,6 +67,35 @@ schaltet sich die Indexierung von selbst frei.
 
 ## Deployment
 
-`.github/workflows/deploy.yml` baut bei jedem Push auf `main` und veröffentlicht
-nach GitHub Pages. `SITE_URL` und `BASE_PATH` kommen dabei automatisch von
-`actions/configure-pages`.
+Jeder Push auf `main` baut die Seite über `.github/workflows/deploy.yml` und
+veröffentlicht sie nach GitHub Pages:
+
+**https://waltermelcher.github.io/LBO-Website/**
+
+`SITE_URL` und `BASE_PATH` kommen dabei automatisch von `actions/configure-pages`.
+Solange das die `github.io`-Adresse ist, ist die Seite auf noindex; sobald in den
+GitHub-Pages-Einstellungen `www.landesblasorchester.de` als Custom Domain
+eingetragen ist, schaltet sich die Indexierung von selbst frei
+(siehe [Indexierung](#indexierung-staging-vs-produktion)).
+
+### Seitenübersicht
+
+| Seite | Vorschau |
+| --- | --- |
+| Startseite | https://waltermelcher.github.io/LBO-Website/ |
+| Konzerttermine | https://waltermelcher.github.io/LBO-Website/konzerttermine/ |
+| Konzertprogramm | https://waltermelcher.github.io/LBO-Website/programm/ |
+| CDs und DVDs | https://waltermelcher.github.io/LBO-Website/cds/ |
+| Presse | https://waltermelcher.github.io/LBO-Website/presse/ |
+| Über uns | https://waltermelcher.github.io/LBO-Website/ueber-uns/ |
+| Künstlerische Leitung | https://waltermelcher.github.io/LBO-Website/kuenstlerische-leitung/ |
+| Vorstand | https://waltermelcher.github.io/LBO-Website/vorstand/ |
+| Mitglied werden | https://waltermelcher.github.io/LBO-Website/mitglied-werden/ |
+| LBO-hautnah | https://waltermelcher.github.io/LBO-Website/lbo-hautnah/ |
+| Lehrkonzert | https://waltermelcher.github.io/LBO-Website/lehrkonzert/ |
+| Förderverein | https://waltermelcher.github.io/LBO-Website/foerderverein/ |
+| Kontakt | https://waltermelcher.github.io/LBO-Website/kontakt/ |
+| Aktuelles | https://waltermelcher.github.io/LBO-Website/news/ |
+| Impressum | https://waltermelcher.github.io/LBO-Website/impressum/ |
+| Datenschutzerklärung | https://waltermelcher.github.io/LBO-Website/datenschutzerklaerung/ |
+| Haftung | https://waltermelcher.github.io/LBO-Website/haftung/ |
