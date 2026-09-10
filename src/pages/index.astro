@@ -80,10 +80,10 @@ const featured = NEWS[0];
     </div>
 
     <div class="hero__inner container">
-      <p class="hero__claim">
+      <h1 class="hero__claim">
         <span>Driven by music.</span>
         <span>Connected by heart.</span>
-      </p>
+      </h1>
       <p class="hero__sub">{SUBCLAIM}</p>
       <div class="hero__actions">
         <a class="btn btn--light" href={url('/konzerttermine')}>
@@ -464,7 +464,8 @@ const featured = NEWS[0];
 
   /* ---------------- Positionierung ---------------- */
   .intro__grid { display: grid; gap: clamp(2rem, 4vw, 3.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
-  .intro__grid .prose { max-width: none; }
+  /* Lesebreite bleibt erhalten - die Spalte ist breiter als eine gut lesbare Zeile */
+  .intro__grid .prose { max-width: var(--maxw-text); }
   @media (min-width: 780px) {
     .intro__grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: center; }
   }

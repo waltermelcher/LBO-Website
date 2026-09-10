@@ -131,6 +131,8 @@ const year = new Date().getFullYear();
   .ftr__nav a {
     font-size: 0.9rem;
     font-weight: 300;
+    /* Klickflaeche auf 24 px erhoehen, ohne den Zeilenfall zu veraendern */
+    padding-block: 0.2rem;
     transition: color .25s var(--ease);
   }
   .ftr__nav a:hover { color: #fff; }
@@ -159,7 +161,7 @@ const year = new Date().getFullYear();
     font-size: 0.8rem;
   }
   .ftr__copy { margin: 0; color: rgba(255, 255, 255, 0.45); }
-  .ftr__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; margin: 0; padding: 0; list-style: none; }
-  .ftr__legal a { color: rgba(255, 255, 255, 0.55); transition: color .25s var(--ease); }
+  .ftr__legal { display: flex; flex-wrap: wrap; gap: 0.65rem 1.6rem; margin: 0; padding: 0; list-style: none; }
+  .ftr__legal a { color: rgba(255, 255, 255, 0.55); padding-block: 0.2rem; transition: color .25s var(--ease); }
   .ftr__legal a:hover { color: #fff; }
 </style>

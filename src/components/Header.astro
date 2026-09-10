@@ -227,6 +227,10 @@ const branchActive = (item: (typeof NAV)[number]) =>
   .nav__item:focus-within > .drop {
     opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0);
   }
+  /* Mit Escape zugeklappt, obwohl der Fokus noch im Menuepunkt steht */
+  .nav__item.is-collapsed > .drop {
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, 8px);
+  }
   .drop__list {
     margin: 0; padding: 0.55rem 0; list-style: none;
     background: var(--bg-soft);
@@ -371,6 +375,35 @@ const branchActive = (item: (typeof NAV)[number]) =>
   burger?.addEventListener('click', () => setOpen(!document.body.classList.contains('nav-open')));
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && document.body.classList.contains('nav-open')) setOpen(false);
+  });
+
+  /* --- Untermenüs: aria-expanded spiegelt den tatsächlichen Zustand ---
+     Die Klappmenüs öffnen per CSS (:hover / :focus-within). Ohne diese
+     Rückmeldung meldet ein Screenreader dauerhaft „zugeklappt“. --- */
+  document.querySelectorAll<HTMLElement>('.nav__item.has-children').forEach((item) => {
+    const link = item.querySelector<HTMLAnchorElement>('.nav__link');
+    if (!link) return;
+    const sync = (open: boolean) => link.setAttribute('aria-expanded', String(open));
+    item.addEventListener('pointerenter', () => sync(true));
+    item.addEventListener('pointerleave', () => sync(false));
+    item.addEventListener('focusin', () => sync(true));
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node)) sync(false);
+    });
+    /* Escape klappt zu und setzt den Fokus zurück auf den Menüpunkt */
+    item.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      e.stopPropagation();
+      item.classList.add('is-collapsed');
+      sync(false);
+      link.focus();
+    });
+    /* Beim nächsten Betreten wieder freigeben */
+    const release = () => item.classList.remove('is-collapsed');
+    item.addEventListener('pointerenter', release);
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node)) release();
+    });
   });
 
   drawer?.querySelectorAll<HTMLButtonElement>('.drawer__toggle').forEach((btn) => {

@@ -48,6 +48,23 @@ Schrift: **Source Sans 3** (selbst gehostet) als Web-Äquivalent zur Hausschrift
 Myriad Pro. Das Logo liegt in der überarbeiteten, monochromen Fassung als SVG
 mit `fill: currentColor` vor und funktioniert dadurch auf hellem wie dunklem Grund.
 
+## Barrierefreiheit
+
+Die Seite ist gegen WCAG 2.2 AA geprüft (gemessen, nicht geschätzt). Verbindlich
+sind dabei:
+
+- **Kontrast:** jede Textfarbe erreicht 4,5:1 auf ihrem Grund. `--ink-3` ist
+  deshalb auf `#6b605c` festgelegt – heller wird es auf Beige nicht mehr AA.
+- **Klickflächen:** eigenständige Ziele (Fußzeile, Menüs, Mailadressen in Karten)
+  sind mindestens 24 × 24 px. Links mitten im Fließtext sind davon ausgenommen.
+- **Automatischer Bildwechsel** braucht einen Anhalteknopf – siehe
+  `PhotoSlider.astro`. Bei `prefers-reduced-motion` läuft nichts von selbst.
+- **Klappmenüs** öffnen per CSS (`:hover` / `:focus-within`); ein kleines Skript
+  in `Header.astro` hält `aria-expanded` dazu synchron und schließt mit Escape.
+- **Lesebreite:** Fließtext bleibt bei `--maxw-text` (68ch). Kein `max-width: none`
+  auf `.prose` – genau das hatte auf vier Seiten Zeilen bis 144 Zeichen erzeugt.
+- **Sprungziele** landen dank `scroll-padding-top` unter dem fixierten Kopf.
+
 ## Indexierung (Staging vs. Produktion)
 
 Indexiert wird **nur** auf den Hosts in `PRODUCTION_HOSTS` (`src/consts.ts`):

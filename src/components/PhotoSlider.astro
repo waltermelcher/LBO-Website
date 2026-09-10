@@ -38,6 +38,14 @@ const { items, interval = 5000, label = 'Bildergalerie' } = Astro.props;
   <div class="slider__bar container">
     <div class="slider__progress" aria-hidden="true"><span class="slider__progress-fill"></span></div>
     <div class="slider__nav">
+      <button class="slider__btn slider__btn--play" type="button" data-play aria-label="Bildwechsel anhalten" aria-pressed="false">
+        <svg class="slider__ico slider__ico--pause" width="13" height="14" viewBox="0 0 12 13" aria-hidden="true">
+          <path d="M1.5 0.5h2.6v12H1.5zM7.9 0.5h2.6v12H7.9z" fill="currentColor" />
+        </svg>
+        <svg class="slider__ico slider__ico--play" width="13" height="14" viewBox="0 0 12 13" aria-hidden="true">
+          <path d="M2 0.9l9 5.6-9 5.6z" fill="currentColor" />
+        </svg>
+      </button>
       <button class="slider__btn" type="button" data-dir="-1" aria-label="Vorheriges Bild">
         <svg width="17" height="11" viewBox="0 0 16 10" aria-hidden="true">
           <path d="M16 5H2M6 1L2 5l4 4" fill="none" stroke="currentColor" stroke-width="1.3" />
@@ -124,6 +132,9 @@ const { items, interval = 5000, label = 'Bildergalerie' } = Astro.props;
   }
 
   .slider__nav { display: flex; gap: 0.6rem; flex: 0 0 auto; }
+  .slider__ico--play { display: none; }
+  .slider__btn--play[aria-pressed='true'] .slider__ico--pause { display: none; }
+  .slider__btn--play[aria-pressed='true'] .slider__ico--play { display: block; }
   .slider__btn {
     display: inline-flex;
     align-items: center;
@@ -152,7 +163,8 @@ const { items, interval = 5000, label = 'Bildergalerie' } = Astro.props;
   document.querySelectorAll<HTMLElement>('.slider').forEach((slider) => {
     const track = slider.querySelector<HTMLElement>('.slider__track');
     const fill = slider.querySelector<HTMLElement>('.slider__progress-fill');
-    const buttons = slider.querySelectorAll<HTMLButtonElement>('.slider__btn');
+    const buttons = slider.querySelectorAll<HTMLButtonElement>('.slider__btn[data-dir]');
+    const playBtn = slider.querySelector<HTMLButtonElement>('[data-play]');
     if (!track) return;
 
     const interval = Number(slider.dataset.interval ?? 5000);
@@ -191,10 +203,25 @@ const { items, interval = 5000, label = 'Bildergalerie' } = Astro.props;
     /* ---------- Autoplay ---------- */
     let timer: number | undefined;
     let paused = false;
-    const tick = () => { if (!paused && !document.hidden) go(1); };
-    const start = () => { if (!REDUCED && timer === undefined) timer = window.setInterval(tick, interval); };
+    let userPaused = false;
+    const tick = () => { if (!paused && !userPaused && !document.hidden) go(1); };
+    const start = () => { if (!REDUCED && !userPaused && timer === undefined) timer = window.setInterval(tick, interval); };
     const stop = () => { if (timer !== undefined) { clearInterval(timer); timer = undefined; } };
     const restart = () => { stop(); start(); };
+
+    /* Anhalten und Weiterlaufen von Hand - Pflicht bei automatischem Wechsel */
+    if (playBtn) {
+      if (REDUCED) {
+        playBtn.hidden = true;
+      } else {
+        playBtn.addEventListener('click', () => {
+          userPaused = !userPaused;
+          playBtn.setAttribute('aria-pressed', String(userPaused));
+          playBtn.setAttribute('aria-label', userPaused ? 'Bildwechsel fortsetzen' : 'Bildwechsel anhalten');
+          if (userPaused) stop(); else restart();
+        });
+      }
+    }
 
     slider.addEventListener('pointerenter', () => { paused = true; });
     slider.addEventListener('pointerleave', () => { paused = false; });

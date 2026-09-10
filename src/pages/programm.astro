@@ -80,6 +80,7 @@ import detail from '../assets/img/detail-kontrabassklarinette.jpg';
     font-size: 0.85rem; letter-spacing: 0.06em; color: var(--ink-3);
   }
 
-  .works__text { max-width: none; }
+  /* Werkbeschreibungen liefen ueber 80 Zeichen pro Zeile - auf Lesebreite begrenzt */
+  .works__text { max-width: var(--maxw-text); }
   .works__cta { margin-top: clamp(2.5rem, 5vw, 4rem); }
 </style>
