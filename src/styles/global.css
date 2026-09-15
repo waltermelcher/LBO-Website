@@ -269,7 +269,8 @@ p:last-child { margin-bottom: 0; }
   cursor: pointer;
   transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
 }
-.btn:hover { --btn-bg: var(--accent-deep); --btn-bd: var(--accent-deep); transform: translateY(-1px); }
+/* Hover hellt auf statt kaum sichtbar abzudunkeln: Wechsel 2,2:1, Text weiterhin 5,5:1 */
+.btn:hover { --btn-bg: var(--accent-mid); --btn-bd: var(--accent-mid); transform: translateY(-1px); }
 .btn .arw { transition: transform .3s var(--ease); }
 .btn:hover .arw { transform: translateX(4px); }
 

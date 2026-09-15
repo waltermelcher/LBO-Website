@@ -412,9 +412,8 @@ const featured = NEWS[0];
     padding: 0.8em 1.5em;
   }
   .btn--paper { --btn-bg: #fff; --btn-fg: var(--red); --btn-bd: #fff; }
-  .btn--paper:hover { --btn-bg: var(--bg); --btn-fg: var(--red-deep); --btn-bd: var(--bg); }
-  .btn--line { --btn-bg: transparent; --btn-fg: #fff; --btn-bd: rgba(255, 255, 255, 0.55); }
-  .btn--line:hover { --btn-bg: #fff; --btn-fg: var(--red); --btn-bd: #fff; }
+  /* wie .btn--light: Rot hell mit dunkler Schrift – Wechsel 3,45:1, Text 5,3:1 */
+  .btn--paper:hover { --btn-bg: var(--red-light); --btn-fg: var(--dark); --btn-bd: var(--red-light); }
 
   /* ---------------- HERO ---------------- */
   .hero {
