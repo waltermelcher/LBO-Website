@@ -21,6 +21,7 @@ import { CLAIM, SUBCLAIM } from '../consts';
 import { url } from '../utils';
 import { NEWS } from '../data/news';
 import { PROGRAMME, CONCERTS } from '../data/concerts';
+import { CONTACTS } from '../data/contacts';
 
 import hero from '../assets/img/hero.jpg';
 import orchesterBuehne from '../assets/img/orchester-buehne.jpg';
@@ -327,7 +328,7 @@ const featured = NEWS[0];
   </section>
 
   <!-- ============ FÖRDERER ============ -->
-  <section class="section section--tight">
+  <section class="section funders-section">
     <div class="container funders">
       <h2 class="funders__title">Gefördert von</h2>
       <div class="funders__logos">
@@ -338,14 +339,28 @@ const featured = NEWS[0];
     </div>
   </section>
 
-  <!-- ============ KONTAKT (Plakat-Fuß) ============ -->
-  <section class="red red--closing">
-    <svg class="red__edge" viewBox="0 0 1600 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
-      <path class="red__fill" d="M0 150c250 0 330-100 580-100 240 0 300 96 540 96 220 0 290-70 480-70V200H0Z" />
+  <!-- ============ KONTAKT ============ -->
+  <section class="contact">
+    <svg class="contact__lines" viewBox="0 0 1600 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <path d="M-60 168C180 168 290 34 540 34c260 0 330 140 600 140 220 0 300-86 520-86" />
+      <path d="M-60 98c250 0 340 86 600 86 240 0 320-150 560-150 230 0 300 118 560 118" />
     </svg>
-    <div class="container red__inner red__inner--cta">
-      <h2 class="fr-h2 fr-h2--statement">Ob Galakonzert, Mitgliedschaft oder Lehrangebot – sprechen Sie uns an.</h2>
-      <a class="btn btn--paper" href={url('/kontakt')}>Kontakt aufnehmen</a>
+
+    <div class="container contact__inner">
+      <div class="contact__lead">
+        <h2 class="fr-h2 fr-h2--statement">Ob Galakonzert, Mitgliedschaft oder Lehrangebot – sprechen Sie uns an.</h2>
+        <a class="btn btn--paper" href={url('/kontakt')}>Kontakt aufnehmen</a>
+      </div>
+
+      <ul class="contact__list">
+        {CONTACTS.map((c) => (
+          <li class="contact__item">
+            <p class="contact__topic">{c.topic}</p>
+            <p class="contact__person">{c.name}, {c.position}</p>
+            <a class="contact__mail" href={`mailto:${c.mail}`}>{c.mail}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </BaseLayout>
@@ -679,31 +694,69 @@ const featured = NEWS[0];
   .support .fr-text { color: rgba(255, 255, 255, 0.82); }
 
   /* ============================================================
-     Förderer
+     Förderer – mehr Luft, damit der Block für sich steht
      ============================================================ */
-  .funders { display: grid; gap: 1.5rem 3rem; align-items: center; }
+  .funders-section { padding-block: clamp(4rem, 8vw, 7rem); }
+  .funders { display: grid; gap: clamp(1.75rem, 3vw, 2.5rem) clamp(2.5rem, 5vw, 4rem); align-items: center; }
   @media (min-width: 900px) { .funders { grid-template-columns: auto 1fr; } }
-  .funders__title { margin: 0; font-size: 1.25rem; font-weight: 600; color: var(--ink-2); }
-  .funders__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem clamp(2rem, 5vw, 4.5rem); }
+  .funders__title { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--ink-3); }
+  .funders__logos { display: flex; flex-wrap: wrap; align-items: center; gap: 2rem clamp(2.5rem, 5vw, 4.5rem); }
   .funders :global(.funders__logo) { width: auto; height: 64px; object-fit: contain; }
   .funders :global(.funders__logo--wide) { height: 52px; }
   .funders :global(.funders__logo--tall) { height: 84px; }
 
   /* ============================================================
-     Plakat-Fuß
+     Kontakt – eigener Abschnitt mit gerader Kante.
+     Die Freihandlinien liegen wie im Programmteil nur im unteren Rand.
      ============================================================ */
-  .red--closing { overflow: visible; margin-top: clamp(80px, 11vw, 180px); padding-top: clamp(1rem, 3vw, 2.5rem); }
-  .red__fill { fill: var(--red); }
-  .red__edge {
+  .contact {
+    position: relative;
+    overflow: hidden;
+    background: var(--red);
+    color: #fff;
+    padding-block: clamp(4.5rem, 9vw, 7.5rem) clamp(6rem, 12vw, 10rem);
+  }
+  .contact__lines {
     position: absolute;
-    left: 0; bottom: calc(100% - 1px);
+    left: 0; right: 0; bottom: 0;
     width: 100%;
-    height: clamp(80px, 11vw, 180px);
+    height: clamp(90px, 12vw, 175px);
+    fill: none;
     pointer-events: none;
   }
-  .red__inner--cta {
-    display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between;
-    gap: 2rem 3rem;
+  .contact__lines path { vector-effect: non-scaling-stroke; stroke-linecap: round; }
+  .contact__lines path:nth-child(1) { stroke: var(--red-light); stroke-width: 1.4; opacity: 0.55; }
+  .contact__lines path:nth-child(2) { stroke: var(--red-mid); stroke-width: 1.1; }
+
+  .contact__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 5vw, 5rem);
   }
-  .red__inner--cta .fr-h2 { margin: 0; }
+  @media (min-width: 900px) {
+    .contact__inner { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+  }
+  .contact .fr-h2 { color: #fff; margin-bottom: clamp(1.75rem, 3vw, 2.5rem); }
+
+  .contact__list { margin: 0; padding: 0; list-style: none; }
+  .contact__item + .contact__item {
+    margin-top: clamp(1.5rem, 2.5vw, 2rem);
+    padding-top: clamp(1.5rem, 2.5vw, 2rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+  .contact__topic { margin: 0 0 0.35rem; font-size: 0.95rem; color: rgba(255, 255, 255, 0.78); }
+  .contact__person { margin: 0 0 0.5rem; font-size: 1.15rem; font-weight: 600; line-height: 1.25; }
+  .contact__mail {
+    display: inline-block;
+    padding-block: 0.2rem;
+    color: #fff;
+    word-break: break-word;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+    text-decoration-color: var(--red-light);
+    transition: text-decoration-color .25s var(--ease);
+  }
+  .contact__mail:hover { text-decoration-color: #fff; }
+
 </style>

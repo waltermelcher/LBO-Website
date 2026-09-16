@@ -3,22 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import SectionHead from '../components/SectionHead.astro';
 import { url } from '../utils';
+import { CONTACTS as contacts } from '../data/contacts';
 import trompeten from '../assets/img/detail-trompeten.jpg';
-
-const contacts = [
-  {
-    topic: 'Konzertanfragen und allgemeine Anfragen',
-    name: 'Ilka Hermann',
-    position: 'Vorsitzende',
-    mail: 'ilka.hermann@landesblasorchester.de',
-  },
-  {
-    topic: 'Anfragen rund um Kommunikation und Presse',
-    name: 'Walter Melcher',
-    position: 'Kommunikationsreferent',
-    mail: 'walter.melcher@landesblasorchester.de',
-  },
-];
 
 const topics = [
   { label: 'Mitglied werden', href: '/mitglied-werden' },
