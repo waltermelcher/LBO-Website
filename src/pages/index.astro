@@ -181,12 +181,7 @@ const featured = NEWS[0];
       <path d="M-60 100c250 0 340 86 600 86 240 0 320-150 560-150 230 0 300 118 560 118" />
     </svg>
     <div class="container works__inner">
-      <div class="works__head">
-        <h2 class="fr-h2">{PROGRAMME.season}</h2>
-        <p class="fr-text">
-          Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur Europameisterschaft begleiten.
-        </p>
-      </div>
+      <h2 class="fr-h2">{PROGRAMME.season}</h2>
       <ol class="works">
         {PROGRAMME.works.map((w) => (
           <li class="works__item">
@@ -618,12 +613,6 @@ const featured = NEWS[0];
   .works__lines path:nth-child(1) { stroke: var(--red-light); stroke-width: 1.4; }
   .works__lines path:nth-child(2) { stroke: var(--red-mid); stroke-width: 1.1; opacity: 0.7; }
   .works__inner { position: relative; }
-
-  .works__head { display: grid; gap: 0 3rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
-  @media (min-width: 900px) {
-    .works__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
-    .works__head .fr-h2, .works__head .fr-text { margin-bottom: 0; }
-  }
 
   .works { margin: 0; padding: 0; list-style: none; display: grid; gap: clamp(1.75rem, 3vw, 2.5rem); }
   @media (min-width: 900px) { .works { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2.5rem; } }
