@@ -22,7 +22,7 @@ export const CONCERTS: Concert[] = [
     weekday: 'Samstag',
     date: '24. Oktober 2026',
     dateISO: '2026-10-24',
-    place: 'Dettingen/Erms',
+    place: 'Dettingen an der Erms, Schillerhalle',
     title: 'Doppel- und Lehrkonzert mit dem KVJBO Neckar/Alb',
     details: ['Lehrkonzert: 17:00 Uhr', 'Konzert: 19:00 Uhr'],
   },
@@ -30,8 +30,9 @@ export const CONCERTS: Concert[] = [
     weekday: 'Sonntag',
     date: '25. Oktober 2026',
     dateISO: '2026-10-25',
-    place: 'Ehingen',
-    title: 'Doppelkonzert mit dem KVJBO Ulm-Alb/Donau',
+    place: 'Ehingen, Lindenhalle',
+    title: 'Doppelkonzert mit dem KVJBO Ulm/Alb-Donau',
+    details: ['öffentliche Lehrprobe: 15:00 Uhr', 'Konzert: 17:00 Uhr'],
   },
   {
     weekday: 'Sonntag',
@@ -39,7 +40,7 @@ export const CONCERTS: Concert[] = [
     dateISO: '2026-11-22',
     place: 'ECWO in Stuttgart',
     title: 'Europameisterschaft für sinfonische Blasorchester im Rahmen der BRAWO Messe',
-    details: ['Unser Auftritt: 12:30 Uhr'],
+    details: ['Unser Auftritt startet um 12:30 Uhr'],
   },
 ];
 
