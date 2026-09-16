@@ -20,7 +20,10 @@
   --red-mid:     #a34e61;   /* LBO-Rot mittel */
   --red-light:   #b47a88;   /* LBO-Rot hell */
   --red-deep:    #4a1826;   /* Rot dunkel, abgedunkelt für Hover */
-  --red-wash:    rgba(99, 31, 49, 0.07);   /* zarter Rotschleier für Flächen */
+  --red-wash:    rgba(99, 31, 49, 0.07);
+  /* Mouseover freistehender Textlinks. Fast LBO-Rot mittel, minimal dunkler,
+     damit auch auf dem tiefen Beige noch 4,64:1 erreicht werden. */
+  --red-hover:   #9b485b;   /* zarter Rotschleier für Flächen */
 
   /* Sekundärfarben CD Manual – Blau, für den Förderverein */
   --blue:        #0e495b;   /* LBO-Petrol (Sekundärfarbe) */

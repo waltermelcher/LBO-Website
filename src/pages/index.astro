@@ -397,9 +397,17 @@ const featured = NEWS[0];
     text-decoration-thickness: 2px;
     text-underline-offset: 0.3em;
     text-decoration-color: var(--red-light);
-    transition: text-decoration-color .25s var(--ease);
+    transition: color .25s var(--ease), text-decoration-color .25s var(--ease);
   }
-  .fr-link:hover { text-decoration-color: var(--red); }
+
+  /* Freistehende Links unter dem Text färben sich beim Mouseover auf.
+     „Weiterlesen" hatte bisher gar keine Rückmeldung. */
+  .fr-link:hover,
+  .paths__title a:hover,
+  .news :global(.ncard__link:hover .ncard__more) {
+    color: var(--red-hover);
+    text-decoration-color: var(--red-hover);
+  }
 
   /* Knöpfe in Satzschreibung statt gesperrter Versalien */
   /* main liegt im Layout, nicht in dieser Datei – daher global (lädt nur hier).
@@ -620,6 +628,7 @@ const featured = NEWS[0];
     font-size: 1rem; font-weight: 600; letter-spacing: 0; text-transform: none;
     text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em;
     text-decoration-color: var(--red-light);
+    transition: color .25s var(--ease), text-decoration-color .25s var(--ease);
   }
   .news :global(.ncard__more .arw) { display: none; }
 
@@ -659,9 +668,8 @@ const featured = NEWS[0];
     text-decoration-thickness: 2px;
     text-underline-offset: 0.22em;
     text-decoration-color: var(--red-light);
-    transition: text-decoration-color .25s var(--ease);
+    transition: color .25s var(--ease), text-decoration-color .25s var(--ease);
   }
-  .paths__title a:hover { text-decoration-color: var(--red); }
   .paths__text { margin: 0; max-width: 42ch; font-size: clamp(1.05rem, 1rem + 0.2vw, 1.15rem); color: var(--ink-2); line-height: 1.6; }
 
   /* ============================================================
