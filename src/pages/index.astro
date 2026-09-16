@@ -174,9 +174,38 @@ const featured = NEWS[0];
     </div>
   </section>
 
+  <!-- ============ PROGRAMM (Programmheft) ============ -->
+  <section class="section works-section">
+    <svg class="works__lines" viewBox="0 0 1600 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <path d="M-60 170C180 170 290 36 540 36c260 0 330 140 600 140 220 0 300-86 520-86" />
+      <path d="M-60 100c250 0 340 86 600 86 240 0 320-150 560-150 230 0 300 118 560 118" />
+    </svg>
+    <div class="container works__inner">
+      <div class="works__head">
+        <h2 class="fr-h2">{PROGRAMME.season}</h2>
+        <p class="fr-text">
+          Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur Europameisterschaft begleiten.
+        </p>
+      </div>
+      <ol class="works">
+        {PROGRAMME.works.map((w) => (
+          <li class="works__item">
+            <p class="works__title">{w.title}</p>
+            <p class="works__by">
+              {w.composer} ({w.life}), {w.year}
+            </p>
+          </li>
+        ))}
+      </ol>
+      <div class="fr-actions">
+        <a class="btn" href={url('/programm')}>Zum Programm</a>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ORCHESTER ============ -->
-  <section class="section">
-    <div class="container bleed bleed--right">
+  <section class="red intro">
+    <div class="container bleed bleed--right intro__inner">
       <div class="bleed__text">
         <h2 class="fr-h2 fr-h2--statement">
           Das Auswahlorchester des Blasmusikverbandes Baden-Württemberg – seit 1978 der Klangkörper des Landes.
@@ -197,35 +226,6 @@ const featured = NEWS[0];
       <figure class="bleed__photo">
         <Image src={orchesterBuehne} alt="Das Landesblasorchester auf der Bühne" widths={[700, 1100, 1600, 2200]} sizes="(min-width: 900px) 58vw, 100vw" loading="lazy" />
       </figure>
-    </div>
-  </section>
-
-  <!-- ============ PROGRAMM (Programmheft) ============ -->
-  <section class="red">
-    <svg class="red__lines" viewBox="0 0 1600 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-      <path d="M-60 170C180 170 290 36 540 36c260 0 330 140 600 140 220 0 300-86 520-86" />
-      <path d="M-60 100c250 0 340 86 600 86 240 0 320-150 560-150 230 0 300 118 560 118" />
-    </svg>
-    <div class="container red__inner">
-      <div class="red__head">
-        <h2 class="fr-h2">{PROGRAMME.season}</h2>
-        <p class="fr-text">
-          Drei Werke, die das Orchester in dieser Saison durch die Konzerte und zur Europameisterschaft begleiten.
-        </p>
-      </div>
-      <ol class="works">
-        {PROGRAMME.works.map((w) => (
-          <li class="works__item">
-            <p class="works__title">{w.title}</p>
-            <p class="works__by">
-              {w.composer} ({w.life}), {w.year}
-            </p>
-          </li>
-        ))}
-      </ol>
-      <div class="fr-actions">
-        <a class="btn btn--paper" href={url('/programm')}>Zum Programm</a>
-      </div>
     </div>
   </section>
 
@@ -585,18 +585,28 @@ const featured = NEWS[0];
   }
 
   /* ============================================================
-     Programmheft
+     Orchestervorstellung – die rote Fläche der Seite
      ============================================================ */
   .red {
-    position: relative;
-    overflow: hidden;
     background: var(--red);
     color: #fff;
-    padding-block: clamp(4.5rem, 10vw, 8rem) clamp(7.5rem, 15vw, 12.5rem);
+    padding-block: clamp(4.5rem, 10vw, 8rem);
   }
   .red .fr-h2 { color: #fff; }
   .red .fr-text { color: rgba(255, 255, 255, 0.82); }
-  .red__lines {
+  /* Textlink auf Rot: weiß mit rosé Unterstreichung, beim Mouseover weiß */
+  .red .fr-link { color: #fff; text-decoration-color: var(--red-light); }
+  .red .fr-link:hover { color: #fff; text-decoration-color: #fff; }
+
+  /* ============================================================
+     Programm – auf Beige, die Freihandlinien laufen im unteren Rand
+     ============================================================ */
+  .works-section {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(4.5rem, 10vw, 8rem) clamp(7rem, 14vw, 11rem);
+  }
+  .works__lines {
     position: absolute;
     left: 0; right: 0; bottom: 0;
     width: 100%;
@@ -604,15 +614,15 @@ const featured = NEWS[0];
     fill: none;
     pointer-events: none;
   }
-  .red__lines path { vector-effect: non-scaling-stroke; stroke-linecap: round; }
-  .red__lines path:nth-child(1) { stroke: var(--red-light); stroke-width: 1.4; opacity: 0.55; }
-  .red__lines path:nth-child(2) { stroke: var(--red-mid); stroke-width: 1.1; }
-  .red__inner { position: relative; }
+  .works__lines path { vector-effect: non-scaling-stroke; stroke-linecap: round; }
+  .works__lines path:nth-child(1) { stroke: var(--red-light); stroke-width: 1.4; }
+  .works__lines path:nth-child(2) { stroke: var(--red-mid); stroke-width: 1.1; opacity: 0.7; }
+  .works__inner { position: relative; }
 
-  .red__head { display: grid; gap: 0 3rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+  .works__head { display: grid; gap: 0 3rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
   @media (min-width: 900px) {
-    .red__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
-    .red__head .fr-h2, .red__head .fr-text { margin-bottom: 0; }
+    .works__head { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; }
+    .works__head .fr-h2, .works__head .fr-text { margin-bottom: 0; }
   }
 
   .works { margin: 0; padding: 0; list-style: none; display: grid; gap: clamp(1.75rem, 3vw, 2.5rem); }
@@ -625,9 +635,9 @@ const featured = NEWS[0];
     font-weight: 400;
     line-height: 1.08;
     letter-spacing: -0.015em;
-    color: #fff;
+    color: var(--red);
   }
-  .works__by { margin: 0; font-size: 1.02rem; color: rgba(255, 255, 255, 0.82); font-variant-numeric: tabular-nums; }
+  .works__by { margin: 0; font-size: 1.02rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 
   /* ============================================================
      Aktuelles
